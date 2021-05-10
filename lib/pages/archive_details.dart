@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:legal_friend/pages/bodli_khana.dart';
 import 'package:legal_friend/pages/search_page.dart';
 import 'package:legal_friend/tiles/app_bar.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
@@ -67,7 +68,7 @@ class _ArchiveDetailsState extends State<ArchiveDetails> {
           SizedBox(height: size.width*.2),
 
           GradientButton(
-            onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage())),
+            onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context)=>BodliKhana())),
               child: Text(Variables.abarOnusondhanKorun, style: TextStyle(
                 fontSize: size.width * .06, fontFamily: 'niladriFontLite')),
             height: size.width * .12,
