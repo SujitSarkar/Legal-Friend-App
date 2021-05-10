@@ -1,47 +1,50 @@
 import 'package:flutter/material.dart';
-import 'package:legal_friend/pages/ni_act_list.dart';
+import 'package:legal_friend/pages/no_result_found.dart';
+import 'package:legal_friend/pages/search_list.dart';
+import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/app_bar.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/form_decoration.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
+import 'package:legal_friend/variables/variables.dart';
+import 'package:provider/provider.dart';
 
-class NIActPage extends StatefulWidget {
+class SearchPage extends StatefulWidget {
 
   @override
-  _NIActPageState createState() => _NIActPageState();
+  _SearchPageState createState() => _SearchPageState();
 }
 
-class _NIActPageState extends State<NIActPage>{
+class _SearchPageState extends State<SearchPage>{
   String _amoliAdalot;
   String _jojkrot;
 
   List<String> _amoliAdalotItem = ['wm.Gg.Gg','wm.†R.Gg'];
+  List<String> _jojkrotItem = ['ঢাকা','ফরিদপুর'];
 
-  List<String> _jojkrotItem = ['XvKv','Lyjbv','cvebv'];
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery
-        .of(context)
-        .size;
+    final Size size = MediaQuery.of(context).size;
+    final PublicProvider publicProvider = Provider.of<PublicProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100),
         child: PublicAppBar(
-          pageName: 'Gb.AvB G±',
-          bottomText: 'me©‡kl Avc‡WUt eB-6/2020 ch©š—',
+          pageName: publicProvider.togglePageName(),
+          bottomText: '${Variables.sorboseshUpdateBoi}6/2020 ${Variables.porjonto}',
           image: 'assets/home_image/bodli_khana.png',
-          color: Colors.red[400],
+          color: publicProvider.toggleHeaderColor(),
         ),
       ),
-      body: _bodyUI(size),
+      body: _bodyUI(size,publicProvider),
       floatingActionButton: BottomTile(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
-  Widget _bodyUI(Size size)=>SingleChildScrollView(
+  Widget _bodyUI(Size size,PublicProvider publicProvider)=>SingleChildScrollView(
     child: Center(
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,15 +58,15 @@ class _NIActPageState extends State<NIActPage>{
               border: Border.all(color: Colors.grey[800],width: 1.5),
               borderRadius: BorderRadius.all(Radius.circular(size.width*.02)),
             ),
-            child: Text('eB bs-9/2021 †_‡K ïi“ n‡q‡Q|',style: TextStyle(
+            child: Text('${Variables.boiNo}9/2021 ${Variables.thekeSuruHoyeche}',style: TextStyle(
                 fontSize: size.width * .04,
                 fontFamily: 'barkatFontBold',color: Colors.grey[900])),
           ),
           SizedBox(height: size.width*.08),
           
-          _dropDownBuilder(size, 'Avgjx Av`vjZ-'),
+          _dropDownBuilder(size,Variables.amoliAdalot,publicProvider),
           SizedBox(height: size.width*.04),
-          _dropDownBuilder(size, 'RR †KvU©,'),
+          _dropDownBuilder(size, Variables.jojCourt,publicProvider),
           SizedBox(height: size.width*.04),
 
           Container(
@@ -74,7 +77,7 @@ class _NIActPageState extends State<NIActPage>{
                   Container(
                     width: size.width*.35,
                     alignment: Alignment.centerRight,
-                    child: Text('wmqvi gvgjv bs- ',style: TextStyle(
+                    child: Text(publicProvider.crToggle(),style: TextStyle(
                         fontSize: size.width * .04,
                         fontFamily: 'barkatFontBold',color: Colors.grey[900])),
                   ),
@@ -119,8 +122,9 @@ class _NIActPageState extends State<NIActPage>{
           SizedBox(height: size.width*.2),
 
           GradientButton(
-            onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>NIActList())),
-            child: Text('AbymÜvb Ki“b', style: TextStyle(
+            //onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>NoResultFound())),
+            onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchtList())),
+            child: Text(Variables.onusondhanKorun, style: TextStyle(
                 fontSize: size.width * .04, fontFamily: 'niladriFontLite')),
             height: size.width * .1,
             width: size.width*.5,
@@ -135,7 +139,7 @@ class _NIActPageState extends State<NIActPage>{
     ),
   );
 
-  Widget _dropDownBuilder(Size size, String name)=>Container(
+  Widget _dropDownBuilder(Size size, String name,PublicProvider publicProvider)=>Container(
     width: size.width*.7,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.end,
@@ -162,12 +166,12 @@ class _NIActPageState extends State<NIActPage>{
             child: DropdownButton(
               isDense: true,
               isExpanded: true,
-              value: name=='Avgjx Av`vjZ-'?_amoliAdalot:_jojkrot,
-              hint: Text("wbe©vPb Ki“b",style: TextStyle(
+              value: name==Variables.amoliAdalot?_amoliAdalot:_jojkrot,
+              hint: Text(Variables.dropHint,style: TextStyle(
                   color: Colors.grey[700],
                   fontSize: size.width*.04,
                   fontFamily: 'barkatFontBold')),
-              items:name=='Avgjx Av`vjZ-'? _amoliAdalotItem.map((category){
+              items:name==Variables.amoliAdalot? _amoliAdalotItem.map((category){
                 return DropdownMenuItem(
                   child: Text(category,style: TextStyle(
                     color: Colors.grey[900],

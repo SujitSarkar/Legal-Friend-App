@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:legal_friend/pages/ni_act_page.dart';
+import 'package:legal_friend/pages/archive_list.dart';
+import 'package:legal_friend/pages/search_page.dart';
+import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
+import 'package:legal_friend/variables/variables.dart';
+import 'package:provider/provider.dart';
 
 class BodliKhana extends StatefulWidget {
 
@@ -13,17 +17,16 @@ class _BodliKhanaState extends State<BodliKhana>{
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery
-        .of(context)
-        .size;
+    final Size size = MediaQuery.of(context).size;
+    final PublicProvider publicProvider = Provider.of<PublicProvider>(context);
     return Scaffold(
-      body: _bodyUI(size),
+      body: _bodyUI(size,publicProvider),
       floatingActionButton: BottomTile(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 
-  Widget _bodyUI(Size size)=>Container(
+  Widget _bodyUI(Size size,PublicProvider publicProvider)=>Container(
     child: Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -36,8 +39,11 @@ class _BodliKhanaState extends State<BodliKhana>{
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               GradientButton(
-                onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>NIActPage())),
-                child: Text('Gb.AvB G±', style: TextStyle(
+                onPressed: (){
+                  publicProvider.pageValue=1;
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage()));
+                  },
+                child: Text(Variables.niAct, style: TextStyle(
                     fontSize: size.width * .06, fontFamily: 'niladriFontLite')),
                 height: size.width * .12,
                 width: size.width*.8,
@@ -50,8 +56,11 @@ class _BodliKhanaState extends State<BodliKhana>{
               SizedBox(height: size.width * .04),
 
               GradientButton(
-                onPressed: () {},
-                child: Text('gv`K/`Ûwewa', style: TextStyle(
+                onPressed: () {
+                  publicProvider.pageValue=2;
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage()));
+                },
+                child: Text(Variables.madokDondobidhi, style: TextStyle(
                     fontSize: size.width * .06, fontFamily: 'niladriFontLite')),
                 height: size.width * .12,
                 width: size.width*.8,
@@ -64,8 +73,11 @@ class _BodliKhanaState extends State<BodliKhana>{
               SizedBox(height: size.width * .04),
 
               GradientButton(
-                onPressed: () {},
-                child: Text('we‡kl UªvBe¨ybvj', style: TextStyle(
+                onPressed: () {
+                  publicProvider.pageValue=3;
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage()));
+                },
+                child: Text(Variables.bisesTribunal, style: TextStyle(
                     fontSize: size.width * .06, fontFamily: 'niladriFontLite')),
                 height: size.width * .12,
                 width: size.width*.8,
@@ -79,8 +91,10 @@ class _BodliKhanaState extends State<BodliKhana>{
             ],
           ),
           GradientButton(
-            onPressed: () {},
-            child: Text('AvK©vBf', style: TextStyle(
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveList()));
+            },
+            child: Text(Variables.archive, style: TextStyle(
                 fontSize: size.width * .06, fontFamily: 'niladriFontLite')),
             height: size.width * .12,
             width: size.width*.8,

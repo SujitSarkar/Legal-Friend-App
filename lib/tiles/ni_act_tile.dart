@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:legal_friend/pages/archive_list.dart';
+import 'package:legal_friend/pages/payment_page.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
+import 'package:legal_friend/variables/variables.dart';
 
 // ignore: must_be_immutable
 class NIActTile extends StatelessWidget {
@@ -20,7 +22,7 @@ class NIActTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: size.width*.02),
-          Text('wmqvi-2925/2019',style: TextStyle(
+          Text('${Variables.cR}2925/2019',style: TextStyle(
               fontSize: size.width * .04,
               fontFamily: 'barkatFontBold',color: Colors.grey[900])),
           SizedBox(height: size.width*.01),
@@ -32,8 +34,8 @@ class NIActTile extends StatelessWidget {
 
           GradientButton(
             //onPressed: (){},
-            onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveList())),
-            child: Text('AvK©vB‡f ivLyb', style: TextStyle(
+            onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>PaymentPage())),
+            child: Text(Variables.archiveRakhun, style: TextStyle(
                 fontSize: size.width * .04, fontFamily: 'niladriFontLite')),
             height: size.width * .1,
             width: size.width*.5,

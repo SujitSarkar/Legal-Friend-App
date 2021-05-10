@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:legal_friend/pages/archive_list.dart';
 import 'package:legal_friend/pages/bodli_khana.dart';
 import 'package:legal_friend/pages/kaj_list.dart';
+import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:legal_friend/tiles/home_tile.dart';
+import 'package:legal_friend/variables/variables.dart';
+import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
   // const HomePage({Key key}) : super(key: key);
@@ -14,11 +18,16 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
+  _customInit(PublicProvider publicProvider)async{
+    await publicProvider.getDistrict();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery
-        .of(context)
-        .size;
+    final Size size = MediaQuery.of(context).size;
+    final PublicProvider publicProvider = Provider.of<PublicProvider>(context);
+    //if(publicProvider.distList.isEmpty) _customInit(publicProvider);
+
     return Scaffold(
       body: _bodyUI(size),
       floatingActionButton: BottomTile(),
@@ -45,8 +54,8 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: size.width * .2),
 
             GradientButton(
-              onPressed: (){},
-              child: Text('AvK©vBf', style: TextStyle(
+              onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveList())),
+              child: Text(Variables.archive, style: TextStyle(
                   fontSize: size.width * .06, fontFamily: 'niladriFontLite')),
               height: size.width * .12,
               width: size.width*.8,

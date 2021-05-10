@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:legal_friend/pages/archive_list.dart';
-import 'package:legal_friend/tiles/gradient_button.dart';
+import 'package:legal_friend/variables/variables.dart';
 
 // ignore: must_be_immutable
 class ArchiveTile extends StatelessWidget {
@@ -20,7 +19,7 @@ class ArchiveTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: size.width*.02),
-          Text('wmqvi-2925/2019',style: TextStyle(
+          Text('${Variables.cR}2925/2019',style: TextStyle(
               fontSize: size.width * .042,
               fontWeight: FontWeight.bold,
               fontFamily: 'barkatFontBold', color: index==0?Theme.of(context).primaryColor: Colors.grey[900])),

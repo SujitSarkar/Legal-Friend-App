@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
+import 'package:legal_friend/variables/variables.dart';
+
+import 'archive_list.dart';
 
 class KajList extends StatefulWidget {
   @override
@@ -34,7 +37,7 @@ class _KajListState extends State<KajList> {
           Container(
             width: size.width*.8,
             //padding:  EdgeInsets.symmetric(horizontal: size.width*.07),
-            child: Text('GB myweavwU `ª“Z Dc‡fvM Kivi Rb¨ Avgv‡`i cÖ‡Póv Ae¨vnZ Av‡Q| mvgwqK Amyweavi Rb¨ Avgiv `ytwLZ|',
+            child: Text(Variables.kajListMgs,
               textAlign: TextAlign.center,
                 style: TextStyle(color: Colors.grey[900], fontSize: size.width * .06, fontFamily: 'barkatFontBold'),),
           ),
@@ -45,7 +48,7 @@ class _KajListState extends State<KajList> {
             children: [
               GradientButton(
                 onPressed: ()=>Navigator.pop(context),
-                child: Text('Av‡Mi g¨vby', style: TextStyle(
+                child: Text(Variables.agerMenu, style: TextStyle(
                     fontSize: size.width * .06, fontFamily: 'niladriFontLite')),
                 height: size.width * .12,
                 width: size.width*.8,
@@ -58,8 +61,8 @@ class _KajListState extends State<KajList> {
               SizedBox(height: size.width * .04),
 
               GradientButton(
-                onPressed: () {},
-                child: Text('AvK©vBf', style: TextStyle(
+                onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveList())),
+                child: Text(Variables.archive, style: TextStyle(
                     fontSize: size.width * .06, fontFamily: 'niladriFontLite')),
                 height: size.width * .12,
                 width: size.width*.8,

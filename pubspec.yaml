@@ -9,6 +9,8 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
+  provider:
+  aamarpay: ^0.0.7
 #  flutter_launcher_icons: ^0.9.0
 
 dev_dependencies:
@@ -25,6 +27,7 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
+    - assets/bd-districts.json
     - assets/logo/logo_trans.png
     - assets/logo/logo_wbg.png
     - assets/logo/splash_image.png

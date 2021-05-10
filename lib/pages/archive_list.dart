@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:legal_friend/pages/archive_details.dart';
 import 'package:legal_friend/tiles/app_bar.dart';
 import 'package:legal_friend/tiles/archive_tile.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
-import 'package:legal_friend/tiles/ni_act_tile.dart';
+import 'package:legal_friend/variables/variables.dart';
 
 class ArchiveList extends StatefulWidget {
 
@@ -21,10 +22,10 @@ class _ArchiveListState extends State<ArchiveList> {
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100),
         child: PublicAppBar(
-          pageName: 'Gb.AvB G±',
-          bottomText: 'me©‡kl Avc‡WUt eB-6/2020 ch©š—',
+          pageName: '',//Variables.niAct,
+          bottomText: '${Variables.sorboseshUpdateBoi}6/2020 ${Variables.porjonto}',
           image: 'assets/home_image/bodli_khana.png',
-          color: Colors.red[400],
+          color: Theme.of(context).primaryColor,
         ),
       ),
       body: _bodyUI(size),
@@ -45,7 +46,7 @@ class _ArchiveListState extends State<ArchiveList> {
           border: Border.all(color: Colors.blue,width: 1.5),
           borderRadius: BorderRadius.all(Radius.circular(size.width*.02)),
         ),
-        child: Text('msiw¶Z AvK©vB‡f',style: TextStyle(
+        child: Text(Variables.songrokkhitoArchive,style: TextStyle(
             fontSize: size.width * .04,
             fontFamily: 'niladriFontLite',color: Colors.blue)),
       ),
@@ -54,7 +55,7 @@ class _ArchiveListState extends State<ArchiveList> {
           itemCount: 4,
           shrinkWrap: true,
           itemBuilder: (context, index)=>InkWell(
-            onTap: (){},
+            onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveDetails())),
               child: ArchiveTile(index: index,)),
         ),
       ),
