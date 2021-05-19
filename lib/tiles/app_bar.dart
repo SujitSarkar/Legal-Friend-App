@@ -37,10 +37,10 @@ class PublicAppBar extends StatelessWidget {
                           padding: EdgeInsets.symmetric(horizontal: 15,vertical: 1),
                           decoration: BoxDecoration(
                               color: color,
-                            borderRadius: BorderRadius.only(
-                              topRight: Radius.circular(size.width*.03),
-                              topLeft: Radius.circular(size.width*.03),
-                            ),
+                            borderRadius: bottomText.isNotEmpty? BorderRadius.only(
+                              bottomRight: Radius.circular(size.width*.01),
+                              bottomLeft: Radius.circular(size.width*.01),
+                            ):BorderRadius.all(Radius.circular(size.width*.01)),
 
                           ),
                           child: Text('$pageName',
@@ -49,13 +49,13 @@ class PublicAppBar extends StatelessWidget {
                                   fontFamily: 'niladriFontLite',color: Colors.white)
                           ),
                         ),
-                        Container(
+                        bottomText.isNotEmpty?Container(
                           width: size.width,
                           alignment: Alignment.center,
                           padding: EdgeInsets.symmetric(horizontal: 15,vertical: 1),
                           decoration: BoxDecoration(
                               color: Color(0xffB3E9FA),
-                              borderRadius: BorderRadius.only(
+                              borderRadius:BorderRadius.only(
                                 bottomRight: Radius.circular(size.width*.01),
                                 bottomLeft: Radius.circular(size.width*.01),
                               ),
@@ -66,9 +66,9 @@ class PublicAppBar extends StatelessWidget {
                           child: Text('$bottomText',
                               style: TextStyle(
                                   fontSize: size.width * .038,
-                                  fontFamily: 'barkatFontBold',color: Colors.grey[900])
+                                  color: Colors.grey[900])
                           ),
-                        ),
+                        ):Container(height: size.width * .05,),
                       ],
                     ),
                   ),

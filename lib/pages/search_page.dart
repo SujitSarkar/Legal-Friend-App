@@ -19,7 +19,7 @@ class _SearchPageState extends State<SearchPage>{
   String _amoliAdalot;
   String _jojkrot;
 
-  List<String> _amoliAdalotItem = ['wm.Gg.Gg','wm.†R.Gg'];
+  List<String> _amoliAdalotItem = ['সি.এম.এম','সি.জে.এস'];
   List<String> _jojkrotItem = ['ঢাকা','ফরিদপুর'];
 
 
@@ -33,7 +33,7 @@ class _SearchPageState extends State<SearchPage>{
         preferredSize: Size.fromHeight(100),
         child: PublicAppBar(
           pageName: publicProvider.togglePageName(),
-          bottomText: '${Variables.sorboseshUpdateBoi}6/2020 ${Variables.porjonto}',
+          bottomText: '${Variables.sorboseshUpdateBoi}৬/২০২০ ${Variables.porjonto}',
           image: 'assets/home_image/bodli_khana.png',
           color: publicProvider.toggleHeaderColor(),
         ),
@@ -51,16 +51,16 @@ class _SearchPageState extends State<SearchPage>{
         children: [
           SizedBox(height: size.width*.2),
           Container(
-            width: size.width*.7,
+            width: size.width*.8,
             alignment: Alignment.center,
             padding: EdgeInsets.symmetric(horizontal: 10,vertical: size.width * .02,),
             decoration: BoxDecoration(
               border: Border.all(color: Colors.grey[800],width: 1.5),
               borderRadius: BorderRadius.all(Radius.circular(size.width*.02)),
             ),
-            child: Text('${Variables.boiNo}9/2021 ${Variables.thekeSuruHoyeche}',style: TextStyle(
+            child: Text('${Variables.boiNo}৯/২০২১ ${Variables.thekeSuruHoyeche}',style: TextStyle(
                 fontSize: size.width * .04,
-                fontFamily: 'barkatFontBold',color: Colors.grey[900])),
+                color: Colors.grey[900])),
           ),
           SizedBox(height: size.width*.08),
           
@@ -70,24 +70,24 @@ class _SearchPageState extends State<SearchPage>{
           SizedBox(height: size.width*.04),
 
           Container(
-              width: size.width*.7,
+              width: size.width*.8,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Container(
-                    width: size.width*.35,
+                    width: size.width*.3,
                     alignment: Alignment.centerRight,
                     child: Text(publicProvider.crToggle(),style: TextStyle(
                         fontSize: size.width * .04,
-                        fontFamily: 'barkatFontBold',color: Colors.grey[900])),
+                        color: Colors.grey[900])),
                   ),
                   Container(
-                    width: size.width*.16,
+                    width: size.width*.22,
                     child: TextField(
                       //controller: _maxController,
                       keyboardType: TextInputType.number,
                       style: TextStyle(
-                          color: Colors.grey[900], fontSize: size.width * .035,fontFamily: 'barkatFontBold'),
+                          color: Colors.grey[900], fontSize: size.width * .035),
                       decoration: boxFormDecoration(size).copyWith(
                         hintText: '2925',
                         contentPadding: EdgeInsets.symmetric(
@@ -98,14 +98,14 @@ class _SearchPageState extends State<SearchPage>{
                       ),
                     ),
                   ),
-                  Text('/',style: TextStyle(color: Colors.grey[900],fontSize: size.width*.05,fontWeight: FontWeight.bold),),
+                  Text(publicProvider.toggleSign(),style: TextStyle(color: Colors.grey[900],fontSize: size.width*.05,fontWeight: FontWeight.bold),),
                   Container(
-                    width: size.width*.16,
+                    width: size.width*.22,
                     child: TextField(
                       //controller: _maxController,
-                      keyboardType: TextInputType.number,
+                      keyboardType: TextInputType.text,
                       style: TextStyle(
-                          color: Colors.grey[900], fontSize: size.width * .035,fontFamily: 'barkatFontBold'),
+                          color: Colors.grey[900], fontSize: size.width * .035),
                       decoration: boxFormDecoration(size).copyWith(
                         hintText: '2019',
                         contentPadding: EdgeInsets.symmetric(
@@ -140,23 +140,23 @@ class _SearchPageState extends State<SearchPage>{
   );
 
   Widget _dropDownBuilder(Size size, String name,PublicProvider publicProvider)=>Container(
-    width: size.width*.7,
+    width: size.width*.8,
     child: Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
         Container(
-          width: size.width*.35,
+          width: size.width*.4,
           padding: EdgeInsets.symmetric(horizontal: 10,vertical:size.width * .02,),
           child: Text(name,
             textAlign: TextAlign.end,
               style: TextStyle(
                   fontSize: size.width * .04,
-                  fontFamily: 'barkatFontBold',color: Colors.grey[900]),
+                  color: Colors.grey[900]),
           ),
         ),
 
         Container(
-          width: size.width*.35,
+          width: size.width*.4,
           padding: EdgeInsets.symmetric(horizontal: 10,vertical: 4),
           decoration: BoxDecoration(
               border: Border.all(color: Colors.grey[800],width: 1.5),
@@ -169,14 +169,12 @@ class _SearchPageState extends State<SearchPage>{
               value: name==Variables.amoliAdalot?_amoliAdalot:_jojkrot,
               hint: Text(Variables.dropHint,style: TextStyle(
                   color: Colors.grey[700],
-                  fontSize: size.width*.04,
-                  fontFamily: 'barkatFontBold')),
+                  fontSize: size.width*.04,)),
               items:name==Variables.amoliAdalot? _amoliAdalotItem.map((category){
                 return DropdownMenuItem(
                   child: Text(category,style: TextStyle(
                     color: Colors.grey[900],
-                    fontSize: size.width*.04,
-                      fontFamily: 'barkatFontBold')),
+                    fontSize: size.width*.04)),
                   value: category,
                 );
               }).toList()
@@ -184,13 +182,12 @@ class _SearchPageState extends State<SearchPage>{
                 return DropdownMenuItem(
                   child: Text(category,style: TextStyle(
                       color: Colors.grey[900],
-                      fontSize: size.width*.04,
-                      fontFamily: 'barkatFontBold')),
+                      fontSize: size.width*.04)),
                   value: category,
                 );
               }).toList(),
               onChanged: (newValue)=> setState(()=>
-                name=='Avgjx Av`vjZ-'? _amoliAdalot = newValue: _jojkrot=newValue),
+                name=='আমলী আদালত'? _amoliAdalot = newValue: _jojkrot=newValue),
               dropdownColor: Colors.white,
             ),
           ),

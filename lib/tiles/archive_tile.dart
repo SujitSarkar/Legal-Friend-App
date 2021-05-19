@@ -19,16 +19,16 @@ class ArchiveTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: size.width*.02),
-          Text('${Variables.cR}2925/2019',style: TextStyle(
+          Text('${Variables.cR}২৯২৫/২০১৯',style: TextStyle(
               fontSize: size.width * .042,
               fontWeight: FontWeight.bold,
-              fontFamily: 'barkatFontBold', color: index==0?Theme.of(context).primaryColor: Colors.grey[900])),
+               color: index==0?Theme.of(context).primaryColor: Colors.grey[900])),
           SizedBox(height: size.width*.01),
 
-          Text('GKivgyj nK evbvg †njvj DwÏb',style: TextStyle(
+          Text('মোঃ শাহ আলম বানাম আব্দুল আহাদ',style: TextStyle(
               fontSize: size.width * .042,
               fontWeight: FontWeight.bold,
-              fontFamily: 'barkatFontBold',color: index==0?Theme.of(context).primaryColor: Colors.grey[900])),
+              color: index==0?Theme.of(context).primaryColor: Colors.grey[900])),
 
           SizedBox(height: size.width*.02),
         ],

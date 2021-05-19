@@ -3,6 +3,7 @@ import 'package:legal_friend/pages/archive_details.dart';
 import 'package:legal_friend/tiles/app_bar.dart';
 import 'package:legal_friend/tiles/archive_tile.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
+import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:legal_friend/variables/variables.dart';
 
 class ArchiveList extends StatefulWidget {
@@ -23,7 +24,7 @@ class _ArchiveListState extends State<ArchiveList> {
         preferredSize: Size.fromHeight(100),
         child: PublicAppBar(
           pageName: '',//Variables.niAct,
-          bottomText: '${Variables.sorboseshUpdateBoi}6/2020 ${Variables.porjonto}',
+          bottomText: '',
           image: 'assets/home_image/bodli_khana.png',
           color: Theme.of(context).primaryColor,
         ),
@@ -37,19 +38,21 @@ class _ArchiveListState extends State<ArchiveList> {
 
   Widget _bodyUI(Size size)=>Column(
     children: [
-      SizedBox(height: size.width*.04),
-      Container(
-        width: size.width*.7,
-        alignment: Alignment.center,
-        padding: EdgeInsets.symmetric(horizontal: 10,vertical: size.width * .02,),
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.blue,width: 1.5),
-          borderRadius: BorderRadius.all(Radius.circular(size.width*.02)),
-        ),
-        child: Text(Variables.songrokkhitoArchive,style: TextStyle(
-            fontSize: size.width * .04,
-            fontFamily: 'niladriFontLite',color: Colors.blue)),
+      //SizedBox(height: size.width*.04),
+      GradientButton(
+        onPressed: (){},
+        child: Text(Variables.archive, style: TextStyle(
+            fontSize: size.width * .06, fontFamily: 'niladriFontLite')),
+        height: size.width * .12,
+        width: size.width*.8,
+        borderRadius: size.width * .03,
+        gradientColors: [
+          Color(0xFF0D47A1),
+          Color(0xFF1976D2),
+          //Color(0xFF42A5F5),
+        ],
       ),
+      SizedBox(height: size.width*.04),
       Expanded(
         child: ListView.builder(
           itemCount: 4,

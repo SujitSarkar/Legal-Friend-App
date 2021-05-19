@@ -34,6 +34,10 @@ class PublicProvider extends ChangeNotifier{
     if(_pageValue==1) return Variables.crMamlaNo;
     else return Variables.mamlaNo;
   }
+  String toggleSign(){
+    if(_pageValue==1) return '/';
+    else return '-';
+  }
 
   Future<void> getDistrict() async {
     final String response = await rootBundle.loadString('assets/bd-districts.json');

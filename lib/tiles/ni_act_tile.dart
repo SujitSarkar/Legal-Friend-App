@@ -5,9 +5,9 @@ import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:legal_friend/variables/variables.dart';
 
 // ignore: must_be_immutable
-class NIActTile extends StatelessWidget {
+class SearchListTile extends StatelessWidget {
    int index;
-   NIActTile({this.index});
+   SearchListTile({this.index});
 
   @override
   Widget build(BuildContext context) {
@@ -22,14 +22,14 @@ class NIActTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: size.width*.02),
-          Text('${Variables.cR}2925/2019',style: TextStyle(
+          Text('${Variables.cR}২৯২৫/২০১৯',style: TextStyle(
               fontSize: size.width * .04,
-              fontFamily: 'barkatFontBold',color: Colors.grey[900])),
+              color: Colors.grey[900])),
           SizedBox(height: size.width*.01),
 
-          Text('GKivgyj nK evbvg †njvj DwÏb',style: TextStyle(
+          Text('মোঃ শাহ আলম বানাম আব্দুল আহাদ',style: TextStyle(
               fontSize: size.width * .04,
-              fontFamily: 'barkatFontBold',color: Colors.grey[900])),
+              color: Colors.grey[900])),
           //SizedBox(height: size.width*.01),
 
           GradientButton(
