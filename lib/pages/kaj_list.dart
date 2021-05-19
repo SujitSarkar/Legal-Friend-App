@@ -14,11 +14,8 @@ class _KajListState extends State<KajList> {
 
   @override
   Widget build(BuildContext context) {
-    final Size size = MediaQuery
-        .of(context)
-        .size;
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
-
       body: _bodyUI(size),
       floatingActionButton: BottomTile(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -34,12 +31,24 @@ class _KajListState extends State<KajList> {
 
           Image.asset('assets/home_image/kaj_list.png',height: size.width*.4,width: size.width*.8),
 
-          Container(
-            width: size.width*.8,
-            //padding:  EdgeInsets.symmetric(horizontal: size.width*.07),
-            child: Text(Variables.kajListMgs,
-              textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.grey[900], fontSize: size.width * .06, fontFamily: 'barkatFontBold'),),
+          Column(
+            children: [
+              Container(
+                width: size.width*.9,
+                padding:  EdgeInsets.symmetric(horizontal: size.width*.01,vertical: size.width*.02),
+                decoration: BoxDecoration(
+                    color: Color(0xffB3E9FA),
+                    borderRadius: BorderRadius.all(Radius.circular(size.width*.02))
+                ),
+                child: Text(Variables.kajListMgs,
+                  textAlign: TextAlign.center,
+                    style: TextStyle(color: Colors.grey[900], fontSize: size.width * .05),),
+              ),
+              SizedBox(height: size.width*.01),
+
+              Text('send us',style: TextStyle(fontSize: size.width*.04, color: Colors.blue,decoration: TextDecoration.underline),),
+              Text('If you think something is wrong',style: TextStyle(color: Colors.grey[900],fontSize: size.width*.04),),
+            ],
           ),
 
           Column(

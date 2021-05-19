@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:legal_friend/pages/no_result_found.dart';
 import 'package:legal_friend/pages/search_list.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/app_bar.dart';
@@ -85,11 +84,11 @@ class _SearchPageState extends State<SearchPage>{
                     width: size.width*.22,
                     child: TextField(
                       //controller: _maxController,
-                      keyboardType: TextInputType.number,
+                      keyboardType: publicProvider.pageValue==1? TextInputType.number:TextInputType.text,
                       style: TextStyle(
                           color: Colors.grey[900], fontSize: size.width * .035),
                       decoration: boxFormDecoration(size).copyWith(
-                        hintText: '2925',
+                        hintText: publicProvider.crMamlaHintFirst(),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: size.width * .015,
                             horizontal: size.width * .02),
@@ -107,7 +106,7 @@ class _SearchPageState extends State<SearchPage>{
                       style: TextStyle(
                           color: Colors.grey[900], fontSize: size.width * .035),
                       decoration: boxFormDecoration(size).copyWith(
-                        hintText: '2019',
+                        hintText:  publicProvider.crMamlaHintSecond(),
                         contentPadding: EdgeInsets.symmetric(
                             vertical: size.width * .015,
                             horizontal: size.width * .02),

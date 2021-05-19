@@ -34,6 +34,14 @@ class PublicProvider extends ChangeNotifier{
     if(_pageValue==1) return Variables.crMamlaNo;
     else return Variables.mamlaNo;
   }
+  String crMamlaHintFirst(){
+    if(_pageValue==1) return '২৯২৫';
+    else return 'মতিঝিল';
+  }
+  String crMamlaHintSecond(){
+    if(_pageValue==1) return '২০১৯';
+    else return '৪(৮)২০২০';
+  }
   String toggleSign(){
     if(_pageValue==1) return '/';
     else return '-';

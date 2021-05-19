@@ -27,10 +27,8 @@ class Variables{
 
   static final String paymentMgs= 'এই মামলার তথ্য সংরক্ষণ করে রাখতে হলে আপনাকে ৫০ টাকা প্রদান করতে হবে';
 
-  static final String dukkhitoMgs = 'gvgjvwU Avgv‡`i me©‡kl Avc‡WUK…Z †iwR÷vi '
-      'eB‡Z Gw›Uª nqwb| KwZ©…c¶ nB‡Z cÖ`Ë cieZ©x †iwR÷vi eB‡qi Rb¨ A‡c¶v Ki“b| '
-      'A_ev, mivmwi e`wj Lvbvq AbymÜvb Ki“b|';
+  static final String dukkhitoMgs = 'মাম্লাটি আমাদের সর্বশেষ আপডেটকৃত রেজিস্টার বইতে এন্ট্রি হয়নি। কর্তৃপক্ষ হইতে প্রদত্তী'
+      'রেজিস্টার বইয়ের জন্য অপেক্ষা করুন। অথবা, সরাসরি বদলি খানায় অনুসন্ধান করুন';
 
-  static final String kajListMgs = 'GB myweavwU `ª“Z Dc‡fvM Kivi Rb¨ Avgv‡`i'
-      ' cÖ‡Póv Ae¨vnZ Av‡Q| mvgwqK Amyweavi Rb¨ Avgiv `ytwLZ|';
+  static final String kajListMgs = 'এই সুবিধাটি দ্রুত উপভোগ করার জন্য আমাদের প্রচেষ্টা অব্যাহত আছে। সাময়িক অসুবিধার জন্য আমরা দুঃখিত।';
 }
