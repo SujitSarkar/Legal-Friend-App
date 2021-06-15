@@ -1,29 +1,31 @@
 class Variables{
-  static final String niAct = 'Gb.AvB G±';
-  static final String madokDondobidhi = 'gv`K/`Ûwewa';
-  static final String bisesTribunal = 'we‡kl UªvBe¨ybvj';
-  static final String archive = 'AvK©vBf';
+  static final String niAct = 'এন.আই এক্ট';
+  static final String madokDondobidhi = 'মাদক/দন্ডবিধি';
+  static final String bisesTribunal = 'বিশেষ ট্রাইব্যুনাল';
+  static final String archive = 'আর্কাইভ';
 
   static final String amoliAdalot = 'আমলী আদালত';
   static final String jojCourt = 'জজ কোর্ট';
   static final String crMamlaNo = 'সিআর মামলা নং- ';
   static final String mamlaNo = 'মামলা নং- ';
-  static final String onusondhanKorun = 'AbymÜvb Ki“b';
+  static final String onusondhanKorun = 'অনুসন্ধান করুন';
   static final String cR = 'সিআর-';
-  static final String archiveRakhun = 'AvK©vB‡f ivLyb';
-  static final String songrokkhitoArchive = 'msiw¶Z AvK©vBf';
+  static final String archiveRakhun = 'আর্কাইভ রাখুন';
+  static final String songrokkhitoArchive = '্সংরক্কষিত আর্কাইভ';
   static final String sorboseshUpdateBoi = 'সর্বশেষ আপডেট বই-';
   static final String porjonto = 'পর্যন্ত';
-  static final String agerMenu = 'Av‡Mi g¨vby';
+  static final String agerMenu = 'আগের ম্যানু';
   static final String boiNo = 'বই নং-';
   static final String thekeSuruHoyeche = 'থেকে শুরু হয়েছে';
   static final String dayraNo = 'দায়রা নং-';
   static final String porobortiTarikh = 'পরবর্তী তারিখ-';
   static final String bicaricAdalot = 'বিচারিক আদালত';
-  static final String abarOnusondhanKorun = 'Avevi AbymÜvb Ki“b';
+  static final String abarOnusondhanKorun = 'আবার অনুসন্ধান করুন';
   static final String dukkhito = 'দুঃখিত';
   static final String konoFolafolNei = 'কোন ফলাফল নেই';
   static final String dropHint = 'নির্বাচন করুন';
+  static final List<String> amoliAdalotList= ['সি.এম.এম','সি.জে.এস'];
+  static final List<String> jojCourtList= ['ঢাকা','চট্টগ্রাম','সিলেট','বরিশাল','খুলনা'];
 
   static final String paymentMgs= 'এই মামলার তথ্য সংরক্ষণ করে রাখতে হলে আপনাকে ৫০ টাকা প্রদান করতে হবে';
 

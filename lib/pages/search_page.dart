@@ -5,6 +5,7 @@ import 'package:legal_friend/tiles/app_bar.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/form_decoration.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
+import 'package:legal_friend/tiles/notification_widget.dart';
 import 'package:legal_friend/variables/variables.dart';
 import 'package:provider/provider.dart';
 
@@ -17,10 +18,8 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage>{
   String _amoliAdalot;
   String _jojkrot;
-
-  List<String> _amoliAdalotItem = ['সি.এম.এম','সি.জে.এস'];
-  List<String> _jojkrotItem = ['ঢাকা','ফরিদপুর'];
-
+  TextEditingController _mamlaNo= TextEditingController(text: '');
+  TextEditingController _mamlaNo2= TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +37,7 @@ class _SearchPageState extends State<SearchPage>{
         ),
       ),
       body: _bodyUI(size,publicProvider),
-      floatingActionButton: BottomTile(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomTile(),
     );
   }
 
@@ -83,7 +81,7 @@ class _SearchPageState extends State<SearchPage>{
                   Container(
                     width: size.width*.22,
                     child: TextField(
-                      //controller: _maxController,
+                      controller: _mamlaNo,
                       keyboardType: publicProvider.pageValue==1? TextInputType.number:TextInputType.text,
                       style: TextStyle(
                           color: Colors.grey[900], fontSize: size.width * .035),
@@ -101,7 +99,7 @@ class _SearchPageState extends State<SearchPage>{
                   Container(
                     width: size.width*.22,
                     child: TextField(
-                      //controller: _maxController,
+                      controller: _mamlaNo2,
                       keyboardType: TextInputType.text,
                       style: TextStyle(
                           color: Colors.grey[900], fontSize: size.width * .035),
@@ -121,8 +119,16 @@ class _SearchPageState extends State<SearchPage>{
           SizedBox(height: size.width*.2),
 
           GradientButton(
-            //onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>NoResultFound())),
-            onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchtList())),
+            onPressed: (){
+              if(_amoliAdalot!=null && _jojkrot!=null &&
+                  _mamlaNo.text.isNotEmpty && _mamlaNo2.text.isNotEmpty){
+                publicProvider.bodliKhanaModel.amoliAdalot= _amoliAdalot.toLowerCase();
+                publicProvider.bodliKhanaModel.jojCourt= _jojkrot.toLowerCase();
+                publicProvider.bodliKhanaModel.mamlaNo= '${_mamlaNo.text}/${_mamlaNo2.text}'.toLowerCase();
+
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchtList()));
+              }else showToast('সকল ডেটা ফিল্ড পুরন করুন');
+            },
             child: Text(Variables.onusondhanKorun, style: TextStyle(
                 fontSize: size.width * .04, fontFamily: 'niladriFontLite')),
             height: size.width * .1,
@@ -169,7 +175,7 @@ class _SearchPageState extends State<SearchPage>{
               hint: Text(Variables.dropHint,style: TextStyle(
                   color: Colors.grey[700],
                   fontSize: size.width*.04,)),
-              items:name==Variables.amoliAdalot? _amoliAdalotItem.map((category){
+              items:name==Variables.amoliAdalot? Variables.amoliAdalotList.map((category){
                 return DropdownMenuItem(
                   child: Text(category,style: TextStyle(
                     color: Colors.grey[900],
@@ -177,7 +183,7 @@ class _SearchPageState extends State<SearchPage>{
                   value: category,
                 );
               }).toList()
-                  :_jojkrotItem.map((category){
+                  :Variables.jojCourtList.map((category){
                 return DropdownMenuItem(
                   child: Text(category,style: TextStyle(
                       color: Colors.grey[900],

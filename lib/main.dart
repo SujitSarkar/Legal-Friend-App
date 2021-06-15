@@ -4,9 +4,11 @@ import 'package:legal_friend/pages/home_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/variables/pColor.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart' as firebase_core;
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  firebase_core.Firebase.initializeApp();
   runApp(MyApp());
 }
 

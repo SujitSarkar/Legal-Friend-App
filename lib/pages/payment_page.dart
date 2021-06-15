@@ -93,7 +93,7 @@ class _PaymentPageState extends State<PaymentPage> {
                       width: size.width*.8,
                       child: GradientButton(
                         //onPressed: (){},
-                        child: Text('wbwðZ Ki“b', style: TextStyle(
+                        child: Text('নিশ্চিত করুন', style: TextStyle(
                             fontSize: size.width * .055,
                             color: Colors.white,
                             fontFamily: 'niladriFontLite')),

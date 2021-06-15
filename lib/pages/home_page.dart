@@ -18,15 +18,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
 
-  _customInit(PublicProvider publicProvider)async{
-    await publicProvider.getDistrict();
-  }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final PublicProvider publicProvider = Provider.of<PublicProvider>(context);
-    //if(publicProvider.distList.isEmpty) _customInit(publicProvider);
 
     return Scaffold(
       body: _bodyUI(size),
