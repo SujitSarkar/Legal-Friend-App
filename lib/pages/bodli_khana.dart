@@ -7,6 +7,9 @@ import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:legal_friend/tiles/notification_widget.dart';
 import 'package:legal_friend/variables/variables.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import 'login_page.dart';
 
 class BodliKhana extends StatefulWidget {
 
@@ -36,9 +39,9 @@ class _BodliKhanaState extends State<BodliKhana>{
     if(_counter==0) _customInit(publicProvider);
 
     return Scaffold(
+      backgroundColor: Colors.white,
       body: _bodyUI(size,publicProvider),
-      floatingActionButton: BottomTile(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      bottomNavigationBar: BottomTile(),
     );
   }
 
@@ -108,11 +111,14 @@ class _BodliKhanaState extends State<BodliKhana>{
           ],
         ),
         GradientButton(
-          onPressed: () {
-            Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveList()));
+          onPressed: () async{
+            SharedPreferences _preferences = await SharedPreferences.getInstance();
+            if(_preferences.getString('userPhone')!=null){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveList()));
+            }else  Navigator.push(context, MaterialPageRoute(builder: (context)=>LogInPage()));
           },
           child: Text(Variables.archive, style: TextStyle(
-              fontSize: size.width * .06, fontFamily: 'niladriFontLite')),
+              fontSize: size.width * .06)),
           height: size.width * .12,
           width: size.width*.8,
           borderRadius: size.width * .03,

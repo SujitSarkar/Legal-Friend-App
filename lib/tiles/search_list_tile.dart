@@ -24,7 +24,7 @@ class SearchListTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          SizedBox(height: size.width*.02),
+          SizedBox(height: size.width*.05),
           Text('${publicProvider.crToggle()}${dataList[index].mamlaNo}',style: TextStyle(
               fontSize: size.width * .04,
               color: Colors.grey[900])),
@@ -36,7 +36,20 @@ class SearchListTile extends StatelessWidget {
           //SizedBox(height: size.width*.01),
 
           GradientButton(
-            onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>PaymentPage())),
+            onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>PaymentPage(
+                id: dataList[index].id,
+                amoliAdalot: dataList[index].amoliAdalot,
+                bicarikAdalot: dataList[index].bicarikAdalot,
+                boiNo: dataList[index].boiNo,
+                dayraNo: dataList[index].dayraNo,
+                entryDate: dataList[index].entryDate,
+                mamlaNo: dataList[index].mamlaNo,
+                mamlarDhoron: dataList[index].mamlarDhoron,
+                pokkhoDhara: dataList[index].pokkhoDhara,
+                porobortiTarikh: dataList[index].porobortiTarikh,
+                jojCourt: dataList[index].jojCourt
+            ))),
+
             child: Text(Variables.archiveRakhun, style: TextStyle(
                 fontSize: size.width * .04)),
             height: size.width * .1,

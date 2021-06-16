@@ -6,8 +6,16 @@ InputDecoration boxFormDecoration(Size size) => InputDecoration(
     color: Colors.grey,
     fontSize: size.width*.04,
     fontWeight: FontWeight.w400,
-      fontFamily: 'barkatFontBold'
   ),
+  labelStyle: TextStyle(
+    color: Colors.grey,
+    fontSize: size.width*.04,
+    fontWeight: FontWeight.w400,
+  ),
+  contentPadding: EdgeInsets.symmetric(
+      vertical: size.width * .018,
+      horizontal: size.width * .02),
+  isDense: true,
   border: OutlineInputBorder(
     borderRadius: BorderRadius.all(Radius.circular(size.width*.02)),
       borderSide: BorderSide(

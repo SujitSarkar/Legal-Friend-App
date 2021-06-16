@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:legal_friend/model_class/bodli_khana_model.dart';
+import 'package:legal_friend/pages/no_result_found.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/app_bar.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
@@ -8,7 +9,6 @@ import 'package:legal_friend/variables/variables.dart';
 import 'package:provider/provider.dart';
 
 class SearchtList extends StatefulWidget {
-  const SearchtList({Key key}) : super(key: key);
 
   @override
   _SearchtListState createState() => _SearchtListState();
@@ -32,7 +32,6 @@ class _SearchtListState extends State<SearchtList> {
       (element.jojCourt.toLowerCase().contains(publicProvider.bodliKhanaModel.jojCourt)
           && element.amoliAdalot.toLowerCase().contains(publicProvider.bodliKhanaModel.amoliAdalot)
           && element.mamlaNo.toLowerCase().contains(publicProvider.bodliKhanaModel.mamlaNo)
-          && element.mamlarDhoron.toLowerCase().contains(publicProvider.pageValue.toLowerCase())
       )).toList();
     });
   }
@@ -45,16 +44,19 @@ class _SearchtListState extends State<SearchtList> {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: true,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100),
         child: PublicAppBar(
           pageName: publicProvider.togglePageName(),
-          bottomText: '${Variables.sorboseshUpdateBoi}৬/২০২০ ${Variables.porjonto}',
+          bottomText: '${Variables.sorboseshUpdateBoi}${publicProvider.toggleLastUpdatedBoiNo()} ${Variables.porjonto}',
           image: 'assets/home_image/bodli_khana.png',
           color: publicProvider.toggleHeaderColor(),
         ),
       ),
-      body: _bodyUI(size,publicProvider),
+      body: _filteredSubList.isNotEmpty
+          ? _bodyUI(size,publicProvider)
+          :NoResultFound(),
       bottomNavigationBar: BottomTile(),
       //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );

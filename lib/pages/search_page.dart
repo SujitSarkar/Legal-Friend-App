@@ -31,7 +31,7 @@ class _SearchPageState extends State<SearchPage>{
         preferredSize: Size.fromHeight(100),
         child: PublicAppBar(
           pageName: publicProvider.togglePageName(),
-          bottomText: '${Variables.sorboseshUpdateBoi}৬/২০২০ ${Variables.porjonto}',
+          bottomText: '${Variables.sorboseshUpdateBoi}${publicProvider.toggleLastUpdatedBoiNo()} ${Variables.porjonto}',
           image: 'assets/home_image/bodli_khana.png',
           color: publicProvider.toggleHeaderColor(),
         ),
@@ -82,16 +82,11 @@ class _SearchPageState extends State<SearchPage>{
                     width: size.width*.22,
                     child: TextField(
                       controller: _mamlaNo,
-                      keyboardType: publicProvider.pageValue==1? TextInputType.number:TextInputType.text,
+                      keyboardType: publicProvider.pageValue==Variables.niAct? TextInputType.number:TextInputType.text,
                       style: TextStyle(
                           color: Colors.grey[900], fontSize: size.width * .035),
                       decoration: boxFormDecoration(size).copyWith(
                         hintText: publicProvider.crMamlaHintFirst(),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: size.width * .015,
-                            horizontal: size.width * .02),
-                        //Change this value to custom as you like
-                        isDense: true,
                       ),
                     ),
                   ),
@@ -100,16 +95,11 @@ class _SearchPageState extends State<SearchPage>{
                     width: size.width*.22,
                     child: TextField(
                       controller: _mamlaNo2,
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.number,
                       style: TextStyle(
                           color: Colors.grey[900], fontSize: size.width * .035),
                       decoration: boxFormDecoration(size).copyWith(
                         hintText:  publicProvider.crMamlaHintSecond(),
-                        contentPadding: EdgeInsets.symmetric(
-                            vertical: size.width * .015,
-                            horizontal: size.width * .02),
-                        //Change this value to custom as you like
-                        isDense: true,
                       ),
                     ),
                   ),
@@ -122,10 +112,9 @@ class _SearchPageState extends State<SearchPage>{
             onPressed: (){
               if(_amoliAdalot!=null && _jojkrot!=null &&
                   _mamlaNo.text.isNotEmpty && _mamlaNo2.text.isNotEmpty){
-                publicProvider.bodliKhanaModel.amoliAdalot= _amoliAdalot.toLowerCase();
-                publicProvider.bodliKhanaModel.jojCourt= _jojkrot.toLowerCase();
-                publicProvider.bodliKhanaModel.mamlaNo= '${_mamlaNo.text}/${_mamlaNo2.text}'.toLowerCase();
-
+                publicProvider.bodliKhanaModel.amoliAdalot= _amoliAdalot;
+                publicProvider.bodliKhanaModel.jojCourt= _jojkrot;
+                publicProvider.bodliKhanaModel.mamlaNo= '${_mamlaNo.text}/${_mamlaNo2.text}';
                 Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchtList()));
               }else showToast('সকল ডেটা ফিল্ড পুরন করুন');
             },

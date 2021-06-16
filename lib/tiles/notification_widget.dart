@@ -1,18 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:fluttertoast/fluttertoast.dart';
-
-void showToast(String message){
-  Fluttertoast.showToast(
-    msg: message,
-    toastLength: Toast.LENGTH_LONG,
-    gravity: ToastGravity.CENTER,
-    timeInSecForIosWeb: 4,
-    backgroundColor: Colors.black87,
-    textColor: Colors.white,
-    fontSize: 16,
-  );
-}
 
 Widget spinCircle()=>
     SpinKitCircle(
@@ -20,15 +8,14 @@ Widget spinCircle()=>
       size: 50.0,
     );
 
-void showLoadingDialog(BuildContext context)=>
-  showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (context)=>AlertDialog(
-      backgroundColor: Colors.transparent,
-      elevation: 0.0,
-      scrollable: true,
-      content: Center(child: CircularProgressIndicator()),
-    ));
+void showLoadingDialog(String status)=> EasyLoading.show(status: status);
 
-void closeLoadingDialog(BuildContext context)=>Navigator.pop(context);
+void closeLoadingDialog()=> EasyLoading.dismiss();
+
+void showSuccessMgs(String status)=> EasyLoading.showSuccess(status);
+
+void showErrorMgs(String status)=> EasyLoading.showError(status);
+
+void showToast(String status)=> EasyLoading.showToast(status);
+
+void showInfo(String status)=> EasyLoading.showInfo(status);

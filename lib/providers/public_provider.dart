@@ -1,19 +1,18 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
+import 'package:legal_friend/model_class/archive_data_model.dart';
 import 'package:legal_friend/model_class/bodli_khana_model.dart';
 import 'package:legal_friend/tiles/notification_widget.dart';
 import 'package:legal_friend/variables/variables.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class PublicProvider extends ChangeNotifier{
-  List<String> _distList=[];
+  SharedPreferences _preferences;
   String _pageValue='';
   BodliKhanaModel _bodliKhanaModel= BodliKhanaModel();
 
+  List<ArchiveDataModel> _archiveDataList =[];
   List<BodliKhanaModel> _bodliKhanaList = [];
   List<BodliKhanaModel> _niActDataList = [];
   List<BodliKhanaModel> _madokDataList = [];
@@ -24,6 +23,7 @@ class PublicProvider extends ChangeNotifier{
   get niActDataList=> _niActDataList;
   get madokDataList=> _madokDataList;
   get tribunalDataList=> _tribunalDataList;
+  get archiveDataList=> _archiveDataList;
 
   set bodliKhanaModel(BodliKhanaModel model){
     model = BodliKhanaModel();
@@ -31,7 +31,6 @@ class PublicProvider extends ChangeNotifier{
     notifyListeners();
   }
   get pageValue => _pageValue;
-  get distList => _distList;
 
   set pageValue(String val){
     _pageValue = val;
@@ -66,19 +65,35 @@ class PublicProvider extends ChangeNotifier{
     else return '-';
   }
 
-  Future<void> getDistrict() async {
-    final String response = await rootBundle.loadString('assets/bd-districts.json');
-    final data = await json.decode(response);
-    _distList.clear();
-    data['districts'].forEach((element){
-      _distList.add('${element['bn_name']}');
-    });
-    notifyListeners();
+  String toggleLastUpdatedBoiNo(){
+    if(_pageValue==Variables.niAct){
+      if(_niActDataList.isNotEmpty) return _niActDataList[_niActDataList.length-1].boiNo;
+      else return '00/0000';
+    }
+    else if(_pageValue==Variables.madokDondobidhi){
+      if(_madokDataList.isNotEmpty) return _madokDataList[_madokDataList.length-1].boiNo;
+      else return '00/0000';
+    }
+    if(_pageValue==Variables.bisesTribunal){
+      if(_tribunalDataList.isNotEmpty) return _tribunalDataList[_tribunalDataList.length-1].boiNo;
+      else return '00/0000';
+    }
+    else return '00/0000';
   }
+
+  // Future<void> getDistrict() async {
+  //   final String response = await rootBundle.loadString('assets/bd-districts.json');
+  //   final data = await json.decode(response);
+  //   _distList.clear();
+  //   data['districts'].forEach((element){
+  //     _distList.add('${element['bn_name']}');
+  //   });
+  //   notifyListeners();
+  // }
 
 
   Future<void> getBodliKhanaDataList()async{
-    final String todayDate = DateFormat("dd-MM-yyyy").format(DateTime.fromMillisecondsSinceEpoch(DateTime.now().millisecondsSinceEpoch));
+    //final String todayDate = DateFormat("dd-MM-yyyy").format(DateTime.fromMillisecondsSinceEpoch(DateTime.now().millisecondsSinceEpoch));
     try{
       await FirebaseFirestore.instance.collection('BodliKhana').orderBy('boi_no').get().then((snapshot){
         _bodliKhanaList.clear();
@@ -119,7 +134,46 @@ class PublicProvider extends ChangeNotifier{
     }
   }
 
-  String getLastUpdateBoi(){
+  Future<void> getArchiveDataList() async{
+   _preferences = await SharedPreferences.getInstance();
+    final String _userPhone = _preferences.getString('userPhone')??'';
+    try{
+      await FirebaseFirestore.instance.collection('UserArchiveData')
+          .where('user_phone', isEqualTo: _userPhone)
+          .get().then((snapshot){
+        _archiveDataList.clear();
+        snapshot.docChanges.forEach((element) {
+          ArchiveDataModel model = ArchiveDataModel(
+              id: element.doc['id'],
+              userPhone: element.doc['user_phone'],
+              amoliAdalot: element.doc['amoli_adalot'],
+              bicarikAdalot: element.doc['bicarik_adalot'],
+              boiNo: element.doc['boi_no'],
+              dayraNo: element.doc['dayra_no'],
+              entryDate: element.doc['entry_date'],
+              mamlaNo: element.doc['mamla_no'],
+              mamlarDhoron: element.doc['mamlar_dhoron'],
+              pokkhoDhara: element.doc['pokkho_dhara'],
+              porobortiTarikh: element.doc['poroborti_tarikh'],
+              jojCourt: element.doc['joj_court'],
+              saveDate: element.doc['save_date'],
+          );
+          _archiveDataList.add(model);
+        });
+      });
+      notifyListeners();
+    }catch(error){
+      showToast(error.toString());
+    }
+  }
 
+  Future<bool> archiveData(Map<String,String> map)async{
+    try{
+      await FirebaseFirestore.instance.collection('UserArchiveData').doc(map['id']).set(map);
+      return true;
+    }catch(error){
+      showToast(error.toString());
+      return false;
+    }
   }
 }

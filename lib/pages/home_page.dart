@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:legal_friend/pages/archive_list.dart';
 import 'package:legal_friend/pages/bodli_khana.dart';
 import 'package:legal_friend/pages/kaj_list.dart';
+import 'package:legal_friend/pages/login_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:legal_friend/tiles/home_tile.dart';
 import 'package:legal_friend/variables/variables.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   // const HomePage({Key key}) : super(key: key);
@@ -26,8 +28,8 @@ class _HomePageState extends State<HomePage> {
 
     return Scaffold(
       body: _bodyUI(size),
-      floatingActionButton: BottomTile(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      backgroundColor: Colors.white,
+      bottomNavigationBar: BottomTile(),
     );
   }
 
@@ -50,7 +52,12 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height: size.width * .2),
 
             GradientButton(
-              onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveList())),
+              onPressed: ()async{
+               SharedPreferences _preferences = await SharedPreferences.getInstance();
+                if(_preferences.getString('userPhone')!=null){
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveList()));
+                }else  Navigator.push(context, MaterialPageRoute(builder: (context)=>LogInPage()));
+              },
               child: Text(Variables.archive, style: TextStyle(
                   fontSize: size.width * .06, fontFamily: 'niladriFontLite')),
               height: size.width * .12,
