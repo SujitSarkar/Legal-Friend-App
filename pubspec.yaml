@@ -16,6 +16,9 @@ dependencies:
   shared_preferences:
   cloud_firestore:
   flutter_spinkit:
+  uuid:
+  flutter_inappwebview:
+  http:
 #  flutter_launcher_icons: ^0.9.0
 
 dev_dependencies:

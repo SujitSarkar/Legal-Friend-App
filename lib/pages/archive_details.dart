@@ -8,8 +8,37 @@ import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:legal_friend/variables/variables.dart';
 import 'package:provider/provider.dart';
 
+// ignore: must_be_immutable
 class ArchiveDetails extends StatefulWidget {
-  const ArchiveDetails({Key key}) : super(key: key);
+  String id;
+  String dataId;
+  String userPhone;
+  String amoliAdalot;
+  String bicarikAdalot;
+  String boiNo;
+  String dayraNo;
+  String entryDate;
+  String mamlaNo;
+  String mamlarDhoron;
+  String pokkhoDhara;
+  String porobortiTarikh;
+  String jojCourt;
+  String saveDate;
+  ArchiveDetails({
+      this.id,
+      this.dataId,
+      this.userPhone,
+      this.amoliAdalot,
+      this.bicarikAdalot,
+      this.boiNo,
+      this.dayraNo,
+      this.entryDate,
+      this.mamlaNo,
+      this.mamlarDhoron,
+      this.pokkhoDhara,
+      this.porobortiTarikh,
+      this.jojCourt,
+      this.saveDate});
 
   @override
   _ArchiveDetailsState createState() => _ArchiveDetailsState();
@@ -52,15 +81,15 @@ class _ArchiveDetailsState extends State<ArchiveDetails> {
                 fontSize: size.width*.04
               ),
               children: <TextSpan>[
-                TextSpan(text: '${Variables.cR}২৯১৫/২০১৯\n',style: TextStyle(fontWeight: FontWeight.bold,fontSize: size.width*.06,)),
-                TextSpan(text: 'মোঃ শাহ আলম বানাম আব্দুল আহাদ\n',style: TextStyle(fontWeight: FontWeight.bold,fontSize: size.width*.06)),
-                TextSpan(text: '${Variables.dayraNo} ১৮৩৯২/২০২০\n'),
-                TextSpan(text: '${Variables.porobortiTarikh} ০৪/০৫/২০২১ইং\n'),
+                TextSpan(text: '${Variables.mamlaNo}${widget.mamlaNo}\n',style: TextStyle(fontWeight: FontWeight.bold,fontSize: size.width*.06,)),
+                TextSpan(text: '${widget.pokkhoDhara}\n',style: TextStyle(fontWeight: FontWeight.bold,fontSize: size.width*.06)),
+                TextSpan(text: '${Variables.dayraNo} ${widget.dayraNo}\n'),
+                TextSpan(text: '${Variables.porobortiTarikh} ${widget.porobortiTarikh} ইং\n'),
                 TextSpan(text: '${Variables.amoliAdalot}\n'),
-                TextSpan(text: 'সিএমএম\n'),
+                TextSpan(text: '${widget.amoliAdalot}\n'),
                 TextSpan(text: '${Variables.bicaricAdalot}\n'),
-                TextSpan(text: '৫ম যুগ্ম মহানগর দায়রা জজ আদালত\n'),
-                TextSpan(text: '${Variables.boiNo} ০১\n'),
+                TextSpan(text: '${widget.bicarikAdalot}\n'),
+                TextSpan(text: '${Variables.boiNo} ${widget.boiNo}\n'),
               ],
             ),
           ),
@@ -69,7 +98,7 @@ class _ArchiveDetailsState extends State<ArchiveDetails> {
           GradientButton(
             onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context)=>BodliKhana())),
               child: Text(Variables.abarOnusondhanKorun, style: TextStyle(
-                fontSize: size.width * .06, fontFamily: 'niladriFontLite')),
+                fontSize: size.width * .06)),
             height: size.width * .12,
             width: size.width*.8,
             borderRadius: size.width * .03,

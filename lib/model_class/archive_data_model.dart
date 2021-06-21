@@ -1,5 +1,6 @@
 class ArchiveDataModel{
   String id;
+  String dataId;
   String userPhone;
   String amoliAdalot;
   String bicarikAdalot;
@@ -15,6 +16,7 @@ class ArchiveDataModel{
 
   ArchiveDataModel({
     this.id,
+    this.dataId,
     this.userPhone,
     this.amoliAdalot,
     this.bicarikAdalot,

@@ -1,16 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:legal_friend/model_class/archive_data_model.dart';
 import 'package:legal_friend/variables/variables.dart';
 
 // ignore: must_be_immutable
 class ArchiveTile extends StatelessWidget {
   int index;
-  ArchiveTile({this.index});
+  List<ArchiveDataModel> dataList;
+  ArchiveTile({this.index,this.dataList});
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery
         .of(context)
         .size;
+    final String todayDate = DateFormat("dd-MM-yyyy")
+        .format(DateTime.fromMillisecondsSinceEpoch(DateTime.now().millisecondsSinceEpoch));
     return Container(
       width: size.width*.8,
       alignment: Alignment.center,
@@ -19,13 +24,13 @@ class ArchiveTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: size.width*.02),
-          Text('${Variables.cR}২৯২৫/২০১৯',style: TextStyle(
+          Text('${Variables.mamlaNo}${dataList[index].mamlaNo}',style: TextStyle(
               fontSize: size.width * .042,
               fontWeight: FontWeight.bold,
-               color: index==0?Theme.of(context).primaryColor: Colors.grey[900])),
+               color: todayDate==dataList[index].saveDate?Theme.of(context).primaryColor: Colors.grey[900])),
           SizedBox(height: size.width*.01),
 
-          Text('মোঃ শাহ আলম বানাম আব্দুল আহাদ',style: TextStyle(
+          Text(dataList[index].pokkhoDhara,style: TextStyle(
               fontSize: size.width * .042,
               fontWeight: FontWeight.bold,
               color: index==0?Theme.of(context).primaryColor: Colors.grey[900])),

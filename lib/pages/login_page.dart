@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/form_decoration.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:legal_friend/tiles/notification_widget.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // ignore: must_be_immutable
 class LogInPage extends StatelessWidget {
   TextEditingController _phone = TextEditingController(text: '');
+  TextEditingController _name = TextEditingController(text: '');
+  TextEditingController _address = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final PublicProvider publicProvider = Provider.of<PublicProvider>(context);
+
     return SafeArea(
       child: Scaffold(
         backgroundColor: Colors.blueGrey.shade50,
@@ -30,7 +36,7 @@ class LogInPage extends StatelessWidget {
         ),
         body: Center(
           child: Container(
-            height: size.height*.4,
+            height: size.height*.5,
             width: size.width*.8,
             padding: EdgeInsets.symmetric(horizontal: size.width*.05,vertical: size.width*.04),
             decoration: BoxDecoration(
@@ -45,25 +51,33 @@ class LogInPage extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.grey.shade900,fontSize: size.width*.04),),
                 SizedBox(height: size.width*.08),
+                _textFieldBuilder('আপনার নাম', size),
+                SizedBox(height: size.width*.04),
+                _textFieldBuilder('ঠিকানা', size),
+                SizedBox(height: size.width*.04),
                 TextField(
-                  controller: _phone,
+                  controller:_phone,
                   keyboardType: TextInputType.phone,
+                  textCapitalization: TextCapitalization.words,
                   maxLength: 11,
                   decoration: boxFormDecoration(size).copyWith(
-                    hintText: 'মোবাইল নাম্বার'
+                      hintText: 'মোবাইল নাম্বার'
                   ),
                 ),
                 SizedBox(height: size.width*.04),
 
                 GradientButton(
                   onPressed: ()async{
-                    if(_phone.text.isNotEmpty){
+                    if(_phone.text.isNotEmpty && _name.text.isNotEmpty && _address.text.isNotEmpty){
                       showLoadingDialog('অপেক্ষা করো');
                       SharedPreferences preferences = await SharedPreferences.getInstance();
-                      preferences.setString('userPhone', _phone.toString());
+                      await preferences.setString('userPhone', _phone.text);
+                      await preferences.setString('address', _address.text);
+                      await preferences.setString('name', _name.text);
+                      await publicProvider.getArchiveDataList();
                       closeLoadingDialog();
                       Navigator.pop(context);
-                    }else showToast('মোবাইল নাম্বার প্রদান করুন');
+                    }else showToast('ফর্ম পুরন করুন');
                   },
                   child: Text('লগ ইন', style: TextStyle(
                       fontSize: size.width * .044)),
@@ -82,4 +96,15 @@ class LogInPage extends StatelessWidget {
       ),
     );
   }
+
+  Widget _textFieldBuilder(String hint,Size size)=>TextField(
+    controller: hint=='আপনার নাম'
+        ? _name
+        :_address,
+    keyboardType:TextInputType.text,
+    textCapitalization: TextCapitalization.words,
+    decoration: boxFormDecoration(size).copyWith(
+        hintText: hint
+    ),
+  );
 }

@@ -139,12 +139,13 @@ class PublicProvider extends ChangeNotifier{
     final String _userPhone = _preferences.getString('userPhone')??'';
     try{
       await FirebaseFirestore.instance.collection('UserArchiveData')
-          .where('user_phone', isEqualTo: _userPhone)
+          .where('user_phone', isEqualTo: _userPhone).orderBy('save_date',descending: true)
           .get().then((snapshot){
         _archiveDataList.clear();
         snapshot.docChanges.forEach((element) {
           ArchiveDataModel model = ArchiveDataModel(
               id: element.doc['id'],
+              dataId: element.doc['data_id'],
               userPhone: element.doc['user_phone'],
               amoliAdalot: element.doc['amoli_adalot'],
               bicarikAdalot: element.doc['bicarik_adalot'],
@@ -167,7 +168,7 @@ class PublicProvider extends ChangeNotifier{
     }
   }
 
-  Future<bool> archiveData(Map<String,String> map)async{
+  Future<bool> archiveData(Map<String, String> map)async{
     try{
       await FirebaseFirestore.instance.collection('UserArchiveData').doc(map['id']).set(map);
       return true;

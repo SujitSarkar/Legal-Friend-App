@@ -25,7 +25,8 @@ class Variables{
   static final String konoFolafolNei = 'কোন ফলাফল নেই';
   static final String dropHint = 'নির্বাচন করুন';
   static final List<String> amoliAdalotList= ['সি.এম.এম','সি.জে.এস'];
-  static final List<String> jojCourtList= ['ঢাকা','চট্টগ্রাম','সিলেট','বরিশাল','খুলনা'];
+  static final List<String> jojCourtList= ['ঢাকা','চট্টগ্রাম','কুমিল্লা','রাজশাহী',
+    'খুলনা','বরিশাল','রংপুর','ময়মনসিংহ','সিলেট','কক্সবাজার'];
 
   static final String paymentMgs= 'এই মামলার তথ্য সংরক্ষণ করে রাখতে হলে আপনাকে ৫০ টাকা প্রদান করতে হবে';
 

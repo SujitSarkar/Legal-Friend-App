@@ -48,87 +48,93 @@ class _BodliKhanaState extends State<BodliKhana>{
   Widget _bodyUI(Size size,PublicProvider publicProvider)=>Center(
     child: _isLoading
         ? spinCircle()
-        : Column(
+        : RefreshIndicator(
+      backgroundColor: Colors.white,
+      onRefresh: ()async{
+        await publicProvider.getBodliKhanaDataList();
+      },
+          child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       crossAxisAlignment: CrossAxisAlignment.center,
       children: [
 
-        Image.asset('assets/home_image/bodli_khana.png',height: size.width*.4,width: size.width*.8),
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            GradientButton(
-              onPressed: (){
-                publicProvider.pageValue=Variables.niAct;
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage()));
+          Image.asset('assets/home_image/bodli_khana.png',height: size.width*.4,width: size.width*.8),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              GradientButton(
+                onPressed: (){
+                  publicProvider.pageValue=Variables.niAct;
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage()));
+                  },
+                child: Text(Variables.niAct, style: TextStyle(
+                    fontSize: size.width * .06)),
+                height: size.width * .12,
+                width: size.width*.8,
+                borderRadius: size.width * .03,
+                gradientColors: [
+                  Colors.red[600],
+                  Colors.red[500],
+                ],
+              ),
+              SizedBox(height: size.width * .04),
+
+              GradientButton(
+                onPressed: () {
+                  publicProvider.pageValue=Variables.madokDondobidhi;
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage()));
                 },
-              child: Text(Variables.niAct, style: TextStyle(
-                  fontSize: size.width * .06, fontFamily: 'niladriFontLite')),
-              height: size.width * .12,
-              width: size.width*.8,
-              borderRadius: size.width * .03,
-              gradientColors: [
-                Colors.red[600],
-                Colors.red[500],
-              ],
-            ),
-            SizedBox(height: size.width * .04),
+                child: Text(Variables.madokDondobidhi, style: TextStyle(
+                    fontSize: size.width * .06)),
+                height: size.width * .12,
+                width: size.width*.8,
+                borderRadius: size.width * .03,
+                gradientColors: [
+                  Colors.green[700],
+                  Colors.green[600],
+                ],
+              ),
+              SizedBox(height: size.width * .04),
 
-            GradientButton(
-              onPressed: () {
-                publicProvider.pageValue=Variables.madokDondobidhi;
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage()));
-              },
-              child: Text(Variables.madokDondobidhi, style: TextStyle(
-                  fontSize: size.width * .06, fontFamily: 'niladriFontLite')),
-              height: size.width * .12,
-              width: size.width*.8,
-              borderRadius: size.width * .03,
-              gradientColors: [
-                Colors.green[700],
-                Colors.green[600],
-              ],
-            ),
-            SizedBox(height: size.width * .04),
+              GradientButton(
+                onPressed: () {
+                  publicProvider.pageValue=Variables.bisesTribunal;
+                  Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage()));
+                },
+                child: Text(Variables.bisesTribunal, style: TextStyle(
+                    fontSize: size.width * .06)),
+                height: size.width * .12,
+                width: size.width*.8,
+                borderRadius: size.width * .03,
+                gradientColors: [
+                  Colors.yellow[900],
+                  Colors.yellow[800],
+                ],
+              ),
 
-            GradientButton(
-              onPressed: () {
-                publicProvider.pageValue=Variables.bisesTribunal;
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>SearchPage()));
-              },
-              child: Text(Variables.bisesTribunal, style: TextStyle(
-                  fontSize: size.width * .06, fontFamily: 'niladriFontLite')),
-              height: size.width * .12,
-              width: size.width*.8,
-              borderRadius: size.width * .03,
-              gradientColors: [
-                Colors.yellow[900],
-                Colors.yellow[800],
-              ],
-            ),
-
-          ],
-        ),
-        GradientButton(
-          onPressed: () async{
-            SharedPreferences _preferences = await SharedPreferences.getInstance();
-            if(_preferences.getString('userPhone')!=null){
-              Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveList()));
-            }else  Navigator.push(context, MaterialPageRoute(builder: (context)=>LogInPage()));
-          },
-          child: Text(Variables.archive, style: TextStyle(
-              fontSize: size.width * .06)),
-          height: size.width * .12,
-          width: size.width*.8,
-          borderRadius: size.width * .03,
-          gradientColors: [
-            Color(0xFF0D47A1),
-            Color(0xFF1976D2),
-          ],
-        ),
-        Container(),
+            ],
+          ),
+          GradientButton(
+            onPressed: () async{
+              SharedPreferences _preferences = await SharedPreferences.getInstance();
+              if(_preferences.getString('userPhone')!=null){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveList()));
+              }else  Navigator.push(context, MaterialPageRoute(builder: (context)=>LogInPage()));
+            },
+            child: Text(Variables.archive, style: TextStyle(
+                fontSize: size.width * .06)),
+            height: size.width * .12,
+            width: size.width*.8,
+            borderRadius: size.width * .03,
+            gradientColors: [
+              Color(0xFF0D47A1),
+              Color(0xFF1976D2),
+            ],
+          ),
+          Container(),
       ],
     ),
+        ),
   );
 }
