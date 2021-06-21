@@ -137,7 +137,7 @@ class _PaymentPageState extends State<PaymentPage> {
     final String todayDate = DateFormat("dd-MM-yyyy")
         .format(DateTime.fromMillisecondsSinceEpoch(DateTime.now().millisecondsSinceEpoch));
     final uuid = Uuid();
-    String id = uuid.v1();
+    final String id = uuid.v1();
     Map<String, String> map = {
       'id': id,
       'data_id': widget.id,
@@ -156,19 +156,50 @@ class _PaymentPageState extends State<PaymentPage> {
     };
 
     final url = Uri.parse('https://sandbox.walletmix.com/check-server');
-    ///Get InitUrl
+    //Get InitUrl
     var response = await http.get(url);
     var jsonData= jsonDecode(response.body);
     if(response.statusCode==200){
       final _initUrl = jsonData['url'];
       final _bankUrl = jsonData['bank_payment_url'];
 
-      closeLoadingDialog();
-      // Navigator.push(context, MaterialPageRoute(builder: (context)=>StartPaymentProcess(
-      //   archiveDataMap: map,
-      //   initUrl: _initUrl,
-      //   bankUrl: _bankUrl,
-      // )));
+      //Bang Payment Request
+      var secondResponse = await http.post(
+          Uri.parse(_initUrl),
+        body: {
+          'amount': '50',
+          'currency': 'BDT',
+          'options': 'cz1leGFtcGxlLmNvbSxpPTE5Mi4xNjguMTAwLjEwNQ==',
+          'callback_url': 'http://legalfriendbd.com/',
+          'authorization': 'Basic bGVnYWxmcmllbmRiZF84NDk2OTc1NzQ6bGVnYWxmcmllbmRiZF8xNTU2NzYzMjcw',
+          'app_name': 'legalfriendbd.com',
+          'access_app_key': '7da51ca75d58b9616cd5139bdbc7bda6151e416f',
+          'wmx_id': 'WMX60c5cc66cfbc7',
+          'merchant_ref_id': id.substring(0,19),
+          'customer_name': _preferences.getString('name'),
+          'customer_email': 'ismail@gmail.com',
+          'customer_add': _preferences.getString('address'),
+          'customer_phone': _preferences.getString('userPhone'),
+          'product_desc': 'Book Product',
+          'merchant_order_id': id,
+          'cart_info':'WMX1234567891234,http://example.com,MyApp'
+        }
+      );
+      var secondJsonData= jsonDecode(secondResponse.body);
+      if(secondResponse.statusCode==200){
+         String _token = secondJsonData['token'];
+        closeLoadingDialog();
+        Navigator.push(context, MaterialPageRoute(builder: (context)=>StartPaymentProcess(
+          archiveDataMap: map,
+          initUrl: _initUrl,
+          bankUrl: _bankUrl,
+          token: _token,
+        )));
+      }else{
+        closeLoadingDialog();
+        showErrorMgs('Failed Bank Payment Request !');
+      }
+
     }else{
       closeLoadingDialog();
       showErrorMgs('Error Payment process! Try Again');
@@ -188,15 +219,14 @@ class _PaymentPageState extends State<PaymentPage> {
   }
 }
 
-
-
 // ignore: must_be_immutable
 class StartPaymentProcess extends StatefulWidget {
   Map<String,String> archiveDataMap;
   String initUrl;
   String bankUrl;
+  String token;
 
-  StartPaymentProcess({this.archiveDataMap, this.initUrl, this.bankUrl});
+  StartPaymentProcess({this.archiveDataMap, this.initUrl, this.bankUrl,this.token});
 
   @override
   _StartPaymentProcessState createState() => _StartPaymentProcessState();
@@ -232,11 +262,15 @@ class _StartPaymentProcessState extends State<StartPaymentProcess> {
                     Expanded(
                       child: Container(
                         child: InAppWebView(
-                          initialUrl: widget.initUrl,
+                          initialUrl: '${widget.bankUrl}/${widget.token}',
                           onPageCommitVisible: (InAppWebViewController controller, String url){
-                              if(url== 'https://glamworlditltd.com/portfolio.php'){
-                                Navigator.pop(context);
+                            print(url);
+                              if(url=='http://legalfriendbd.com/'){
+                                //Something went wrong URL
+                                //https://sandbox.walletmix.com/abort
+                                _verifyPayment();
                               }
+                              else if(url=='https://sandbox.walletmix.com/abort') _verifyPayment();
                           },
                           onProgressChanged: (InAppWebViewController controller, int progress) {
                             setState(() {
@@ -249,6 +283,22 @@ class _StartPaymentProcessState extends State<StartPaymentProcess> {
                     // ignore: unnecessary_null_comparison
                   ].where((Object o) => o != null).toList()))),
     );  //Remove null widgets
+  }
+  
+  Future<void> _verifyPayment()async{
+    var response = await http.post(
+      Uri.parse('http://sandbox.walletmix.com/check-payment'),
+      body: {
+        'wmx_id': 'WMX60c5cc66cfbc7',
+        'authorization':'Basic bGVnYWxmcmllbmRiZF84NDk2OTc1NzQ6bGVnYWxmcmllbmRiZF8xNTU2NzYzMjcw',
+        'access_app_key':'7da51ca75d58b9616cd5139bdbc7bda6151e416f',
+        'token': widget.token
+      }
+    );
+    //var jsonData= jsonDecode(response.body);
+    if(response.statusCode==200){
+      print(response.body);
+    }
   }
 }
 
