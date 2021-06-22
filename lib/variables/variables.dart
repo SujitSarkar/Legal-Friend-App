@@ -1,4 +1,4 @@
-class Variables{
+class Variables {
   static final String niAct = 'এন.আই এক্ট';
   static final String madokDondobidhi = 'মাদক/দন্ডবিধি';
   static final String bisesTribunal = 'বিশেষ ট্রাইব্যুনাল';
@@ -24,14 +24,27 @@ class Variables{
   static final String dukkhito = 'দুঃখিত';
   static final String konoFolafolNei = 'কোন ফলাফল নেই';
   static final String dropHint = 'নির্বাচন করুন';
-  static final List<String> amoliAdalotList= ['সি.এম.এম','সি.জে.এস'];
-  static final List<String> jojCourtList= ['ঢাকা','চট্টগ্রাম','কুমিল্লা','রাজশাহী',
-    'খুলনা','বরিশাল','রংপুর','ময়মনসিংহ','সিলেট','কক্সবাজার'];
+  static final List<String> amoliAdalotList = ['সি.এম.এম', 'সি.জে.এস'];
+  static final List<String> jojCourtList = [
+    'ঢাকা',
+    'চট্টগ্রাম',
+    'কুমিল্লা',
+    'রাজশাহী',
+    'খুলনা',
+    'বরিশাল',
+    'রংপুর',
+    'ময়মনসিংহ',
+    'সিলেট',
+    'কক্সবাজার'
+  ];
 
-  static final String paymentMgs= 'এই মামলার তথ্য সংরক্ষণ করে রাখতে হলে আপনাকে ৫০ টাকা প্রদান করতে হবে';
+  static final String paymentMgs =
+      'এই মামলার তথ্য সংরক্ষণ করে রাখতে হলে আপনাকে ৫০ টাকা প্রদান করতে হবে';
 
-  static final String dukkhitoMgs = 'মাম্লাটি আমাদের সর্বশেষ আপডেটকৃত রেজিস্টার বইতে এন্ট্রি হয়নি। কর্তৃপক্ষ হইতে প্রদত্তী'
-      'রেজিস্টার বইয়ের জন্য অপেক্ষা করুন। অথবা, সরাসরি বদলি খানায় অনুসন্ধান করুন';
+  static final String dukkhitoMgs =
+      'মামলাটি আমাদের সর্বশেষ আপডেটকৃত রেজিস্টার বইতে এন্ট্রি হয়নি। কর্তৃপক্ষ হইতে পরবর্তী'
+      ' রেজিস্টার বইয়ের জন্য অপেক্ষা করুন। অথবা, সরাসরি বদলি খানায় অনুসন্ধান করুন';
 
-  static final String kajListMgs = 'এই সুবিধাটি দ্রুত উপভোগ করার জন্য আমাদের প্রচেষ্টা অব্যাহত আছে। সাময়িক অসুবিধার জন্য আমরা দুঃখিত।';
+  static final String kajListMgs =
+      'এই সুবিধাটি দ্রুত উপভোগ করার জন্য আমাদের প্রচেষ্টা অব্যাহত আছে। সাময়িক অসুবিধার জন্য আমরা দুঃখিত।';
 }

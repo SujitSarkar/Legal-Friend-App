@@ -24,8 +24,8 @@ class ArchiveDetails extends StatefulWidget {
   String porobortiTarikh;
   String jojCourt;
   String saveDate;
-  ArchiveDetails({
-      this.id,
+  ArchiveDetails(
+      {this.id,
       this.dataId,
       this.userPhone,
       this.amoliAdalot,
@@ -50,10 +50,11 @@ class _ArchiveDetailsState extends State<ArchiveDetails> {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: true,
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(100),
         child: PublicAppBar(
-          pageName: '',//Variables.niAct,
+          pageName: '', //Variables.niAct,
           bottomText: '',
           image: 'assets/home_image/bodli_khana.png',
           color: Theme.of(context).primaryColor,
@@ -66,50 +67,58 @@ class _ArchiveDetailsState extends State<ArchiveDetails> {
     );
   }
 
-  Widget _bodyUI(Size size)=>SingleChildScrollView(
-    child: Center(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          SizedBox(height: size.width*.2),
-          RichText(
-            textAlign: TextAlign.center,
-            text: TextSpan(
-              //text: 'Hello ',
-              style: TextStyle(
-                color: Colors.grey[900],
-                fontSize: size.width*.04
+  Widget _bodyUI(Size size) => SingleChildScrollView(
+        child: Center(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              SizedBox(height: size.width * .2),
+              RichText(
+                textAlign: TextAlign.center,
+                text: TextSpan(
+                  //text: 'Hello ',
+                  style: TextStyle(
+                      color: Colors.grey[900], fontSize: size.width * .04),
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: '${Variables.mamlaNo}${widget.mamlaNo}\n',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: size.width * .06,
+                        )),
+                    TextSpan(
+                        text: '${widget.pokkhoDhara}\n',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: size.width * .06)),
+                    TextSpan(text: '${Variables.dayraNo} ${widget.dayraNo}\n'),
+                    TextSpan(
+                        text:
+                            '${Variables.porobortiTarikh} ${widget.porobortiTarikh} ইং\n'),
+                    TextSpan(text: '${Variables.amoliAdalot}\n'),
+                    TextSpan(text: '${widget.amoliAdalot}\n'),
+                    TextSpan(text: '${Variables.bicaricAdalot}\n'),
+                    TextSpan(text: '${widget.bicarikAdalot}\n'),
+                    TextSpan(text: '${Variables.boiNo} ${widget.boiNo}\n'),
+                  ],
+                ),
               ),
-              children: <TextSpan>[
-                TextSpan(text: '${Variables.mamlaNo}${widget.mamlaNo}\n',style: TextStyle(fontWeight: FontWeight.bold,fontSize: size.width*.06,)),
-                TextSpan(text: '${widget.pokkhoDhara}\n',style: TextStyle(fontWeight: FontWeight.bold,fontSize: size.width*.06)),
-                TextSpan(text: '${Variables.dayraNo} ${widget.dayraNo}\n'),
-                TextSpan(text: '${Variables.porobortiTarikh} ${widget.porobortiTarikh} ইং\n'),
-                TextSpan(text: '${Variables.amoliAdalot}\n'),
-                TextSpan(text: '${widget.amoliAdalot}\n'),
-                TextSpan(text: '${Variables.bicaricAdalot}\n'),
-                TextSpan(text: '${widget.bicarikAdalot}\n'),
-                TextSpan(text: '${Variables.boiNo} ${widget.boiNo}\n'),
-              ],
-            ),
-          ),
-          SizedBox(height: size.width*.2),
-
-          GradientButton(
-            onPressed: () =>Navigator.push(context, MaterialPageRoute(builder: (context)=>BodliKhana())),
-              child: Text(Variables.abarOnusondhanKorun, style: TextStyle(
-                fontSize: size.width * .06)),
-            height: size.width * .12,
-            width: size.width*.8,
-            borderRadius: size.width * .03,
-            gradientColors: [
-              Color(0xFF0D47A1),
-              Color(0xFF1976D2),
+              SizedBox(height: size.width * .2),
+              GradientButton(
+                onPressed: () => Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => BodliKhana())),
+                child: Text(Variables.abarOnusondhanKorun,
+                    style: TextStyle(fontSize: size.width * .06)),
+                height: size.width * .12,
+                width: size.width * .8,
+                borderRadius: size.width * .03,
+                gradientColors: [
+                  Color(0xFF0D47A1),
+                  Color(0xFF1976D2),
+                ],
+              ),
             ],
           ),
-
-        ],
-      ),
-    ),
-  );
+        ),
+      );
 }

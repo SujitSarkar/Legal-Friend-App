@@ -2,6 +2,8 @@ class ArchiveDataModel{
   String id;
   String dataId;
   String userPhone;
+  String userName;
+  String userAddress;
   String amoliAdalot;
   String bicarikAdalot;
   String boiNo;
@@ -28,5 +30,7 @@ class ArchiveDataModel{
     this.pokkhoDhara,
     this.porobortiTarikh,
     this.jojCourt,
-    this.saveDate});
+    this.saveDate,
+    this.userName,
+    this.userAddress});
 }

@@ -33,7 +33,7 @@ class ArchiveTile extends StatelessWidget {
           Text(dataList[index].pokkhoDhara,style: TextStyle(
               fontSize: size.width * .042,
               fontWeight: FontWeight.bold,
-              color: index==0?Theme.of(context).primaryColor: Colors.grey[900])),
+              color: todayDate==dataList[index].saveDate?Theme.of(context).primaryColor: Colors.grey[900])),
 
           SizedBox(height: size.width*.02),
         ],

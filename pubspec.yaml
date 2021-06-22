@@ -10,7 +10,6 @@ dependencies:
     sdk: flutter
   cupertino_icons: ^1.0.2
   provider:
-  aamarpay:
   flutter_easyloading:
   intl:
   shared_preferences:
@@ -19,6 +18,7 @@ dependencies:
   uuid:
   flutter_inappwebview:
   http:
+  url_launcher:
 #  flutter_launcher_icons: ^0.9.0
 
 dev_dependencies:

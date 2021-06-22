@@ -147,6 +147,8 @@ class PublicProvider extends ChangeNotifier{
               id: element.doc['id'],
               dataId: element.doc['data_id'],
               userPhone: element.doc['user_phone'],
+              userName: element.doc['user_name'],
+              userAddress: element.doc['user_address'],
               amoliAdalot: element.doc['amoli_adalot'],
               bicarikAdalot: element.doc['bicarik_adalot'],
               boiNo: element.doc['boi_no'],
@@ -171,6 +173,15 @@ class PublicProvider extends ChangeNotifier{
   Future<bool> archiveData(Map<String, String> map)async{
     try{
       await FirebaseFirestore.instance.collection('UserArchiveData').doc(map['id']).set(map);
+      return true;
+    }catch(error){
+      showToast(error.toString());
+      return false;
+    }
+  }
+  Future<bool> savePaymentInfo(Map<String, String> map)async{
+    try{
+      await FirebaseFirestore.instance.collection('ArchivePaymentInfo').doc(map['merchant_ref_id']).set(map);
       return true;
     }catch(error){
       showToast(error.toString());

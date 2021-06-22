@@ -27,8 +27,8 @@ class PaymentPage extends StatefulWidget {
   String pokkhoDhara;
   String porobortiTarikh;
   String jojCourt;
-  PaymentPage({
-      this.id,
+  PaymentPage(
+      {this.id,
       this.amoliAdalot,
       this.bicarikAdalot,
       this.boiNo,
@@ -44,8 +44,8 @@ class PaymentPage extends StatefulWidget {
 }
 
 class _PaymentPageState extends State<PaymentPage> {
-  bool _isLoading=false;
-  bool isLoading=false;
+  bool _isLoading = false;
+  bool isLoading = false;
   SharedPreferences _preferences;
 
   @override
@@ -59,174 +59,178 @@ class _PaymentPageState extends State<PaymentPage> {
     final PublicProvider publicProvider = Provider.of<PublicProvider>(context);
     return Scaffold(
       backgroundColor: Colors.white,
+      resizeToAvoidBottomInset: true,
       body: _isLoading
           ? Center(child: spinCircle())
-          : _bodyUI(size,publicProvider),
+          : _bodyUI(size, publicProvider),
       bottomNavigationBar: BottomTile(),
-
     );
   }
 
-  Widget _bodyUI(Size size,PublicProvider publicProvider){
+  Widget _bodyUI(Size size, PublicProvider publicProvider) {
     _isLoading = false;
     return SafeArea(
       child: Container(
-      child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            
-            Image.asset('assets/home_image/bodli_khana.png',height: size.width*.4,width: size.width*.8),
+        child: Center(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Image.asset('assets/home_image/bodli_khana.png',
+                  height: size.width * .4, width: size.width * .8),
 
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-
-                Container(
-                  width: size.width*.9,
-                  padding: EdgeInsets.all(size.width*.04),
-                  decoration: BoxDecoration(
-                      color: Color(0xffB3E9FA),
-                      borderRadius: BorderRadius.all(Radius.circular(size.width*.02))
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: size.width * .9,
+                    padding: EdgeInsets.all(size.width * .04),
+                    decoration: BoxDecoration(
+                        color: Color(0xffB3E9FA),
+                        borderRadius: BorderRadius.all(
+                            Radius.circular(size.width * .02))),
+                    child: Text(
+                      Variables.paymentMgs,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                          fontFamily: 'barkatFontBold',
+                          fontSize: size.width * .05),
+                    ),
                   ),
-                  child: Text(
-                    Variables.paymentMgs,
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontFamily: 'barkatFontBold',fontSize: size.width*.05),),
-                ),
-                SizedBox(height: size.width*.1),
-
-                Container(
-                  width: size.width*.8,
-                  child: GradientButton(
-                    onPressed: ()async{
-                      _preferences = await SharedPreferences.getInstance();
-                      String _userPhone = _preferences.getString('userPhone');
-                      if(_userPhone!=null){
-                        _startPaymentProcess(publicProvider,_userPhone);
-                      }else Navigator.push(context, MaterialPageRoute(builder: (context)=>LogInPage()));
-                    },
-                    child: Text('নিশ্চিত করুন', style: TextStyle(
-                        fontSize: size.width * .055,
-                        color: Colors.white,
-                        fontFamily: 'niladriFontLite')),
-                    height: size.width * .12,
-                    width: size.width*.8,
-                    borderRadius: size.width * .03,
-                    gradientColors: [
-                      Colors.blue[600],
-                      Colors.blue[400],
-                    ],
-                  ),
-                )
-              ],
-            ),
-            Container(),
-            //Container(),
-          ],
+                  SizedBox(height: size.width * .1),
+                  Container(
+                    width: size.width * .8,
+                    child: GradientButton(
+                      onPressed: () async {
+                        _preferences = await SharedPreferences.getInstance();
+                        String _userPhone = _preferences.getString('userPhone');
+                        if (_userPhone != null) {
+                          _startPaymentProcess(publicProvider);
+                        } else
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => LogInPage()));
+                      },
+                      child: Text('নিশ্চিত করুন',
+                          style: TextStyle(
+                              fontSize: size.width * .055,
+                              color: Colors.white,
+                              fontFamily: 'niladriFontLite')),
+                      height: size.width * .12,
+                      width: size.width * .8,
+                      borderRadius: size.width * .03,
+                      gradientColors: [
+                        Colors.blue[600],
+                        Colors.blue[400],
+                      ],
+                    ),
+                  )
+                ],
+              ),
+              Container(),
+              //Container(),
+            ],
+          ),
         ),
       ),
-  ),
     );
   }
 
-  Future<void> _startPaymentProcess(PublicProvider publicProvider,String userPhone)async{
+  Future<void> _startPaymentProcess(PublicProvider publicProvider) async {
     showLoadingDialog('অপেক্ষা করুন');
-    final String todayDate = DateFormat("dd-MM-yyyy")
-        .format(DateTime.fromMillisecondsSinceEpoch(DateTime.now().millisecondsSinceEpoch));
+    final String todayDate = DateFormat("dd-MM-yyyy").format(
+        DateTime.fromMillisecondsSinceEpoch(
+            DateTime.now().millisecondsSinceEpoch));
     final uuid = Uuid();
     final String id = uuid.v1();
-    Map<String, String> map = {
-      'id': id,
-      'data_id': widget.id,
-      'user_phone': userPhone,
-      'amoli_adalot': widget.amoliAdalot,
-      'bicarik_adalot': widget.bicarikAdalot,
-      'boi_no': widget.boiNo,
-      'dayra_no': widget.dayraNo,
-      'entry_date': widget.entryDate,
-      'mamla_no': widget.mamlaNo,
-      'mamlar_dhoron': widget.mamlarDhoron,
-      'pokkho_dhara': widget.pokkhoDhara,
-      'poroborti_tarikh': widget.porobortiTarikh,
-      'joj_court': widget.jojCourt,
-      'save_date': todayDate
-    };
 
     final url = Uri.parse('https://sandbox.walletmix.com/check-server');
     //Get InitUrl
     var response = await http.get(url);
-    var jsonData= jsonDecode(response.body);
-    if(response.statusCode==200){
+    var jsonData = jsonDecode(response.body);
+    if (response.statusCode == 200) {
       final _initUrl = jsonData['url'];
       final _bankUrl = jsonData['bank_payment_url'];
 
       //Bang Payment Request
-      var secondResponse = await http.post(
-          Uri.parse(_initUrl),
-        body: {
-          'amount': '50',
-          'currency': 'BDT',
-          'options': 'cz1leGFtcGxlLmNvbSxpPTE5Mi4xNjguMTAwLjEwNQ==',
-          'callback_url': 'http://legalfriendbd.com/',
-          'authorization': 'Basic bGVnYWxmcmllbmRiZF84NDk2OTc1NzQ6bGVnYWxmcmllbmRiZF8xNTU2NzYzMjcw',
-          'app_name': 'legalfriendbd.com',
-          'access_app_key': '7da51ca75d58b9616cd5139bdbc7bda6151e416f',
-          'wmx_id': 'WMX60c5cc66cfbc7',
-          'merchant_ref_id': id.substring(0,19),
-          'customer_name': _preferences.getString('name'),
-          'customer_email': 'ismail@gmail.com',
-          'customer_add': _preferences.getString('address'),
-          'customer_phone': _preferences.getString('userPhone'),
-          'product_desc': 'Book Product',
-          'merchant_order_id': id,
-          'cart_info':'WMX1234567891234,http://example.com,MyApp'
-        }
-      );
-      var secondJsonData= jsonDecode(secondResponse.body);
-      if(secondResponse.statusCode==200){
-         String _token = secondJsonData['token'];
+      var secondResponse = await http.post(Uri.parse(_initUrl), body: {
+        'amount': '50',
+        'currency': 'BDT',
+        'options': 'cz1leGFtcGxlLmNvbSxpPTE5Mi4xNjguMTAwLjEwNQ==',
+        'callback_url': 'http://legalfriendbd.com/',
+        'authorization':
+            'Basic bGVnYWxmcmllbmRiZF84NDk2OTc1NzQ6bGVnYWxmcmllbmRiZF8xNTU2NzYzMjcw',
+        'app_name': 'legalfriendbd.com',
+        'access_app_key': '7da51ca75d58b9616cd5139bdbc7bda6151e416f',
+        'wmx_id': 'WMX60c5cc66cfbc7',
+        'merchant_ref_id': id.substring(0, 19),
+        'customer_name': _preferences.getString('name'),
+        'customer_email': 'legalfriend@gmail.com',
+        'customer_add': _preferences.getString('address'),
+        'customer_phone': _preferences.getString('userPhone'),
+        'product_desc': 'Book Product',
+        'merchant_order_id': id,
+        'cart_info': 'WMX1234567891234,http://example.com,MyApp'
+      });
+      var secondJsonData = jsonDecode(secondResponse.body);
+      if (secondResponse.statusCode == 200) {
+        String _token = secondJsonData['token'];
+        Map<String, String> map = {
+          'id': id,
+          'data_id': widget.id,
+          'user_phone': _preferences.getString('userPhone'),
+          'user_name': _preferences.getString('name'),
+          'user_address': _preferences.getString('address'),
+          'amoli_adalot': widget.amoliAdalot,
+          'bicarik_adalot': widget.bicarikAdalot,
+          'boi_no': widget.boiNo,
+          'dayra_no': widget.dayraNo,
+          'entry_date': widget.entryDate,
+          'mamla_no': widget.mamlaNo,
+          'mamlar_dhoron': widget.mamlarDhoron,
+          'pokkho_dhara': widget.pokkhoDhara,
+          'poroborti_tarikh': widget.porobortiTarikh,
+          'joj_court': widget.jojCourt,
+          'save_date': todayDate
+        };
         closeLoadingDialog();
-        Navigator.push(context, MaterialPageRoute(builder: (context)=>StartPaymentProcess(
-          archiveDataMap: map,
-          initUrl: _initUrl,
-          bankUrl: _bankUrl,
-          token: _token,
-        )));
-      }else{
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => StartPaymentProcess(
+                      archiveDataMap: map,
+                      initUrl: _initUrl,
+                      bankUrl: _bankUrl,
+                      token: _token,
+                      userPhone: _preferences.getString('userPhone'),
+                    )));
+      } else {
         closeLoadingDialog();
         showErrorMgs('Failed Bank Payment Request !');
       }
-
-    }else{
+    } else {
       closeLoadingDialog();
       showErrorMgs('Error Payment process! Try Again');
     }
-
-    // await publicProvider.archiveData(map).then((value)async{
-    //   if(value==true){
-    //     await publicProvider.getArchiveDataList().then((value){
-    //       closeLoadingDialog();
-    //       showSuccessMgs('আর্কাইভ সম্পন্ন হয়েছে');
-    //     });
-    //   }else{
-    //     closeLoadingDialog();
-    //     showErrorMgs('আর্কাইভ অসম্পন্ন হয়েছে');
-    //   }
-    // });
   }
 }
 
 // ignore: must_be_immutable
 class StartPaymentProcess extends StatefulWidget {
-  Map<String,String> archiveDataMap;
+  Map<String, String> archiveDataMap;
   String initUrl;
   String bankUrl;
   String token;
+  String userPhone;
 
-  StartPaymentProcess({this.archiveDataMap, this.initUrl, this.bankUrl,this.token});
+  StartPaymentProcess(
+      {this.archiveDataMap,
+      this.initUrl,
+      this.bankUrl,
+      this.token,
+      this.userPhone});
 
   @override
   _StartPaymentProcessState createState() => _StartPaymentProcessState();
@@ -237,68 +241,140 @@ class _StartPaymentProcessState extends State<StartPaymentProcess> {
 
   @override
   Widget build(BuildContext context) {
+    final PublicProvider publicProvider = Provider.of<PublicProvider>(context);
     return SafeArea(
       child: Scaffold(
-        backgroundColor: Colors.white,
+          backgroundColor: Colors.white,
+          resizeToAvoidBottomInset: true,
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(60),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("  পেমেন্ট সমপন্ন করুন",style: TextStyle(color: Colors.grey.shade800,fontSize: 16)),
-                IconButton(onPressed: ()=>Navigator.pop(context),
-                    icon: Icon(Icons.cancel_outlined,color: Colors.grey),
-                splashRadius: 30,)
+                Text("  পেমেন্ট সমপন্ন করুন",
+                    style:
+                        TextStyle(color: Colors.grey.shade800, fontSize: 17)),
+                IconButton(
+                  onPressed: () => Navigator.pop(context),
+                  icon: Icon(Icons.cancel_outlined, color: Colors.grey),
+                  splashRadius: 30,
+                )
               ],
             ),
           ),
           body: Container(
               child: Column(
                   children: <Widget>[
-                    if (progress != 1.0) LinearProgressIndicator(
-                        value: progress,
-                        backgroundColor: Colors.grey[200],
-                        valueColor: AlwaysStoppedAnimation<Color>(Colors.blue)),    // Should be removed while showing
-                    Expanded(
-                      child: Container(
-                        child: InAppWebView(
-                          initialUrl: '${widget.bankUrl}/${widget.token}',
-                          onPageCommitVisible: (InAppWebViewController controller, String url){
-                            print(url);
-                              if(url=='http://legalfriendbd.com/'){
-                                //Something went wrong URL
-                                //https://sandbox.walletmix.com/abort
-                                _verifyPayment();
-                              }
-                              else if(url=='https://sandbox.walletmix.com/abort') _verifyPayment();
-                          },
-                          onProgressChanged: (InAppWebViewController controller, int progress) {
-                            setState(() {
-                              this.progress = progress / 100;
-                            });
-                          },
-                        ),
-                      ),
-                    )
-                    // ignore: unnecessary_null_comparison
-                  ].where((Object o) => o != null).toList()))),
-    );  //Remove null widgets
+            if (progress != 1.0)
+              LinearProgressIndicator(
+                  value: progress,
+                  backgroundColor: Colors.grey[200],
+                  valueColor: AlwaysStoppedAnimation<Color>(
+                      Colors.blue)), // Should be removed while showing
+            Expanded(
+              child: Container(
+                child: InAppWebView(
+                  initialUrlRequest: URLRequest(
+                      url: Uri.parse('${widget.bankUrl}/${widget.token}')),
+                  onPageCommitVisible:
+                      (InAppWebViewController controller, Uri uri) {
+                    print(uri);
+                    if (uri == Uri.parse('http://legalfriendbd.com/')) {
+                      _verifyPayment(publicProvider);
+                    } else if (uri ==
+                        Uri.parse('https://sandbox.walletmix.com/abort')) {
+                      showErrorMgs('অসম্পূর্ণ অর্থ প্রদান');
+                      Navigator.of(context).pop();
+                      //_verifyPayment(publicProvider);
+                    }
+                  },
+                  onProgressChanged:
+                      (InAppWebViewController controller, int progress) {
+                    setState(() {
+                      this.progress = progress / 100;
+                    });
+                  },
+                ),
+              ),
+            )
+            // ignore: unnecessary_null_comparison
+          ].where((Object o) => o != null).toList()))),
+    ); //Remove null widgets
   }
-  
-  Future<void> _verifyPayment()async{
-    var response = await http.post(
-      Uri.parse('http://sandbox.walletmix.com/check-payment'),
-      body: {
-        'wmx_id': 'WMX60c5cc66cfbc7',
-        'authorization':'Basic bGVnYWxmcmllbmRiZF84NDk2OTc1NzQ6bGVnYWxmcmllbmRiZF8xNTU2NzYzMjcw',
-        'access_app_key':'7da51ca75d58b9616cd5139bdbc7bda6151e416f',
-        'token': widget.token
+
+  Future<void> _verifyPayment(PublicProvider publicProvider) async {
+    showLoadingDialog('পেমেন্ট সম্পূর্ণ করা হচ্ছে');
+    var response = await http
+        .post(Uri.parse('https://sandbox.walletmix.com/check-payment'), body: {
+      'wmx_id': 'WMX60c5cc66cfbc7',
+      'authorization':
+          'Basic bGVnYWxmcmllbmRiZF84NDk2OTc1NzQ6bGVnYWxmcmllbmRiZF8xNTU2NzYzMjcw',
+      'access_app_key': '7da51ca75d58b9616cd5139bdbc7bda6151e416f',
+      'token': widget.token
+    });
+    if (response.statusCode == 200) {
+      var jsonData = jsonDecode(response.body);
+      if (jsonData['statusCode'] == 1000) {
+        //payment success code is 1000
+        showSuccessMgs('পেমেন্ট সম্পন্ন হয়েছে');
+        showLoadingDialog('আর্কাইভ করা হচ্ছে...');
+        await publicProvider
+            .archiveData(widget.archiveDataMap)
+            .then((value) async {
+          if (value == true) {
+            Map<String, String> paymentInfoMap = {
+              'wmx_id': jsonData['wmx_id'],
+              'ref_id': jsonData['ref_id'],
+              'token': jsonData['token'],
+              'user_phone': widget.userPhone,
+              'merchant_req_amount': jsonData['merchant_req_amount'],
+              'merchant_ref_id': jsonData['merchant_ref_id'],
+              'merchant_currency': jsonData['merchant_currency'],
+              'merchant_amount_bdt': jsonData['merchant_amount_bdt'],
+              'conversion_rate': jsonData['conversion_rate'],
+              'service_ratio': jsonData['service_ratio'],
+              'wmx_charge_bdt': jsonData['wmx_charge_bdt'],
+              'emi_ratio': jsonData['emi_ratio'],
+              'emi_charge': jsonData['emi_charge'],
+              'bank_amount_bdt': jsonData['bank_amount_bdt'],
+              'discount_bdt': jsonData['discount_bdt'],
+              'merchant_order_id': jsonData['merchant_order_id'],
+              'request_ip': jsonData['request_ip'],
+              'card_details': jsonData['card_details'],
+              'is_foreign': jsonData['is_foreign'],
+              'payment_card': jsonData['payment_card'],
+              'card_code': jsonData['card_code'],
+              'payment_method': jsonData['payment_method'],
+              'init_time': jsonData['init_time'].toString(),
+              'txn_time': jsonData['txn_time'].toString(),
+            };
+            await publicProvider
+                .savePaymentInfo(paymentInfoMap)
+                .then((value) async {
+              await publicProvider.getArchiveDataList().then((value) {
+                closeLoadingDialog();
+                showSuccessMgs('আর্কাইভ সম্পন্ন হয়েছে');
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              });
+            });
+          } else {
+            closeLoadingDialog();
+            showErrorMgs('আর্কাইভ অসম্পন্ন হয়েছে');
+            Navigator.of(context).pop();
+          }
+        });
+      } else if (jsonData['statusCode'] == 1008) {
+        //payment not success code is 1000
+        showErrorMgs('অসম্পূর্ণ অর্থ প্রদান');
+        Navigator.of(context).pop();
+      } else {
+        showErrorMgs('অসম্পূর্ণ অর্থ প্রদান');
+        Navigator.of(context).pop();
       }
-    );
-    //var jsonData= jsonDecode(response.body);
-    if(response.statusCode==200){
-      print(response.body);
+    } else {
+      showErrorMgs('Incomplete Payment');
+      Navigator.of(context).pop();
     }
   }
 }
-
