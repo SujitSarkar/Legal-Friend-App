@@ -159,26 +159,26 @@ class _PaymentPageState extends State<PaymentPage> {
         'amount': '50',
         'currency': 'BDT',
         'options': 'cz1leGFtcGxlLmNvbSxpPTE5Mi4xNjguMTAwLjEwNQ==',
-        'callback_url': 'http://legalfriendbd.com/',
+        'callback_url': 'https://legalfriendbd.com',
         'authorization':
             'Basic bGVnYWxmcmllbmRiZF84NDk2OTc1NzQ6bGVnYWxmcmllbmRiZF8xNTU2NzYzMjcw',
         'app_name': 'legalfriendbd.com',
         'access_app_key': '7da51ca75d58b9616cd5139bdbc7bda6151e416f',
         'wmx_id': 'WMX60c5cc66cfbc7',
-        'merchant_ref_id': id.substring(0, 19),
+        'merchant_ref_id': id.substring(0, 10),
         'customer_name': _preferences.getString('name'),
-        'customer_email': 'legalfriend@gmail.com',
+        'customer_email': 'legalfriendbd@gmail.com',
         'customer_add': _preferences.getString('address'),
         'customer_phone': _preferences.getString('userPhone'),
         'product_desc': 'Book Product',
-        'merchant_order_id': id,
+        'merchant_order_id': id.substring(0, 10),
         'cart_info': 'WMX1234567891234,http://example.com,MyApp'
       });
       var secondJsonData = jsonDecode(secondResponse.body);
       if (secondResponse.statusCode == 200) {
         String _token = secondJsonData['token'];
         Map<String, String> map = {
-          'id': id,
+          'id': id.substring(0, 10),
           'data_id': widget.id,
           'user_phone': _preferences.getString('userPhone'),
           'user_name': _preferences.getString('name'),
@@ -279,14 +279,15 @@ class _StartPaymentProcessState extends State<StartPaymentProcess> {
                   onPageCommitVisible:
                       (InAppWebViewController controller, Uri uri) {
                     print(uri);
-                    if (uri == Uri.parse('http://legalfriendbd.com/')) {
+                    if (uri == Uri.parse('https://legalfriendbd.com/')) {
                       _verifyPayment(publicProvider);
-                    } else if (uri ==
-                        Uri.parse('https://sandbox.walletmix.com/abort')) {
-                      showErrorMgs('অসম্পূর্ণ অর্থ প্রদান');
-                      Navigator.of(context).pop();
-                      //_verifyPayment(publicProvider);
                     }
+                    // else if (uri ==
+                    //     Uri.parse('https://sandbox.walletmix.com/abort')) {
+                    //   showErrorMgs('অসম্পূর্ণ অর্থ প্রদান');
+                    //   Navigator.of(context).pop();
+                    //   //_verifyPayment(publicProvider);
+                    // }
                   },
                   onProgressChanged:
                       (InAppWebViewController controller, int progress) {
@@ -373,7 +374,7 @@ class _StartPaymentProcessState extends State<StartPaymentProcess> {
         Navigator.of(context).pop();
       }
     } else {
-      showErrorMgs('Incomplete Payment');
+      showErrorMgs('অসম্পূর্ণ অর্থ প্রদান');
       Navigator.of(context).pop();
     }
   }
