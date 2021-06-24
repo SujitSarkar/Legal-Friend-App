@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:legal_friend/pages/archive_list.dart';
 import 'package:legal_friend/pages/bodli_khana.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
+import 'package:legal_friend/tiles/notification_widget.dart';
 import 'package:legal_friend/variables/variables.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class NoResultFound extends StatelessWidget {
 
@@ -48,7 +50,21 @@ class NoResultFound extends StatelessWidget {
                   child: Text(
                       Variables.dukkhitoMgs,
                       textAlign: TextAlign.center),
-                )
+                ),
+                InkWell(
+                    onTap: () => _launchSocialApp(
+                        'mailto:legalfriendbd@gmail.com'
+                            '?subject=Inquiry%20Request&body=মামলার%20তথ্যটি%20নিচে%20লিখুন...\n'),
+                    child: Text('send us',
+                        style: TextStyle(
+                            fontSize: size.width * .04,
+                            color: Colors.blue,
+                            decoration: TextDecoration.underline))),
+                Text(
+                  'If you think something is wrong',
+                  style: TextStyle(
+                      color: Colors.grey[900], fontSize: size.width * .04),
+                ),
               ],
             ),
             Column(
@@ -61,8 +77,8 @@ class NoResultFound extends StatelessWidget {
                   width: size.width*.8,
                   borderRadius: size.width * .03,
                   gradientColors: [
-                    Colors.blue[600],
-                    Colors.blue[400],
+                    Colors.purple.shade700,
+                    Colors.purple.shade500,
                   ],
                 ),
                 SizedBox(height: size.width*.04),
@@ -85,6 +101,13 @@ class NoResultFound extends StatelessWidget {
         ),
       ),
     );
+  }
+  Future<void> _launchSocialApp(String url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      showInfo('ব্যর্থ হয়েছে !\nআবার চেষ্টা করুন');
+    }
   }
 }
 

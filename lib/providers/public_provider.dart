@@ -91,7 +91,6 @@ class PublicProvider extends ChangeNotifier{
   //   notifyListeners();
   // }
 
-
   Future<void> getBodliKhanaDataList()async{
     //final String todayDate = DateFormat("dd-MM-yyyy").format(DateTime.fromMillisecondsSinceEpoch(DateTime.now().millisecondsSinceEpoch));
     try{
@@ -179,6 +178,7 @@ class PublicProvider extends ChangeNotifier{
       return false;
     }
   }
+
   Future<bool> savePaymentInfo(Map<String, String> map)async{
     try{
       await FirebaseFirestore.instance.collection('ArchivePaymentInfo').doc(map['merchant_ref_id']).set(map);
@@ -187,5 +187,16 @@ class PublicProvider extends ChangeNotifier{
       showToast(error.toString());
       return false;
     }
+  }
+
+  Future<bool> deleteArchiveData(String id)async{
+    try{
+      await FirebaseFirestore.instance.collection('UserArchiveData').doc(id).delete();
+      return true;
+    }catch(error){
+      showToast('ডিলিট অসম্পন্ন হয়েছে\nআবার চেষ্টা করুন');
+          return false;
+    }
+
   }
 }

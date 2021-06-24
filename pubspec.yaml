@@ -19,6 +19,7 @@ dependencies:
   flutter_inappwebview:
   http:
   url_launcher:
+  flutter_animated_dialog:
 #  flutter_launcher_icons: ^0.9.0
 
 dev_dependencies:

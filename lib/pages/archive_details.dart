@@ -81,7 +81,8 @@ class _ArchiveDetailsState extends State<ArchiveDetails> {
                       color: Colors.grey[900], fontSize: size.width * .04),
                   children: <TextSpan>[
                     TextSpan(
-                        text: '${Variables.mamlaNo}${widget.mamlaNo}\n',
+                        text: '${widget.mamlarDhoron==Variables.niAct
+                            ? Variables.crMamlaNo:Variables.mamlaNo}${widget.mamlaNo}\n',
                         style: TextStyle(
                           fontWeight: FontWeight.bold,
                           fontSize: size.width * .06,
@@ -100,6 +101,7 @@ class _ArchiveDetailsState extends State<ArchiveDetails> {
                     TextSpan(text: '${Variables.bicaricAdalot}\n'),
                     TextSpan(text: '${widget.bicarikAdalot}\n'),
                     TextSpan(text: '${Variables.boiNo} ${widget.boiNo}\n'),
+                    TextSpan(text: 'মামলার ধরন- ${widget.mamlarDhoron}\n'),
                   ],
                 ),
               ),
@@ -113,8 +115,8 @@ class _ArchiveDetailsState extends State<ArchiveDetails> {
                 width: size.width * .8,
                 borderRadius: size.width * .03,
                 gradientColors: [
-                  Color(0xFF0D47A1),
-                  Color(0xFF1976D2),
+                  Colors.purple.shade700,
+                  Colors.purple.shade500,
                 ],
               ),
             ],

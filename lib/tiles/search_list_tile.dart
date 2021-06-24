@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:legal_friend/model_class/archive_data_model.dart';
 import 'package:legal_friend/model_class/bodli_khana_model.dart';
+import 'package:legal_friend/pages/archive_list.dart';
 import 'package:legal_friend/pages/login_page.dart';
 import 'package:legal_friend/pages/payment_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
@@ -28,7 +30,8 @@ class SearchListTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: size.width * .05),
-          Text('${publicProvider.crToggle()}${dataList[index].mamlaNo}',
+          Text('${dataList[index].mamlarDhoron==Variables.niAct
+              ? Variables.crMamlaNo:Variables.mamlaNo}${dataList[index].mamlaNo}',
               style: TextStyle(
                   fontSize: size.width * .04, color: Colors.grey[900])),
           SizedBox(height: size.width * .01),
@@ -70,7 +73,48 @@ class SearchListTile extends StatelessWidget {
                                 jojCourt: dataList[index].jojCourt)));
                   } else {
                     closeLoadingDialog();
-                    showInfo('এই তথ্যটি আগে থেকেই আপনার আর্কাইভ করা আছে');
+                    showAnimatedDialog(
+                      context: context,
+                      barrierDismissible: true,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          scrollable: true,
+                          backgroundColor: Colors.white,
+                          content: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text('এই মামলাটি আপনার আর্কাইভে আছে',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  color: Colors.grey.shade900,
+                                  fontSize: size.width*.05
+                                ),
+                              ),
+                              SizedBox(height: size.width*.04),
+
+                              GradientButton(
+                                onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveList())),
+                                child: Text(Variables.archive,style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: size.width*.05
+                                ),),
+                                height: size.width * .1,
+                                width: size.width * .5,
+                                borderRadius: size.width * .03,
+                                gradientColors: [
+                                  Color(0xFF0D47A1),
+                                  Color(0xFF1976D2),
+                                ],
+                              )
+
+                            ],
+                          ),
+                        );
+                      },
+                      animationType: DialogTransitionType.slideFromTopFade,
+                      curve: Curves.fastOutSlowIn,
+                      duration: Duration(milliseconds: 500),
+                    );
                   }
                 });
               } else

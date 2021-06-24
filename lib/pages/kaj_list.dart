@@ -53,20 +53,7 @@ class _KajListState extends State<KajList> {
                     ),
                   ),
                   SizedBox(height: size.width * .01),
-                  InkWell(
-                      onTap: () => _launchSocialApp(
-                          'mailto:legalfriendbd@gmail.com'
-                          '?subject=Mail%20To%20LegalFriend&body=Type%20your%20message%20here'),
-                      child: Text('send us',
-                          style: TextStyle(
-                              fontSize: size.width * .04,
-                              color: Colors.blue,
-                              decoration: TextDecoration.underline))),
-                  Text(
-                    'If you think something is wrong',
-                    style: TextStyle(
-                        color: Colors.grey[900], fontSize: size.width * .04),
-                  ),
+
                 ],
               ),
               Column(
@@ -81,8 +68,8 @@ class _KajListState extends State<KajList> {
                     width: size.width * .8,
                     borderRadius: size.width * .03,
                     gradientColors: [
-                      Colors.green[700],
-                      Colors.green[600],
+                      Colors.teal.shade700,
+                      Colors.teal.shade500
                     ],
                   ),
                   SizedBox(height: size.width * .04),
@@ -119,11 +106,5 @@ class _KajListState extends State<KajList> {
         ),
       );
 
-  Future<void> _launchSocialApp(String url) async {
-    if (await canLaunch(url)) {
-      await launch(url);
-    } else {
-      showInfo('ব্যর্থ হয়েছে !\nআবার চেষ্টা করুন');
-    }
-  }
+
 }

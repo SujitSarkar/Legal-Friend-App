@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:legal_friend/pages/archive_details.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/app_bar.dart';
@@ -37,15 +38,15 @@ class _ArchiveListState extends State<ArchiveList> {
     return Scaffold(
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(100),
-        child: PublicAppBar(
-          pageName: '',
-          bottomText: '',
-          image: 'assets/home_image/bodli_khana.png',
-          color: Theme.of(context).primaryColor,
-        ),
-      ),
+      // appBar: PreferredSize(
+      //   preferredSize: Size.fromHeight(100),
+      //   child: PublicAppBar(
+      //     pageName: '',
+      //     bottomText: '',
+      //     image: 'assets/home_image/bodli_khana.png',
+      //     color: Theme.of(context).primaryColor,
+      //   ),
+      // ),
       body: _isLoading
           ? Center(child: spinCircle())
           : _bodyUI(size, publicProvider),
@@ -58,6 +59,7 @@ class _ArchiveListState extends State<ArchiveList> {
         onRefresh: () async => await publicProvider.getArchiveDataList(),
         child: Column(
           children: [
+            SizedBox(height: size.width * .22),
             GradientButton(
               onPressed: () async => await publicProvider.getArchiveDataList(),
               child: Text(Variables.archive,
@@ -70,7 +72,7 @@ class _ArchiveListState extends State<ArchiveList> {
                 Color(0xFF1976D2),
               ],
             ),
-            SizedBox(height: size.width * .04),
+            //SizedBox(height: size.width * .04),
             publicProvider.archiveDataList.isEmpty
                 ? SizedBox(height: size.width * .2)
                 : Container(),
@@ -124,6 +126,45 @@ class _ArchiveListState extends State<ArchiveList> {
                                         saveDate: publicProvider
                                             .archiveDataList[index].saveDate,
                                       ))),
+                          onLongPress: (){
+                            showAnimatedDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (BuildContext context) {
+                                return ClassicGeneralDialogWidget(
+                                  titleText: 'মামলাটি ডিলিট করতে চান?',
+                                  positiveText: 'হ্যাঁ',
+                                  negativeText: 'না',
+                                  negativeTextStyle: TextStyle(
+                                      color: Colors.green,
+                                      fontSize: size.height*.022
+                                  ),
+                                  positiveTextStyle: TextStyle(
+                                      color: Colors.redAccent,
+                                      fontSize: size.height*.022
+                                  ),
+                                  onPositiveClick: () async{
+                                    showLoadingDialog('অপেক্ষা করুন');
+                                    await publicProvider.deleteArchiveData(publicProvider.archiveDataList[index].id).then((value)async{
+                                      if(value){
+                                        await publicProvider.getArchiveDataList();
+                                        closeLoadingDialog();
+                                        showSuccessMgs('মামলা ডিলিট সম্পন্ন হয়েছে');
+                                        Navigator.pop(context);
+                                      }else{
+                                        Navigator.pop(context);
+                                        showToast('ব্যর্থ হয়েছে! আবার চেষ্টা করুন');
+                                      }
+                                    });
+                                  },
+                                  onNegativeClick: () => Navigator.of(context).pop(),
+                                );
+                              },
+                              animationType: DialogTransitionType.slideFromTopFade,
+                              curve: Curves.fastOutSlowIn,
+                              duration: Duration(milliseconds: 500),
+                            );
+                          },
                           child: ArchiveTile(
                               index: index,
                               dataList: publicProvider.archiveDataList)),

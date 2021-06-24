@@ -1,5 +1,5 @@
 class Variables {
-  static final String niAct = 'এন.আই এক্ট';
+  static final String niAct = 'এন.আই.এ্যাক্ট';
   static final String madokDondobidhi = 'মাদক/দন্ডবিধি';
   static final String bisesTribunal = 'বিশেষ ট্রাইব্যুনাল';
   static final String archive = 'আর্কাইভ';
@@ -10,7 +10,7 @@ class Variables {
   static final String mamlaNo = 'মামলা নং- ';
   static final String onusondhanKorun = 'অনুসন্ধান করুন';
   static final String cR = 'সিআর-';
-  static final String archiveRakhun = 'আর্কাইভ রাখুন';
+  static final String archiveRakhun = 'আর্কাইভে রাখুন';
   static final String songrokkhitoArchive = '্সংরক্কষিত আর্কাইভ';
   static final String sorboseshUpdateBoi = 'সর্বশেষ আপডেট বই-';
   static final String porjonto = 'পর্যন্ত';
@@ -37,9 +37,66 @@ class Variables {
     'সিলেট',
     'কক্সবাজার'
   ];
+  static final List<String> thanaList = [
+    'মিরপুর',
+    'রমনা',
+    'পল্লবী',
+    'রুপনগর',
+    'উত্তরখান',
+    'দক্ষিণখান',
+    'তেজগাঁও',
+    'তেজগাঁও শিল্পাঞ্চল',
+    'পল্টন',
+    'ধানমন্ডি',
+    'কলাবাগান',
+    'নিউমার্কেট',
+    'শাহবাগ',
+    'মোহাম্মদপুর',
+    'শাহজাহানপুর',
+    'তুরাগ',
+    'বিমানবন্দর',
+    'হাজারীবাগ',
+    'শেরেবাংলা নগর',
+    'খিলগাঁও',
+    'মুগদা',
+    'লালবাগ',
+    'উত্তরা পূর্ব',
+    'উত্তরা পশ্চিম',
+    'কামরাঙ্গীচর',
+    'ভাটারা',
+    'আদাবর',
+    'হাতিরঝিল',
+    'খিলক্ষেত',
+    'ক্যান্টনমেন্ট',
+    'কাফরুল',
+    'ভাষানটেক',
+    'যাত্রাবাড়ী',
+    'মতিঝিল',
+    'চকবাজার',
+    'সুত্রাপুর',
+    'গেন্ডারিয়া',
+    'গুলশান',
+    'শাহ আলী',
+    'দারুসসালাম',
+    'বাড্ডা',
+    'ওয়ারী',
+    'বনানী',
+    'ডেমরা',
+    'কদমতলী',
+    'শ্যামপুর',
+    'সবুজবাগ',
+    'রামপুরা',
+    'কোতোয়ালী',
+    'বংশাল',
+    'সাভার',
+    'দোহার',
+    'দক্ষিণ কেরানিগঞ্জ',
+    'কেরানিগঞ্জ',
+    'আাশুলিয়া',
+    'ধামরাই'];
 
   static final String paymentMgs =
-      'এই মামলার তথ্য সংরক্ষণ করে রাখতে হলে আপনাকে ৫০ টাকা প্রদান করতে হবে';
+      'এই মামলার তথ্য আর্কাইভে রাখতে চাইলে ৫০ টাকা চার্জ প্রযোজ্য';
 
   static final String dukkhitoMgs =
       'মামলাটি আমাদের সর্বশেষ আপডেটকৃত রেজিস্টার বইতে এন্ট্রি হয়নি। কর্তৃপক্ষ হইতে পরবর্তী'

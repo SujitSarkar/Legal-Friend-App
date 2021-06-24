@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:intl/intl.dart';
+import 'package:legal_friend/pages/archive_list.dart';
 import 'package:legal_friend/pages/login_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
@@ -146,7 +147,7 @@ class _PaymentPageState extends State<PaymentPage> {
     final uuid = Uuid();
     final String id = uuid.v1();
 
-    final url = Uri.parse('https://sandbox.walletmix.com/check-server');
+    final url = Uri.parse('https://epay.walletmix.com/check-server');
     //Get InitUrl
     var response = await http.get(url);
     var jsonData = jsonDecode(response.body);
@@ -156,19 +157,19 @@ class _PaymentPageState extends State<PaymentPage> {
 
       //Bang Payment Request
       var secondResponse = await http.post(Uri.parse(_initUrl), body: {
-        'amount': '50',
+        'amount': '48.78',
         'currency': 'BDT',
         'options': 'cz1leGFtcGxlLmNvbSxpPTE5Mi4xNjguMTAwLjEwNQ==',
         'callback_url': 'https://legalfriendbd.com',
         'authorization':
-            'Basic bGVnYWxmcmllbmRiZF84NDk2OTc1NzQ6bGVnYWxmcmllbmRiZF8xNTU2NzYzMjcw',
+            'Basic bGVnYWxmcmllbmRvZmN0Z18xNjYxNzA2NTQ4OmxlZ2FsZnJpZW5kb2ZjdGdfMTk1MDAzOA==',
         'app_name': 'legalfriendbd.com',
-        'access_app_key': '7da51ca75d58b9616cd5139bdbc7bda6151e416f',
-        'wmx_id': 'WMX60c5cc66cfbc7',
+        'access_app_key': 'd38b9713157fec41b317e07f43482d9116020d84',
+        'wmx_id': 'WMX60d420f681598',
         'merchant_ref_id': id.substring(0, 10),
-        'customer_name': _preferences.getString('name'),
+        'customer_name': 'কামরুল হাসান',
         'customer_email': 'legalfriendbd@gmail.com',
-        'customer_add': _preferences.getString('address'),
+        'customer_add': 'জজ কোর্ট, ঢাকা',
         'customer_phone': _preferences.getString('userPhone'),
         'product_desc': 'Book Product',
         'merchant_order_id': id.substring(0, 10),
@@ -181,8 +182,8 @@ class _PaymentPageState extends State<PaymentPage> {
           'id': id.substring(0, 10),
           'data_id': widget.id,
           'user_phone': _preferences.getString('userPhone'),
-          'user_name': _preferences.getString('name'),
-          'user_address': _preferences.getString('address'),
+          'user_name': 'কামরুল হাসান',
+          'user_address': 'জজ কোর্ট, ঢাকা',
           'amoli_adalot': widget.amoliAdalot,
           'bicarik_adalot': widget.bicarikAdalot,
           'boi_no': widget.boiNo,
@@ -306,11 +307,11 @@ class _StartPaymentProcessState extends State<StartPaymentProcess> {
   Future<void> _verifyPayment(PublicProvider publicProvider) async {
     showLoadingDialog('পেমেন্ট সম্পূর্ণ করা হচ্ছে');
     var response = await http
-        .post(Uri.parse('https://sandbox.walletmix.com/check-payment'), body: {
-      'wmx_id': 'WMX60c5cc66cfbc7',
+        .post(Uri.parse('https://epay.walletmix.com/check-payment'), body: {
+      'wmx_id': 'WMX60d420f681598',
       'authorization':
-          'Basic bGVnYWxmcmllbmRiZF84NDk2OTc1NzQ6bGVnYWxmcmllbmRiZF8xNTU2NzYzMjcw',
-      'access_app_key': '7da51ca75d58b9616cd5139bdbc7bda6151e416f',
+          'Basic bGVnYWxmcmllbmRvZmN0Z18xNjYxNzA2NTQ4OmxlZ2FsZnJpZW5kb2ZjdGdfMTk1MDAzOA==',
+      'access_app_key': 'd38b9713157fec41b317e07f43482d9116020d84',
       'token': widget.token
     });
     if (response.statusCode == 200) {
@@ -355,8 +356,7 @@ class _StartPaymentProcessState extends State<StartPaymentProcess> {
               await publicProvider.getArchiveDataList().then((value) {
                 closeLoadingDialog();
                 showSuccessMgs('আর্কাইভ সম্পন্ন হয়েছে');
-                Navigator.of(context).pop();
-                Navigator.of(context).pop();
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>ArchiveList()));
               });
             });
           } else {

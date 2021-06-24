@@ -17,8 +17,9 @@ class SearchPage extends StatefulWidget {
 class _SearchPageState extends State<SearchPage> {
   String _amoliAdalot;
   String _jojkrot;
-  TextEditingController _mamlaNo = TextEditingController(text: '');
+  String _mamlaNoDrop;
   TextEditingController _mamlaNo2 = TextEditingController(text: '');
+  TextEditingController _mamlaNo = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
@@ -62,7 +63,7 @@ class _SearchPageState extends State<SearchPage> {
                       BorderRadius.all(Radius.circular(size.width * .02)),
                 ),
                 child: Text(
-                    '${Variables.boiNo}৯/২০২১ ${Variables.thekeSuruHoyeche}',
+                    '${Variables.boiNo}০১/২০২১ ${Variables.thekeSuruHoyeche}',
                     style: TextStyle(
                         fontSize: size.width * .04, color: Colors.grey[900])),
               ),
@@ -77,29 +78,65 @@ class _SearchPageState extends State<SearchPage> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Container(
-                        width: size.width * .3,
+                        width: size.width * .18,
                         alignment: Alignment.centerRight,
                         child: Text(publicProvider.crToggle(),
                             style: TextStyle(
                                 fontSize: size.width * .04,
                                 color: Colors.grey[900])),
                       ),
-                      Container(
+
+
+                      ///Mamla No
+                      publicProvider.pageValue==Variables.niAct
+                          ?Container(
                         width: size.width * .22,
                         child: TextField(
                           controller: _mamlaNo,
-                          keyboardType:
-                              publicProvider.pageValue == Variables.niAct
-                                  ? TextInputType.number
-                                  : TextInputType.text,
+                          keyboardType: TextInputType.text,
                           style: TextStyle(
                               color: Colors.grey[900],
                               fontSize: size.width * .035),
                           decoration: boxFormDecoration(size).copyWith(
-                            hintText: publicProvider.crMamlaHintFirst(),
+                            hintText: publicProvider.crMamlaHintSecond(),
+                          ),
+                        ),
+                      )
+                      :Container(
+                        width: size.width * .38,
+                        padding: EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                        decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey[800], width: 1.5),
+                            borderRadius:
+                            BorderRadius.all(Radius.circular(size.width * .02))),
+                        child: DropdownButtonHideUnderline(
+                          child: DropdownButton(
+                            isDense: true,
+                            isExpanded: true,
+                            value:_mamlaNoDrop,
+                            //itemHeight: 300.0,
+                            menuMaxHeight: 500,
+                            hint: Text('থানার নাম',
+                                style: TextStyle(
+                                  color: Colors.grey[700],
+                                  fontSize: size.width * .04,
+                                )),
+                            items:Variables.thanaList.map((category) {
+                              return DropdownMenuItem(
+                                child: Text(category,
+                                    style: TextStyle(
+                                        color: Colors.grey[900],
+                                        fontSize: size.width * .033)),
+                                value: category,
+                              );
+                            }).toList(),
+                            onChanged: (newValue) => setState(() =>
+                            _mamlaNoDrop = newValue),
+                            dropdownColor: Colors.white,
                           ),
                         ),
                       ),
+
                       Text(
                         publicProvider.toggleSign(),
                         style: TextStyle(
@@ -111,7 +148,7 @@ class _SearchPageState extends State<SearchPage> {
                         width: size.width * .22,
                         child: TextField(
                           controller: _mamlaNo2,
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.text,
                           style: TextStyle(
                               color: Colors.grey[900],
                               fontSize: size.width * .035),
@@ -125,18 +162,33 @@ class _SearchPageState extends State<SearchPage> {
               SizedBox(height: size.width * .2),
               GradientButton(
                 onPressed: () {
-                  if (_amoliAdalot != null &&
-                      _jojkrot != null &&
-                      _mamlaNo.text.isNotEmpty &&
-                      _mamlaNo2.text.isNotEmpty) {
-                    publicProvider.bodliKhanaModel.amoliAdalot = _amoliAdalot;
-                    publicProvider.bodliKhanaModel.jojCourt = _jojkrot;
-                    publicProvider.bodliKhanaModel.mamlaNo =
-                        '${_mamlaNo.text}/${_mamlaNo2.text}';
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => SearchtList()));
-                  } else
-                    showToast('সকল ডেটা ফিল্ড পুরন করুন');
+                  if(publicProvider.pageValue== Variables.niAct){
+                    if (_amoliAdalot != null &&
+                        _jojkrot != null &&
+                        _mamlaNo.text.isNotEmpty &&
+                        _mamlaNo2.text.isNotEmpty) {
+                      publicProvider.bodliKhanaModel.amoliAdalot = _amoliAdalot;
+                      publicProvider.bodliKhanaModel.jojCourt = _jojkrot;
+                      publicProvider.bodliKhanaModel.mamlaNo =
+                      '${_mamlaNo.text}${publicProvider.toggleSign()}${_mamlaNo2.text}';
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => SearchtList()));
+                    } else
+                      showToast('সকল ডেটা ফিল্ড পুরন করুন');
+                  }else{
+                    if (_amoliAdalot != null &&
+                        _jojkrot != null &&
+                        _mamlaNoDrop!=null &&
+                        _mamlaNo2.text.isNotEmpty) {
+                      publicProvider.bodliKhanaModel.amoliAdalot = _amoliAdalot;
+                      publicProvider.bodliKhanaModel.jojCourt = _jojkrot;
+                      publicProvider.bodliKhanaModel.mamlaNo =
+                      '$_mamlaNoDrop${publicProvider.toggleSign()}${_mamlaNo2.text}';
+                      Navigator.push(context,
+                          MaterialPageRoute(builder: (context) => SearchtList()));
+                    } else
+                      showToast('সকল ডেটা ফিল্ড পুরন করুন');
+                  }
                 },
                 child: Text(Variables.onusondhanKorun,
                     style: TextStyle(

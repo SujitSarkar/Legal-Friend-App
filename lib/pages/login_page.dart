@@ -9,8 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 // ignore: must_be_immutable
 class LogInPage extends StatelessWidget {
   TextEditingController _phone = TextEditingController(text: '');
-  TextEditingController _name = TextEditingController(text: '');
-  TextEditingController _address = TextEditingController(text: '');
 
   @override
   Widget build(BuildContext context) {
@@ -42,7 +40,7 @@ class LogInPage extends StatelessWidget {
         ),
         body: Center(
           child: Container(
-            height: size.height * .5,
+            height: size.height * .4,
             width: size.width * .8,
             padding: EdgeInsets.symmetric(
                 horizontal: size.width * .05, vertical: size.width * .04),
@@ -53,17 +51,13 @@ class LogInPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  'আর্কাইভ লিষ্ট দেখতে অথবা ডেটা আর্কাইভ করে রাখতে হলে লগ-ইন করুন ।',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                      color: Colors.grey.shade900, fontSize: size.width * .04),
-                ),
+                Image.asset('assets/logo/splash_image.png'),
+
                 SizedBox(height: size.width * .08),
-                _textFieldBuilder('আপনার নাম', size),
-                SizedBox(height: size.width * .04),
-                _textFieldBuilder('ঠিকানা', size),
-                SizedBox(height: size.width * .04),
+                // _textFieldBuilder('আপনার নাম', size),
+                // SizedBox(height: size.width * .04),
+                // _textFieldBuilder('ঠিকানা', size),
+                // SizedBox(height: size.width * .04),
                 TextField(
                   controller: _phone,
                   keyboardType: TextInputType.phone,
@@ -75,29 +69,29 @@ class LogInPage extends StatelessWidget {
                 SizedBox(height: size.width * .04),
                 GradientButton(
                   onPressed: () async {
-                    if (_phone.text.isNotEmpty &&
-                        _name.text.isNotEmpty &&
-                        _address.text.isNotEmpty) {
-                      showLoadingDialog('অপেক্ষা করো');
-                      SharedPreferences preferences =
-                          await SharedPreferences.getInstance();
-                      await preferences.setString('userPhone', _phone.text);
-                      await preferences.setString('address', _address.text);
-                      await preferences.setString('name', _name.text);
-                      await publicProvider.getArchiveDataList();
-                      closeLoadingDialog();
-                      Navigator.pop(context);
-                    } else
-                      showToast('ফর্ম পুরন করুন');
+                    if (_phone.text.isNotEmpty) {
+                      if(_phone.text.length>=11){
+                        showLoadingDialog('অপেক্ষা করো');
+                        SharedPreferences preferences =
+                        await SharedPreferences.getInstance();
+                        await preferences.setString('userPhone', _phone.text);
+                        await publicProvider.getArchiveDataList();
+                        closeLoadingDialog();
+                        Navigator.pop(context);
+                      }else showToast('মোবাইল নাম্বার ১১ ডিজিট হতে হবে');
+                    }else showToast('ফর্ম পুরন করুন');
                   },
                   child: Text('লগ ইন',
-                      style: TextStyle(fontSize: size.width * .044)),
+                      style: TextStyle(
+                          fontSize: size.width * .045,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.yellow)),
                   height: size.width * .1,
                   width: size.width * .5,
                   borderRadius: size.width * .03,
                   gradientColors: [
-                    Color(0xFF0D47A1),
-                    Color(0xFF1976D2),
+                    Color(0xff3FAE4C),
+                    Color(0xff55B761),
                   ],
                 ),
               ],
@@ -108,10 +102,10 @@ class LogInPage extends StatelessWidget {
     );
   }
 
-  Widget _textFieldBuilder(String hint, Size size) => TextField(
-        controller: hint == 'আপনার নাম' ? _name : _address,
-        keyboardType: TextInputType.text,
-        textCapitalization: TextCapitalization.words,
-        decoration: boxFormDecoration(size).copyWith(hintText: hint),
-      );
+  // Widget _textFieldBuilder(String hint, Size size) => TextField(
+  //       controller: hint == 'আপনার নাম' ? _name : _address,
+  //       keyboardType: TextInputType.text,
+  //       textCapitalization: TextCapitalization.words,
+  //       decoration: boxFormDecoration(size).copyWith(hintText: hint),
+  //     );
 }

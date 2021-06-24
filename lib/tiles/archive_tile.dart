@@ -24,7 +24,8 @@ class ArchiveTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           SizedBox(height: size.width*.02),
-          Text('${Variables.mamlaNo}${dataList[index].mamlaNo}',style: TextStyle(
+          Text('${dataList[index].mamlarDhoron==Variables.niAct
+              ? Variables.crMamlaNo:Variables.mamlaNo}${dataList[index].mamlaNo}',style: TextStyle(
               fontSize: size.width * .042,
               fontWeight: FontWeight.bold,
                color: todayDate==dataList[index].saveDate?Theme.of(context).primaryColor: Colors.grey[900])),
