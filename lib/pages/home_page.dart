@@ -1,4 +1,6 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:legal_friend/pages/archive_list.dart';
 import 'package:legal_friend/pages/bodli_khana.dart';
 import 'package:legal_friend/pages/kaj_list.dart';
@@ -7,6 +9,7 @@ import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:legal_friend/tiles/home_tile.dart';
+import 'package:legal_friend/tiles/notification_widget.dart';
 import 'package:legal_friend/variables/variables.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -17,13 +20,58 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  bool _isLoading = false;
+  int _counter = 0;
+
+  Future<void> _customInit(PublicProvider publicProvider) async {
+    setState(() => _counter++);
+    if (publicProvider.noticeBoardImageLink.isEmpty) {
+      setState(() => _isLoading = true);
+      await publicProvider.getNoticeBoardImageLink().then((value) {
+        setState(() => _isLoading = false);
+      });
+    }
+    if(publicProvider.noticeBoardImageLink.isNotEmpty){
+      Future.delayed(Duration(milliseconds: 200)).then((value){
+        _showNotice(publicProvider);
+      });
+    }
+
+  }
+
+  void _showNotice(PublicProvider publicProvider){
+    showAnimatedDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          contentPadding: EdgeInsets.all(5.0),
+          scrollable: true,
+          backgroundColor: Colors.white,
+          content: CachedNetworkImage(
+            imageUrl: publicProvider.noticeBoardImageLink,
+            placeholder: (context, url) => spinCircle(),
+            errorWidget: (context, url, error) => Icon(Icons.info_outline),
+            //fit: BoxFit.contain,
+          ),
+        );
+      },
+      animationType: DialogTransitionType.slideFromTopFade,
+      curve: Curves.fastOutSlowIn,
+      duration: Duration(milliseconds: 500),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final PublicProvider publicProvider = Provider.of<PublicProvider>(context);
+    if (_counter == 0) _customInit(publicProvider);
 
     return Scaffold(
-      body: _bodyUI(size),
+      body: _isLoading
+          ?Center(child: spinCircle())
+          : _bodyUI(size),
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       bottomNavigationBar: BottomTile(),

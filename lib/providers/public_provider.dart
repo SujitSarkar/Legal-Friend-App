@@ -11,6 +11,7 @@ class PublicProvider extends ChangeNotifier{
   SharedPreferences _preferences;
   String _pageValue='';
   BodliKhanaModel _bodliKhanaModel= BodliKhanaModel();
+  String _noticeBoardImageLink='';
 
   List<ArchiveDataModel> _archiveDataList =[];
   List<BodliKhanaModel> _bodliKhanaList = [];
@@ -18,6 +19,7 @@ class PublicProvider extends ChangeNotifier{
   List<BodliKhanaModel> _madokDataList = [];
   List<BodliKhanaModel> _tribunalDataList = [];
 
+  get noticeBoardImageLink=> _noticeBoardImageLink;
   get bodliKhanaModel=> _bodliKhanaModel;
   get bodliKhanaList=> _bodliKhanaList;
   get niActDataList=> _niActDataList;
@@ -90,6 +92,19 @@ class PublicProvider extends ChangeNotifier{
   //   });
   //   notifyListeners();
   // }
+
+  Future<bool> getNoticeBoardImageLink()async{
+    try{
+      QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('NoticeBoard').get();
+      final List<QueryDocumentSnapshot> image = snapshot.docs;
+      if(image.isNotEmpty) _noticeBoardImageLink= image[0].get('image_link');
+      notifyListeners();
+      return true;
+    }catch(error){
+      showToast(error.toString());
+      return false;
+    }
+  }
 
   Future<void> getBodliKhanaDataList()async{
     //final String todayDate = DateFormat("dd-MM-yyyy").format(DateTime.fromMillisecondsSinceEpoch(DateTime.now().millisecondsSinceEpoch));
