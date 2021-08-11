@@ -1,3 +1,4 @@
+import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:legal_friend/pages/search_list.dart';
 import 'package:legal_friend/providers/public_provider.dart';
@@ -15,6 +16,7 @@ class SearchPage extends StatefulWidget {
 }
 
 class _SearchPageState extends State<SearchPage> {
+  bool _internetConnected=true;
   String _amoliAdalot;
   String _jojkrot;
   String _mamlaNoDrop;
@@ -161,18 +163,23 @@ class _SearchPageState extends State<SearchPage> {
                   )),
               SizedBox(height: size.width * .2),
               GradientButton(
-                onPressed: () {
+                onPressed: () async{
                   if(publicProvider.pageValue== Variables.niAct){
                     if (_amoliAdalot != null &&
                         _jojkrot != null &&
                         _mamlaNo.text.isNotEmpty &&
                         _mamlaNo2.text.isNotEmpty) {
-                      publicProvider.bodliKhanaModel.amoliAdalot = _amoliAdalot;
-                      publicProvider.bodliKhanaModel.jojCourt = _jojkrot;
-                      publicProvider.bodliKhanaModel.mamlaNo =
-                      '${_mamlaNo.text}${publicProvider.toggleSign()}${_mamlaNo2.text}';
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => SearchtList()));
+                      await _checkConnectivity();
+                      if(_internetConnected){
+                        publicProvider.bodliKhanaModel.amoliAdalot = _amoliAdalot;
+                        publicProvider.bodliKhanaModel.jojCourt = _jojkrot;
+                        publicProvider.bodliKhanaModel.mamlaNo =
+                        '${_mamlaNo.text}${publicProvider.toggleSign()}${_mamlaNo2.text}';
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => SearchtList()));
+                      }else showInfo('কোন ইন্টারনেট সংযোগ নেই, '
+                      'মোবাইল ডাটা/ওয়াইফাই চালু করুন \u{1F629}');
+                      
                     } else
                       showToast('সকল ডেটা ফিল্ড পুরন করুন');
                   }else{
@@ -180,12 +187,17 @@ class _SearchPageState extends State<SearchPage> {
                         _jojkrot != null &&
                         _mamlaNoDrop!=null &&
                         _mamlaNo2.text.isNotEmpty) {
-                      publicProvider.bodliKhanaModel.amoliAdalot = _amoliAdalot;
-                      publicProvider.bodliKhanaModel.jojCourt = _jojkrot;
-                      publicProvider.bodliKhanaModel.mamlaNo =
-                      '$_mamlaNoDrop${publicProvider.toggleSign()}${_mamlaNo2.text}';
-                      Navigator.push(context,
-                          MaterialPageRoute(builder: (context) => SearchtList()));
+                      await _checkConnectivity();
+                      if(_internetConnected){
+                        publicProvider.bodliKhanaModel.amoliAdalot = _amoliAdalot;
+                        publicProvider.bodliKhanaModel.jojCourt = _jojkrot;
+                        publicProvider.bodliKhanaModel.mamlaNo =
+                        '$_mamlaNoDrop${publicProvider.toggleSign()}${_mamlaNo2.text}';
+                        Navigator.push(context,
+                            MaterialPageRoute(builder: (context) => SearchtList()));
+                      }else showInfo('কোন ইন্টারনেট সংযোগ নেই, '
+                          'মোবাইল ডাটা/ওয়াইফাই চালু করুন \u{1F629}');
+                      
                     } else
                       showToast('সকল ডেটা ফিল্ড পুরন করুন');
                   }
@@ -274,4 +286,15 @@ class _SearchPageState extends State<SearchPage> {
           ],
         ),
       );
+
+  Future<void> _checkConnectivity() async {
+    var result = await (Connectivity().checkConnectivity());
+    if (result == ConnectivityResult.none) {
+      setState(()=> _internetConnected = false);
+    } else if (result == ConnectivityResult.mobile) {
+      setState(()=> _internetConnected = true);
+    } else if (result == ConnectivityResult.wifi) {
+      setState(()=> _internetConnected = true);
+    }
+  }
 }

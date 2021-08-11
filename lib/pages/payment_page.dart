@@ -300,7 +300,8 @@ class _StartPaymentProcessState extends State<StartPaymentProcess> {
               ),
             )
             // ignore: unnecessary_null_comparison
-          ].where((Object o) => o != null).toList()))),
+          ].where((Object o) => o != null).toList()))
+      ),
     ); //Remove null widgets
   }
 

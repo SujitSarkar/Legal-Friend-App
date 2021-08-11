@@ -2,7 +2,7 @@
     package="com.glamworlditltd.legal_friend.legal_friend">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="Legal Friend"
+        android:label="LegalFriend"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"

@@ -48,11 +48,23 @@ class _HomePageState extends State<HomePage> {
           contentPadding: EdgeInsets.all(5.0),
           scrollable: true,
           backgroundColor: Colors.white,
-          content: CachedNetworkImage(
-            imageUrl: publicProvider.noticeBoardImageLink,
-            placeholder: (context, url) => spinCircle(),
-            errorWidget: (context, url, error) => Icon(Icons.info_outline),
-            //fit: BoxFit.contain,
+          content: Column(
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                alignment: Alignment.topRight,
+                child: InkWell(
+                  onTap: ()=>Navigator.pop(context),
+                  child: Icon(Icons.cancel),
+                ),
+              ),
+              CachedNetworkImage(
+                imageUrl: publicProvider.noticeBoardImageLink,
+                placeholder: (context, url) => spinCircle(),
+                errorWidget: (context, url, error) => Icon(Icons.info_outline),
+                //fit: BoxFit.contain,
+              ),
+            ],
           ),
         );
       },

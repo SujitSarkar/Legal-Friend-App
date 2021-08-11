@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:legal_friend/pages/login_page.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
-import 'package:legal_friend/tiles/notification_widget.dart';
 import 'package:legal_friend/variables/variables.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 import 'archive_list.dart';
 
