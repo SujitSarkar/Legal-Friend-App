@@ -25,15 +25,22 @@ class _SearchtListState extends State<SearchtList> {
     if(publicProvider.pageValue==Variables.niAct) _subList=publicProvider.niActDataList;
     if(publicProvider.pageValue==Variables.madokDondobidhi) _subList=publicProvider.madokDataList;
     if(publicProvider.pageValue==Variables.bisesTribunal) _subList=publicProvider.tribunalDataList;
-    _filteredSubList = _subList;
-
-    setState(() {
-      _filteredSubList = _subList.where((element) =>
-      (element.jojCourt.toLowerCase().contains(publicProvider.bodliKhanaModel.jojCourt)
-          && element.amoliAdalot.toLowerCase().contains(publicProvider.bodliKhanaModel.amoliAdalot)
-          && element.mamlaNo.toLowerCase().contains(publicProvider.bodliKhanaModel.mamlaNo)
-      )).toList();
-    });
+    //_filteredSubList = _subList;
+    // setState(() {
+    //   _filteredSubList = _subList.where((element) =>
+    //   (element.jojCourt.toLowerCase().contains(publicProvider.bodliKhanaModel.jojCourt)
+    //       && element.amoliAdalot.toLowerCase().contains(publicProvider.bodliKhanaModel.amoliAdalot)
+    //       && element.mamlaNo.toLowerCase().contains(publicProvider.bodliKhanaModel.mamlaNo)
+    //   )).toList();
+    // });
+    for(int i=0; i<_subList.length;i++){
+      if(_subList[i].amoliAdalot==publicProvider.bodliKhanaModel.amoliAdalot &&
+      _subList[i].jojCourt==publicProvider.bodliKhanaModel.jojCourt &&
+      _subList[i].mamlaNo==publicProvider.bodliKhanaModel.mamlaNo){
+        _filteredSubList.add(_subList[i]);
+      }
+    }
+    setState(() {});
   }
 
   @override
