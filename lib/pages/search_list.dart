@@ -25,7 +25,7 @@ class _SearchtListState extends State<SearchtList> {
     if(publicProvider.pageValue==Variables.niAct) _subList=publicProvider.niActDataList;
     if(publicProvider.pageValue==Variables.madokDondobidhi) _subList=publicProvider.madokDataList;
     if(publicProvider.pageValue==Variables.bisesTribunal) _subList=publicProvider.tribunalDataList;
-    //_filteredSubList = _subList;
+    // _filteredSubList = _subList;
     // setState(() {
     //   _filteredSubList = _subList.where((element) =>
     //   (element.jojCourt.toLowerCase().contains(publicProvider.bodliKhanaModel.jojCourt)

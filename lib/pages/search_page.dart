@@ -187,7 +187,7 @@ class _SearchPageState extends State<SearchPage> {
                         _jojkrot != null &&
                         _mamlaNoDrop!=null &&
                         _mamlaNo2.text.isNotEmpty) {
-                      await _checkConnectivity();
+                     await _checkConnectivity();
                       if(_internetConnected){
                         publicProvider.bodliKhanaModel.amoliAdalot = _amoliAdalot;
                         publicProvider.bodliKhanaModel.jojCourt = _jojkrot;
