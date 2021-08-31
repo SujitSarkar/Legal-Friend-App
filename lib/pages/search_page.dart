@@ -1,3 +1,4 @@
+
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:legal_friend/pages/search_list.dart';
@@ -70,10 +71,11 @@ class _SearchPageState extends State<SearchPage> {
                         fontSize: size.width * .04, color: Colors.grey[900])),
               ),
               SizedBox(height: size.width * .08),
-              _dropDownBuilder(size, Variables.amoliAdalot, publicProvider),
-              SizedBox(height: size.width * .04),
               _dropDownBuilder(size, Variables.jojCourt, publicProvider),
               SizedBox(height: size.width * .04),
+              _dropDownBuilder(size, Variables.amoliAdalot, publicProvider),
+              SizedBox(height: size.width * .04),
+
               Container(
                   width: size.width * .8,
                   child: Row(
@@ -100,7 +102,7 @@ class _SearchPageState extends State<SearchPage> {
                               color: Colors.grey[900],
                               fontSize: size.width * .035),
                           decoration: boxFormDecoration(size).copyWith(
-                            hintText: publicProvider.crMamlaHintSecond(),
+                            hintText: publicProvider.crMamlaHintFirst(),
                           ),
                         ),
                       )

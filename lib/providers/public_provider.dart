@@ -55,12 +55,12 @@ class PublicProvider extends ChangeNotifier{
     else return Variables.mamlaNo;
   }
   String crMamlaHintFirst(){
-    if(_pageValue==Variables.niAct) return '২৯২৫';
+    if(_pageValue==Variables.niAct) return '৫০১';
     else return 'মতিঝিল';
   }
   String crMamlaHintSecond(){
     if(_pageValue==Variables.niAct) return '২০১৯';
-    else return '৪(৮)২০২০';
+    else return '৪(৮)২১';
   }
   String toggleSign(){
     if(_pageValue==Variables.niAct) return '/';

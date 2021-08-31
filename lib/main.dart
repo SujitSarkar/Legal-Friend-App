@@ -38,59 +38,59 @@ class _MyAppState extends State<MyApp> {
   }
   @override
   Widget build(BuildContext context) {
-    // return MultiProvider(
-    //   providers: [
-    //     ChangeNotifierProvider<PublicProvider>(create: (_) => PublicProvider()),
-    //   ],
-    //   child: MaterialApp(
-    //     title: 'Legal Friend',
-    //     debugShowCheckedModeBanner: false,
-    //     theme: ThemeData(
-    //       backgroundColor: Colors.white,
-    //       primarySwatch: MaterialColor(0xff00AE51, PColor.colorMap),
-    //       canvasColor: Colors.transparent
-    //     ),
-    //     home: HomePage(),
-    //     builder: EasyLoading.init(),
-    //   ),
-    // );
-    return FutureBuilder(
-      future: Future.delayed(Duration(seconds: 3)),
-      builder: (context, AsyncSnapshot snapshot) {
-        // Show splash screen while waiting for app resources to load:
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return MaterialApp(
-              title: 'Legal Friend',
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                backgroundColor: Colors.white,
-                primarySwatch: MaterialColor(0xff00AE51, PColor.colorMap),
-                canvasColor: Colors.transparent
-              ),
-              home: Splash(),
-              builder: EasyLoading.init(),
-          );
-        } else {
-          // Loading is done, return the app:
-          return MultiProvider(
-            providers: [
-              ChangeNotifierProvider<PublicProvider>(create: (_) => PublicProvider()),
-            ],
-            child: MaterialApp(
-              title: 'Legal Friend',
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                backgroundColor: Colors.white,
-                primarySwatch: MaterialColor(0xff00AE51, PColor.colorMap),
-                canvasColor: Colors.transparent
-              ),
-              home: HomePage(),
-              builder: EasyLoading.init(),
-            ),
-          );
-        }
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<PublicProvider>(create: (_) => PublicProvider()),
+      ],
+      child: MaterialApp(
+        title: 'Legal Friend',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+          backgroundColor: Colors.white,
+          primarySwatch: MaterialColor(0xff00AE51, PColor.colorMap),
+          canvasColor: Colors.transparent
+        ),
+        home: HomePage(),
+        builder: EasyLoading.init(),
+      ),
     );
+    // return FutureBuilder(
+    //   future: Future.delayed(Duration(seconds: 3)),
+    //   builder: (context, AsyncSnapshot snapshot) {
+    //     // Show splash screen while waiting for app resources to load:
+    //     if (snapshot.connectionState == ConnectionState.waiting) {
+    //       return MaterialApp(
+    //           title: 'Legal Friend',
+    //           debugShowCheckedModeBanner: false,
+    //           theme: ThemeData(
+    //             backgroundColor: Colors.white,
+    //             primarySwatch: MaterialColor(0xff00AE51, PColor.colorMap),
+    //             canvasColor: Colors.transparent
+    //           ),
+    //           home: Splash(),
+    //           builder: EasyLoading.init(),
+    //       );
+    //     } else {
+    //       // Loading is done, return the app:
+    //       return MultiProvider(
+    //         providers: [
+    //           ChangeNotifierProvider<PublicProvider>(create: (_) => PublicProvider()),
+    //         ],
+    //         child: MaterialApp(
+    //           title: 'Legal Friend',
+    //           debugShowCheckedModeBanner: false,
+    //           theme: ThemeData(
+    //             backgroundColor: Colors.white,
+    //             primarySwatch: MaterialColor(0xff00AE51, PColor.colorMap),
+    //             canvasColor: Colors.transparent
+    //           ),
+    //           home: HomePage(),
+    //           builder: EasyLoading.init(),
+    //         ),
+    //       );
+    //     }
+    //   },
+    // );
   }
 }
 
