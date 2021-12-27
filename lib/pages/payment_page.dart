@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 import 'package:intl/intl.dart';
+import 'package:legal_friend/model_class/bodli_khana_model.dart';
 import 'package:legal_friend/pages/archive_list.dart';
 import 'package:legal_friend/pages/login_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
@@ -17,29 +18,9 @@ import 'package:http/http.dart' as http;
 
 // ignore: must_be_immutable
 class PaymentPage extends StatefulWidget {
-  String id;
-  String amoliAdalot;
-  String bicarikAdalot;
-  String boiNo;
-  String dayraNo;
-  String entryDate;
-  String mamlaNo;
-  String mamlarDhoron;
-  String pokkhoDhara;
-  String porobortiTarikh;
-  String jojCourt;
-  PaymentPage(
-      {this.id,
-      this.amoliAdalot,
-      this.bicarikAdalot,
-      this.boiNo,
-      this.dayraNo,
-      this.entryDate,
-      this.mamlaNo,
-      this.mamlarDhoron,
-      this.pokkhoDhara,
-      this.porobortiTarikh,
-      this.jojCourt});
+  BodliKhanaModel bodliKhanaModel;
+  PaymentPage({this.bodliKhanaModel});
+
   @override
   _PaymentPageState createState() => _PaymentPageState();
 }
@@ -180,20 +161,20 @@ class _PaymentPageState extends State<PaymentPage> {
         String _token = secondJsonData['token'];
         Map<String, String> map = {
           'id': id.substring(0, 10),
-          'data_id': widget.id,
+          'data_id': widget.bodliKhanaModel.id,
           'user_phone': _preferences.getString('userPhone'),
           'user_name': 'কামরুল হাসান',
           'user_address': 'জজ কোর্ট, ঢাকা',
-          'amoli_adalot': widget.amoliAdalot,
-          'bicarik_adalot': widget.bicarikAdalot,
-          'boi_no': widget.boiNo,
-          'dayra_no': widget.dayraNo,
-          'entry_date': widget.entryDate,
-          'mamla_no': widget.mamlaNo,
-          'mamlar_dhoron': widget.mamlarDhoron,
-          'pokkho_dhara': widget.pokkhoDhara,
-          'poroborti_tarikh': widget.porobortiTarikh,
-          'joj_court': widget.jojCourt,
+          'amoli_adalot': widget.bodliKhanaModel.amoliAdalot,
+          'bicarik_adalot': widget.bodliKhanaModel.bicarikAdalot,
+          'boi_no': widget.bodliKhanaModel.boiNo,
+          'dayra_no': widget.bodliKhanaModel.dayraNo,
+          'entry_date': widget.bodliKhanaModel.entryDate,
+          'mamla_no': widget.bodliKhanaModel.mamlaNo,
+          'mamlar_dhoron': widget.bodliKhanaModel.mamlarDhoron,
+          'pokkho_dhara': widget.bodliKhanaModel.pokkhoDhara,
+          'poroborti_tarikh': widget.bodliKhanaModel.porobortiTarikh,
+          'joj_court': widget.bodliKhanaModel.jojCourt,
           'save_date': todayDate
         };
         closeLoadingDialog();

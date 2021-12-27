@@ -8,7 +8,7 @@ import 'package:firebase_core/firebase_core.dart' as firebase_core;
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  firebase_core.Firebase.initializeApp();
+  await firebase_core.Firebase.initializeApp();
   runApp(MyApp());
 }
 
@@ -55,20 +55,25 @@ class _MyAppState extends State<MyApp> {
     //   ),
     // );
     return FutureBuilder(
-      future: Future.delayed(Duration(seconds: 3)),
+      future: Future.delayed(Duration(milliseconds: 300)),
       builder: (context, AsyncSnapshot snapshot) {
         // Show splash screen while waiting for app resources to load:
         if (snapshot.connectionState == ConnectionState.waiting) {
-          return MaterialApp(
-              title: 'Legal Friend',
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                backgroundColor: Colors.white,
-                primarySwatch: MaterialColor(0xff00AE51, PColor.colorMap),
-                canvasColor: Colors.transparent
-              ),
-              home: Splash(),
-              builder: EasyLoading.init(),
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider<PublicProvider>(create: (_) => PublicProvider()),
+            ],
+            child: MaterialApp(
+                title: 'Legal Friend',
+                debugShowCheckedModeBanner: false,
+                theme: ThemeData(
+                  backgroundColor: Colors.white,
+                  primarySwatch: MaterialColor(0xff00AE51, PColor.colorMap),
+                  canvasColor: Colors.transparent
+                ),
+                home: Splash(),
+                builder: EasyLoading.init(),
+            ),
           );
         } else {
           // Loading is done, return the app:
@@ -94,7 +99,18 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-class Splash extends StatelessWidget {
+class Splash extends StatefulWidget {
+  @override
+  State<Splash> createState() => _SplashState();
+}
+
+class _SplashState extends State<Splash> {
+  @override
+  void initState() {
+    super.initState();
+    final PublicProvider publicProvider = Provider.of<PublicProvider>(context,listen: false);
+    publicProvider.getNoticeBoardImageLink();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(

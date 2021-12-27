@@ -4,37 +4,23 @@ import 'package:legal_friend/pages/search_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
-import 'package:legal_friend/tiles/notification_widget.dart';
 import 'package:legal_friend/variables/variables.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'login_page.dart';
 
 class BodliKhana extends StatefulWidget {
+  const BodliKhana({Key key}):super(key: key);
+
   @override
   _BodliKhanaState createState() => _BodliKhanaState();
 }
 
 class _BodliKhanaState extends State<BodliKhana> {
-  int _counter = 0;
-  bool _isLoading = false;
-
-  Future<void> _customInit(PublicProvider publicProvider) async {
-    setState(() => _counter++);
-    if (publicProvider.bodliKhanaList.isEmpty) {
-      setState(() => _isLoading = true);
-      await publicProvider.getBodliKhanaDataList().then((value) {
-        setState(() => _isLoading = false);
-      });
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     final PublicProvider publicProvider = Provider.of<PublicProvider>(context);
-    if (_counter == 0) _customInit(publicProvider);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -45,9 +31,7 @@ class _BodliKhanaState extends State<BodliKhana> {
   }
 
   Widget _bodyUI(Size size, PublicProvider publicProvider) => Center(
-        child: _isLoading
-            ? spinCircle()
-            : Column(
+        child:Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [

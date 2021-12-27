@@ -47,30 +47,13 @@ class SearchListTile extends StatelessWidget {
               if (_pref.getString('userPhone') != null) {
                 showLoadingDialog('অপেক্ষা করুন');
                 await publicProvider.getArchiveDataList().then((value) {
-                  List<ArchiveDataModel> subList =
-                      publicProvider.archiveDataList;
-                  List<ArchiveDataModel> lst = subList
-                      .where((element) =>
-                          (element.dataId.contains(dataList[index].id)))
-                      .toList();
+                  List<ArchiveDataModel> subList = publicProvider.archiveDataList;
+                  List<ArchiveDataModel> lst = subList.where((element) =>
+                          (element.dataId.contains(dataList[index].id))).toList();
                   if (lst.isEmpty) {
                     closeLoadingDialog();
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => PaymentPage(
-                                id: dataList[index].id,
-                                amoliAdalot: dataList[index].amoliAdalot,
-                                bicarikAdalot: dataList[index].bicarikAdalot,
-                                boiNo: dataList[index].boiNo,
-                                dayraNo: dataList[index].dayraNo,
-                                entryDate: dataList[index].entryDate,
-                                mamlaNo: dataList[index].mamlaNo,
-                                mamlarDhoron: dataList[index].mamlarDhoron,
-                                pokkhoDhara: dataList[index].pokkhoDhara,
-                                porobortiTarikh:
-                                    dataList[index].porobortiTarikh,
-                                jojCourt: dataList[index].jojCourt)));
+                    Navigator.push(context, MaterialPageRoute(
+                            builder: (context) => PaymentPage(bodliKhanaModel: dataList[index])));
                   } else {
                     closeLoadingDialog();
                     showAnimatedDialog(

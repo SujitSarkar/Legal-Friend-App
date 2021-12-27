@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:legal_friend/variables/pColor.dart';
 
 // ignore: must_be_immutable
 class HomeMainButton extends StatefulWidget {
@@ -19,7 +20,7 @@ class _HomeMainButtonState extends State<HomeMainButton> {
       onTap: widget.onPressed,
       child: Ink(
         height: size.width*.4,
-        width: size.width*.8,
+        width: size.width*.75,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.all(Radius.circular(size.width*.03)),
           border: Border.all(
@@ -33,7 +34,7 @@ class _HomeMainButtonState extends State<HomeMainButton> {
         ),
       ),
       borderRadius: BorderRadius.all(Radius.circular(size.width*.03)),
-      splashColor: Colors.black.withOpacity(0.1),
+      splashColor: PColor.cbColor.withOpacity(0.5),
     );
   }
 }

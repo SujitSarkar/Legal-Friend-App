@@ -15,4 +15,6 @@ class PColor{
     800: Color.fromRGBO(0, 174, 81, .9),
     900: Color.fromRGBO(0, 174, 81, 1),
   };
+
+  static const Color cbColor = Color(0xff06476A);
 }

@@ -1,18 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
-import 'package:legal_friend/pages/archive_list.dart';
 import 'package:legal_friend/pages/bodli_khana.dart';
+import 'package:legal_friend/pages/lawyer_page.dart';
 import 'package:legal_friend/pages/kaj_list.dart';
-import 'package:legal_friend/pages/login_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
-import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:legal_friend/tiles/home_tile.dart';
 import 'package:legal_friend/tiles/notification_widget.dart';
-import 'package:legal_friend/variables/variables.dart';
+import 'package:legal_friend/variables/pColor.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
   @override
@@ -21,10 +19,15 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _isLoading = false;
-  int _counter = 0;
 
-  Future<void> _customInit(PublicProvider publicProvider) async {
-    setState(() => _counter++);
+  @override
+  initState(){
+    super.initState();
+    _customInit();
+  }
+
+  Future<void> _customInit() async {
+    final PublicProvider publicProvider = Provider.of<PublicProvider>(context,listen: false);
     if (publicProvider.noticeBoardImageLink.isEmpty) {
       setState(() => _isLoading = true);
       await publicProvider.getNoticeBoardImageLink().then((value) {
@@ -77,9 +80,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final PublicProvider publicProvider = Provider.of<PublicProvider>(context);
-    if (_counter == 0) _customInit(publicProvider);
-
     return Scaffold(
       body: _isLoading
           ?Center(child: spinCircle())
@@ -87,50 +87,79 @@ class _HomePageState extends State<HomePage> {
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       bottomNavigationBar: BottomTile(),
+
     );
   }
 
-  Widget _bodyUI(Size size) => Container(
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            HomeMainButton(
-              onPressed: () => Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => BodliKhana())),
-              image: 'assets/home_image/bodli_khana.png',
+  Widget _bodyUI(Size size) => Stack(
+    children: [
+      Center(
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(height: size.width * .15),
+                  HomeMainButton(
+                    onPressed: () => Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => BodliKhana())),
+                    image: 'assets/home_image/bodli_khana.png',
+                  ),
+                  SizedBox(height: size.width * .04),
+
+                  HomeMainButton(
+                    onPressed: () => Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => KajList())),
+                    image: 'assets/home_image/kaj_list.png',
+                  ),
+                  SizedBox(height: size.width * .04),
+
+                  HomeMainButton(
+                    onPressed: (){},
+                    image: 'assets/home_image/court_building.png',
+                  ),
+                  SizedBox(height: size.width * .04),
+
+                  HomeMainButton(
+                    onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>LawyerPage())),
+                    image: 'assets/home_image/lawyear.png',
+                  ),
+                  SizedBox(height: size.width * .04),
+                ],
+              ),
             ),
-            SizedBox(height: size.width * .04),
-            HomeMainButton(
-              onPressed: () => Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => KajList())),
-              image: 'assets/home_image/kaj_list.png',
+          ),
+
+      ///Go On
+      Positioned(
+        right: -26.0,
+        bottom: 50.0,
+        child: RotationTransition(
+          turns: AlwaysStoppedAnimation(-90 / 360),
+          child: Material(
+            color: PColor.cbColor,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15),
+              topRight: Radius.circular(15),
             ),
-            SizedBox(height: size.width * .2),
-            GradientButton(
-              onPressed: () async {
-                SharedPreferences _preferences =
-                    await SharedPreferences.getInstance();
-                if (_preferences.getString('userPhone') != null) {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ArchiveList()));
-                } else
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => LogInPage()));
-              },
-              child: Text(Variables.archive,
-                  style: TextStyle(fontSize: size.width * .06)),
-              height: size.width * .12,
-              width: size.width * .8,
-              borderRadius: size.width * .03,
-              gradientColors: [
-                Color(0xFF0D47A1),
-                Color(0xFF1976D2),
-                //Color(0xFF42A5F5),
-              ],
+            child: InkWell(
+              onTap: (){},
+              child: Container(
+                alignment: Alignment.center,
+                height: 28,
+                width: 80,
+                child: Text('go on',style: TextStyle(
+                  color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18.0
+                )),
+              ),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(15),
+                  topRight: Radius.circular(15),
+                )
             ),
-          ],
+          ),
         ),
-      );
+      )
+    ],
+  );
 }

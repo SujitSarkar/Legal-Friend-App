@@ -1,4 +1,3 @@
-
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
 import 'package:legal_friend/pages/search_list.dart';
@@ -195,8 +194,7 @@ class _SearchPageState extends State<SearchPage> {
                         publicProvider.bodliKhanaModel.jojCourt = _jojkrot;
                         publicProvider.bodliKhanaModel.mamlaNo =
                         '$_mamlaNoDrop${publicProvider.toggleSign()}${_mamlaNo2.text}';
-                        Navigator.push(context,
-                            MaterialPageRoute(builder: (context) => SearchtList()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => SearchtList()));
                       }else showInfo('কোন ইন্টারনেট সংযোগ নেই, '
                           'মোবাইল ডাটা/ওয়াইফাই চালু করুন \u{1F629}');
                       

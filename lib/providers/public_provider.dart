@@ -14,18 +14,13 @@ class PublicProvider extends ChangeNotifier{
   String _noticeBoardImageLink='';
 
   List<ArchiveDataModel> _archiveDataList =[];
-  List<BodliKhanaModel> _bodliKhanaList = [];
-  List<BodliKhanaModel> _niActDataList = [];
-  List<BodliKhanaModel> _madokDataList = [];
-  List<BodliKhanaModel> _tribunalDataList = [];
+  List<BodliKhanaModel> _searchedList = [];
+
 
   get noticeBoardImageLink=> _noticeBoardImageLink;
   get bodliKhanaModel=> _bodliKhanaModel;
-  get bodliKhanaList=> _bodliKhanaList;
-  get niActDataList=> _niActDataList;
-  get madokDataList=> _madokDataList;
-  get tribunalDataList=> _tribunalDataList;
-  get archiveDataList=> _archiveDataList;
+  get searchedList=> _searchedList;
+  get archiveDataList=>_archiveDataList;
 
   set bodliKhanaModel(BodliKhanaModel model){
     model = BodliKhanaModel();
@@ -68,30 +63,9 @@ class PublicProvider extends ChangeNotifier{
   }
 
   String toggleLastUpdatedBoiNo(){
-    if(_pageValue==Variables.niAct){
-      if(_niActDataList.isNotEmpty) return _niActDataList[_niActDataList.length-1].boiNo;
+      if(_searchedList.isNotEmpty) return _searchedList[_searchedList.length-1].boiNo;
       else return '00/0000';
-    }
-    else if(_pageValue==Variables.madokDondobidhi){
-      if(_madokDataList.isNotEmpty) return _madokDataList[_madokDataList.length-1].boiNo;
-      else return '00/0000';
-    }
-    if(_pageValue==Variables.bisesTribunal){
-      if(_tribunalDataList.isNotEmpty) return _tribunalDataList[_tribunalDataList.length-1].boiNo;
-      else return '00/0000';
-    }
-    else return '00/0000';
   }
-
-  // Future<void> getDistrict() async {
-  //   final String response = await rootBundle.loadString('assets/bd-districts.json');
-  //   final data = await json.decode(response);
-  //   _distList.clear();
-  //   data['districts'].forEach((element){
-  //     _distList.add('${element['bn_name']}');
-  //   });
-  //   notifyListeners();
-  // }
 
   Future<bool> getNoticeBoardImageLink()async{
     try{
@@ -106,15 +80,56 @@ class PublicProvider extends ChangeNotifier{
     }
   }
 
-  Future<void> getBodliKhanaDataList()async{
-    //final String todayDate = DateFormat("dd-MM-yyyy").format(DateTime.fromMillisecondsSinceEpoch(DateTime.now().millisecondsSinceEpoch));
+  // Future<void> getBodliKhanaDataList()async{
+  //   //final String todayDate = DateFormat("dd-MM-yyyy").format(DateTime.fromMillisecondsSinceEpoch(DateTime.now().millisecondsSinceEpoch));
+  //   try{
+  //     await FirebaseFirestore.instance.collection('BodliKhana').orderBy('boi_no').get().then((snapshot){
+  //       _bodliKhanaList.clear();
+  //       _niActDataList.clear();
+  //       _madokDataList.clear();
+  //       _tribunalDataList.clear();
+  //       snapshot.docChanges.forEach((element) {
+  //         BodliKhanaModel bodliKhanaModel = BodliKhanaModel(
+  //             id: element.doc['id'],
+  //             amoliAdalot: element.doc['amoli_adalot'],
+  //             bicarikAdalot: element.doc['bicarik_adalot'],
+  //             boiNo: element.doc['boi_no'],
+  //             dayraNo: element.doc['dayra_no'],
+  //             entryDate: element.doc['entry_date'],
+  //             mamlaNo: element.doc['mamla_no'],
+  //             mamlarDhoron: element.doc['mamlar_dhoron'],
+  //             pokkhoDhara: element.doc['pokkho_dhara'],
+  //             porobortiTarikh: element.doc['poroborti_tarikh'],
+  //             jojCourt: element.doc['joj_court']
+  //         );
+  //         _bodliKhanaList.add(bodliKhanaModel);
+  //       });
+  //     });
+  //     for(int i=0; i<_bodliKhanaList.length; i++){
+  //       if(_bodliKhanaList[i].mamlarDhoron==Variables.niAct){
+  //         _niActDataList.add(_bodliKhanaList[i]);
+  //       }
+  //       else if(_bodliKhanaList[i].mamlarDhoron==Variables.madokDondobidhi){
+  //         _madokDataList.add(_bodliKhanaList[i]);
+  //       }
+  //       else if(_bodliKhanaList[i].mamlarDhoron==Variables.bisesTribunal){
+  //         _tribunalDataList.add(_bodliKhanaList[i]);
+  //       }
+  //     }
+  //     notifyListeners();
+  //   }catch(error){
+  //     showToast(error.toString());
+  //   }
+  // }
+
+  Future<void> getSearchedDataList(String collectionName)async{
     try{
-      await FirebaseFirestore.instance.collection('BodliKhana').orderBy('boi_no').get().then((snapshot){
-        _bodliKhanaList.clear();
-        _niActDataList.clear();
-        _madokDataList.clear();
-        _tribunalDataList.clear();
-        snapshot.docChanges.forEach((element) {
+      _searchedList.clear();
+      await FirebaseFirestore.instance.collection(collectionName)
+          .where('joj_court',isEqualTo: _bodliKhanaModel.jojCourt)
+          .where('amoli_adalot',isEqualTo: _bodliKhanaModel.amoliAdalot)
+          .where('mamla_no',isEqualTo: _bodliKhanaModel.mamlaNo).get().then((snapshot){
+        for (var element in snapshot.docChanges) {
           BodliKhanaModel bodliKhanaModel = BodliKhanaModel(
               id: element.doc['id'],
               amoliAdalot: element.doc['amoli_adalot'],
@@ -128,20 +143,9 @@ class PublicProvider extends ChangeNotifier{
               porobortiTarikh: element.doc['poroborti_tarikh'],
               jojCourt: element.doc['joj_court']
           );
-          _bodliKhanaList.add(bodliKhanaModel);
-        });
+          _searchedList.add(bodliKhanaModel);
+        }
       });
-      for(int i=0; i<_bodliKhanaList.length; i++){
-        if(_bodliKhanaList[i].mamlarDhoron==Variables.niAct){
-          _niActDataList.add(_bodliKhanaList[i]);
-        }
-        else if(_bodliKhanaList[i].mamlarDhoron==Variables.madokDondobidhi){
-          _madokDataList.add(_bodliKhanaList[i]);
-        }
-        else if(_bodliKhanaList[i].mamlarDhoron==Variables.bisesTribunal){
-          _tribunalDataList.add(_bodliKhanaList[i]);
-        }
-      }
       notifyListeners();
     }catch(error){
       showToast(error.toString());
@@ -212,6 +216,90 @@ class PublicProvider extends ChangeNotifier{
       showToast('ডিলিট অসম্পন্ন হয়েছে\nআবার চেষ্টা করুন');
           return false;
     }
-
   }
+
+  // Future<void> transferMadokData() async {
+  //   //WriteBatch batch = FirebaseFirestore.instance.batch();
+  //   try {
+  //     showLoadingDialog('Getting');
+  //     await FirebaseFirestore.instance.collection('NIAct')
+  //         .get().then((snapshot){
+  //       _niActDataList.clear();
+  //       snapshot.docChanges.forEach((element) {
+  //         BodliKhanaModel bodliKhanaModel = BodliKhanaModel(
+  //             id: element.doc['id'],
+  //             amoliAdalot: element.doc['amoli_adalot'],
+  //             bicarikAdalot: element.doc['bicarik_adalot'],
+  //             boiNo: element.doc['boi_no'],
+  //             dayraNo: element.doc['dayra_no'],
+  //             entryDate: element.doc['entry_date'],
+  //             mamlaNo: element.doc['mamla_no'],
+  //             mamlarDhoron: element.doc['mamlar_dhoron'],
+  //             pokkhoDhara: element.doc['pokkho_dhara'],
+  //             porobortiTarikh: element.doc['poroborti_tarikh'],
+  //             jojCourt: element.doc['joj_court']
+  //         );
+  //         _niActDataList.add(bodliKhanaModel);
+  //       });
+  //     });
+  //       print(_niActDataList.length);
+  //
+  //
+  //     // _niActDataList.forEach((element) async{
+  //     //   await FirebaseFirestore.instance.collection('NIAct').doc(element.id).set({
+  //     //           'id': element.id,
+  //     //           'dayra_no': element.dayraNo,
+  //     //           'mamla_no': element.mamlaNo,
+  //     //           'pokkho_dhara': element.pokkhoDhara,
+  //     //           'poroborti_tarikh': element.porobortiTarikh,
+  //     //           'bicarik_adalot': element.bicarikAdalot,
+  //     //           'amoli_adalot': element.amoliAdalot,
+  //     //           'joj_court': element.jojCourt,
+  //     //           'mamlar_dhoron': element.mamlarDhoron,
+  //     //           'boi_no': element.boiNo,
+  //     //           'entry_date': element.entryDate
+  //     //   });
+  //     // });
+  //
+  //     // showLoadingDialog('Transferring...');
+  //     // await FirebaseFirestore.instance.collection('BodliKhana')
+  //     //     .where('mamlar_dhoron', isEqualTo: Variables.madokDondobidhi).get().then((snapshot){
+  //     //   snapshot.docChanges.forEach((element)async{
+  //     //     await FirebaseFirestore.instance.collection('MadokDondobidhi').add(element.doc.data());
+  //
+  //         // batch.update(FirebaseFirestore.instance.collection('NIACT').doc(element.doc.id),
+  //         //     {
+  //         //       'id': element.doc['id'],
+  //         //       'dayra_no': element.doc['dayra_no'],
+  //         //       'mamla_no': element.doc['mamla_no'],
+  //         //       'pokkho_dhara': element.doc['pokkho_dhara'],
+  //         //       'poroborti_tarikh': element.doc['poroborti_tarikh'],
+  //         //       'bicarik_adalot': element.doc['bicarik_adalot'],
+  //         //       'amoli_adalot': element.doc['amoli_adalot'],
+  //         //       'joj_court': element.doc['joj_court'],
+  //         //       'mamlar_dhoron': element.doc['mamlar_dhoron'],
+  //         //       'boi_no': element.doc['boi_no'],
+  //         //       'entry_date': element.doc['entry_date']
+  //         //     });
+  //       // });
+  //       //return batch.commit();
+  //     // });
+  //     closeLoadingDialog();
+  //     showSuccessMgs('Transfer Success');
+  //   } catch (error) {
+  //     showErrorMgs(error.toString());
+  //     print(error.toString());
+  //   }
+  // }
+
+  // Future<void> getDistrict() async {
+//   final String response = await rootBundle.loadString('assets/bd-districts.json');
+//   final data = await json.decode(response);
+//   _distList.clear();
+//   data['districts'].forEach((element){
+//     _distList.add('${element['bn_name']}');
+//   });
+//   notifyListeners();
+// }
+
 }
