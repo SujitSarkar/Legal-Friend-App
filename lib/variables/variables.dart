@@ -37,7 +37,7 @@ class Variables {
     'সিলেট',
     'কক্সবাজার'
   ];
-  static final List<String> thanaList = [
+  static const List<String> thanaList = [
   'আদাবর',
   'উত্তরখান',
   'উত্তরা পূর্ব',
@@ -97,13 +97,15 @@ class Variables {
   'নবাবগঞ্জ',
   'সাভার','সি.আর'];
 
-  static final String paymentMgs =
-      'এই মামলার তথ্য আর্কাইভে রাখতে চাইলে ৫০ টাকা চার্জ প্রযোজ্য';
+  static const String paymentMgs =
+      'সার্ভিস চার্য সহ ৫০ টাকা চার্জ প্রযোজ্য';
+  static const String paymentInstruction='মাম্লাটির দায়রা নাম্বার, পরবর্তী তারিখ, বিচারিক কোর্ট, রেগিস্টার বই নম্বর সহ'
+      ' সকল তথ্যের জন্য মামলাটি আর্কাইভ করুন।';
 
-  static final String dukkhitoMgs =
+  static const String dukkhitoMgs =
       'মামলাটি আমাদের সর্বশেষ আপডেটকৃত রেজিস্টার বইতে এন্ট্রি হয়নি। কর্তৃপক্ষ হইতে পরবর্তী'
       ' রেজিস্টার বইয়ের জন্য অপেক্ষা করুন। অথবা, সরাসরি বদলি খানায় অনুসন্ধান করুন';
 
-  static final String kajListMgs =
-      'এই সুবিধাটি দ্রুত উপভোগ করার জন্য আমাদের প্রচেষ্টা অব্যাহত আছে। সাময়িক অসুবিধার জন্য আমরা দুঃখিত।';
+  static const String kajListMgs =
+      'এই সুবিধাটি দ্রুত উপভোগ করার জন্য আমাদের প্রচেষ্টা অব্যাহত আছে।\nঅপেক্ষা করুন।';
 }

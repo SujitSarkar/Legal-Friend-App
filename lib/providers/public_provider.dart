@@ -80,48 +80,6 @@ class PublicProvider extends ChangeNotifier{
     }
   }
 
-  // Future<void> getBodliKhanaDataList()async{
-  //   //final String todayDate = DateFormat("dd-MM-yyyy").format(DateTime.fromMillisecondsSinceEpoch(DateTime.now().millisecondsSinceEpoch));
-  //   try{
-  //     await FirebaseFirestore.instance.collection('BodliKhana').orderBy('boi_no').get().then((snapshot){
-  //       _bodliKhanaList.clear();
-  //       _niActDataList.clear();
-  //       _madokDataList.clear();
-  //       _tribunalDataList.clear();
-  //       snapshot.docChanges.forEach((element) {
-  //         BodliKhanaModel bodliKhanaModel = BodliKhanaModel(
-  //             id: element.doc['id'],
-  //             amoliAdalot: element.doc['amoli_adalot'],
-  //             bicarikAdalot: element.doc['bicarik_adalot'],
-  //             boiNo: element.doc['boi_no'],
-  //             dayraNo: element.doc['dayra_no'],
-  //             entryDate: element.doc['entry_date'],
-  //             mamlaNo: element.doc['mamla_no'],
-  //             mamlarDhoron: element.doc['mamlar_dhoron'],
-  //             pokkhoDhara: element.doc['pokkho_dhara'],
-  //             porobortiTarikh: element.doc['poroborti_tarikh'],
-  //             jojCourt: element.doc['joj_court']
-  //         );
-  //         _bodliKhanaList.add(bodliKhanaModel);
-  //       });
-  //     });
-  //     for(int i=0; i<_bodliKhanaList.length; i++){
-  //       if(_bodliKhanaList[i].mamlarDhoron==Variables.niAct){
-  //         _niActDataList.add(_bodliKhanaList[i]);
-  //       }
-  //       else if(_bodliKhanaList[i].mamlarDhoron==Variables.madokDondobidhi){
-  //         _madokDataList.add(_bodliKhanaList[i]);
-  //       }
-  //       else if(_bodliKhanaList[i].mamlarDhoron==Variables.bisesTribunal){
-  //         _tribunalDataList.add(_bodliKhanaList[i]);
-  //       }
-  //     }
-  //     notifyListeners();
-  //   }catch(error){
-  //     showToast(error.toString());
-  //   }
-  // }
-
   Future<void> getSearchedDataList(String collectionName)async{
     try{
       _searchedList.clear();

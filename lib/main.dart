@@ -55,7 +55,7 @@ class _MyAppState extends State<MyApp> {
     //   ),
     // );
     return FutureBuilder(
-      future: Future.delayed(Duration(milliseconds: 300)),
+      future: Future.delayed(Duration(milliseconds: 100)),
       builder: (context, AsyncSnapshot snapshot) {
         // Show splash screen while waiting for app resources to load:
         if (snapshot.connectionState == ConnectionState.waiting) {

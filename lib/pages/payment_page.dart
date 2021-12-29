@@ -65,13 +65,25 @@ class _PaymentPageState extends State<PaymentPage> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
+
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size.width * .04,
+                        vertical: size.width * .02),
+                    child: Text(Variables.paymentInstruction,
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontSize: size.width*.05
+                    )),
+                  ),
+                  SizedBox(height: size.width * .04),
+
                   Container(
                     width: size.width * .9,
-                    padding: EdgeInsets.all(size.width * .04),
+                    padding: EdgeInsets.all(size.width * .035),
                     decoration: BoxDecoration(
                         color: Color(0xffB3E9FA),
                         borderRadius: BorderRadius.all(
-                            Radius.circular(size.width * .02))),
+                            Radius.circular(size.width * .1))),
                     child: Text(
                       Variables.paymentMgs,
                       textAlign: TextAlign.center,
@@ -80,7 +92,7 @@ class _PaymentPageState extends State<PaymentPage> {
                           fontSize: size.width * .05),
                     ),
                   ),
-                  SizedBox(height: size.width * .1),
+                  SizedBox(height: size.width * .2),
                   Container(
                     width: size.width * .8,
                     child: GradientButton(
@@ -90,12 +102,9 @@ class _PaymentPageState extends State<PaymentPage> {
                         if (_userPhone != null) {
                           _startPaymentProcess(publicProvider);
                         } else
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LogInPage()));
+                          Navigator.push(context,MaterialPageRoute(builder: (context) => LogInPage()));
                       },
-                      child: Text('নিশ্চিত করুন',
+                      child: Text('পেমেন্ট নিশ্চিত করুন',
                           style: TextStyle(
                               fontSize: size.width * .055,
                               color: Colors.white,

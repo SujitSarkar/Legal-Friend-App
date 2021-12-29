@@ -34,20 +34,23 @@ class _KajListState extends State<KajList> {
                   height: size.width * .4, width: size.width * .8),
               Column(
                 children: [
-                  Container(
-                    width: size.width * .9,
-                    padding: EdgeInsets.symmetric(
-                        horizontal: size.width * .01,
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: size.width * .04,
                         vertical: size.width * .02),
-                    decoration: BoxDecoration(
-                        color: Color(0xffB3E9FA),
-                        borderRadius: BorderRadius.all(
-                            Radius.circular(size.width * .02))),
-                    child: Text(
-                      Variables.kajListMgs,
+                    child: RichText(
                       textAlign: TextAlign.center,
-                      style: TextStyle(
-                          color: Colors.grey[900], fontSize: size.width * .05),
+                      text: TextSpan(
+                        text: Variables.kajListMgs,
+                        style: TextStyle(color: Colors.grey[900],
+                            fontSize: size.width*.05),
+                        children: <TextSpan>[
+                          TextSpan(text: '\n\nআমাদের সাথে থাকার জন্য',style: TextStyle(fontSize: size.width*.06)),
+                          TextSpan(text: '\nধন্যবাদ',
+                              style: TextStyle(fontWeight: FontWeight.bold,
+                                  color: Color(0xff00673E),
+                                  fontSize: size.width*.09)),
+                        ],
+                      ),
                     ),
                   ),
                   SizedBox(height: size.width * .01),

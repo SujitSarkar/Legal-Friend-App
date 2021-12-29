@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:legal_friend/pages/bodli_khana.dart';
+import 'package:legal_friend/pages/court_building/home_page.dart';
 import 'package:legal_friend/pages/lawyer_page.dart';
 import 'package:legal_friend/pages/kaj_list.dart';
 import 'package:legal_friend/providers/public_provider.dart';
@@ -36,7 +37,7 @@ class _HomePageState extends State<HomePage> {
     }
     if(publicProvider.noticeBoardImageLink.isNotEmpty){
       Future.delayed(Duration(milliseconds: 200)).then((value){
-        _showNotice(publicProvider);
+        //_showNotice(publicProvider);
       });
     }
 
@@ -115,7 +116,7 @@ class _HomePageState extends State<HomePage> {
                   SizedBox(height: size.width * .04),
 
                   HomeMainButton(
-                    onPressed: (){},
+                    onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>CourtBuildingHomePage())),
                     image: 'assets/home_image/court_building.png',
                   ),
                   SizedBox(height: size.width * .04),
@@ -130,14 +131,14 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
 
-      ///Go On
+      ///LIVE
       Positioned(
         right: -26.0,
         bottom: 50.0,
         child: RotationTransition(
           turns: AlwaysStoppedAnimation(-90 / 360),
           child: Material(
-            color: PColor.cbColor,
+            color: Colors.red,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(15),
               topRight: Radius.circular(15),
@@ -148,8 +149,10 @@ class _HomePageState extends State<HomePage> {
                 alignment: Alignment.center,
                 height: 28,
                 width: 80,
-                child: Text('go on',style: TextStyle(
-                  color: Colors.white,fontWeight: FontWeight.bold,fontSize: 18.0
+                child: Text('LIVE',style: TextStyle(
+                  color: Colors.white,
+                    fontStyle: FontStyle.italic,
+                    fontWeight: FontWeight.bold,fontSize: 18.0
                 )),
               ),
                 borderRadius: BorderRadius.only(
