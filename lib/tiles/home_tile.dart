@@ -34,7 +34,7 @@ class _HomeMainButtonState extends State<HomeMainButton> {
         ),
       ),
       borderRadius: BorderRadius.all(Radius.circular(size.width*.03)),
-      splashColor: PColor.cbColor.withOpacity(0.5),
+      splashColor: PColor.livePageBgColor.withOpacity(0.5),
     );
   }
 }

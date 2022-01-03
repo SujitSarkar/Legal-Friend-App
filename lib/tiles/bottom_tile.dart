@@ -48,7 +48,7 @@ class _BottomTileState extends State<BottomTile> with SingleTickerProviderStateM
         },
         child: Container(
           width: size.width,
-          height: size.width * .15,
+          height: size.width * .11,
           //color: Colors.red,
           child: Image.asset('assets/logo/splash_image.png'),
         ),

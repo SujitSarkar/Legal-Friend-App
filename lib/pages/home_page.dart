@@ -6,11 +6,11 @@ import 'package:legal_friend/pages/bodli_khana.dart';
 import 'package:legal_friend/pages/court_building/home_page.dart';
 import 'package:legal_friend/pages/lawyer_page.dart';
 import 'package:legal_friend/pages/kaj_list.dart';
+import 'package:legal_friend/pages/live_pages/live_home_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/home_tile.dart';
 import 'package:legal_friend/tiles/notification_widget.dart';
-import 'package:legal_friend/variables/pColor.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -37,7 +37,7 @@ class _HomePageState extends State<HomePage> {
     }
     if(publicProvider.noticeBoardImageLink.isNotEmpty){
       Future.delayed(Duration(milliseconds: 200)).then((value){
-        //_showNotice(publicProvider);
+        _showNotice(publicProvider);
       });
     }
 
@@ -144,7 +144,7 @@ class _HomePageState extends State<HomePage> {
               topRight: Radius.circular(15),
             ),
             child: InkWell(
-              onTap: (){},
+              onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>LiveHomePage())),
               child: Container(
                 alignment: Alignment.center,
                 height: 28,

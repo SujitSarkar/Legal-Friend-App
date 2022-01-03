@@ -16,5 +16,5 @@ class PColor{
     900: Color.fromRGBO(0, 174, 81, 1),
   };
 
-  static const Color cbColor = Color(0xff06476A);
+  static const Color livePageBgColor = Color(0xff004865);
 }

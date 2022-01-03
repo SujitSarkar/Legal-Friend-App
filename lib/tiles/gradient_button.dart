@@ -31,8 +31,7 @@ class GradientButton extends StatelessWidget {
               end: Alignment.bottomCenter,
               colors: gradientColors,
             ),
-            borderRadius:
-            BorderRadius.all(Radius.circular(borderRadius)),
+            borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
           ),
           child: Center(
             child: child,
