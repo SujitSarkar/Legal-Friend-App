@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:legal_friend/pages/archive_list.dart';
-import 'package:legal_friend/pages/bodli_khana.dart';
+import 'package:legal_friend/pages/bodlikhana/bodli_khana.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:legal_friend/tiles/notification_widget.dart';
 import 'package:legal_friend/variables/variables.dart';

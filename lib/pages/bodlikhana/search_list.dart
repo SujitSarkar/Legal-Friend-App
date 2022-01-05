@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:legal_friend/pages/no_result_found.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/app_bar.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
@@ -7,6 +6,8 @@ import 'package:legal_friend/tiles/notification_widget.dart';
 import 'package:legal_friend/tiles/search_list_tile.dart';
 import 'package:legal_friend/variables/variables.dart';
 import 'package:provider/provider.dart';
+
+import 'no_result_found.dart';
 
 class SearchtList extends StatefulWidget {
 

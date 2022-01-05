@@ -2,7 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
-import 'package:legal_friend/pages/bodli_khana.dart';
+import 'package:legal_friend/pages/bodlikhana/bodli_khana.dart';
 import 'package:legal_friend/pages/court_building/home_page.dart';
 import 'package:legal_friend/pages/lawyer_page.dart';
 import 'package:legal_friend/pages/kaj_list.dart';

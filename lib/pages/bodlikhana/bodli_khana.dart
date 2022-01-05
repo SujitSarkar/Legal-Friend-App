@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:legal_friend/pages/archive_list.dart';
-import 'package:legal_friend/pages/search_page.dart';
+import 'package:legal_friend/pages/bodlikhana/search_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:legal_friend/variables/variables.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'login_page.dart';
+import '../login_page.dart';
 
 class BodliKhana extends StatefulWidget {
   const BodliKhana({Key key}):super(key: key);

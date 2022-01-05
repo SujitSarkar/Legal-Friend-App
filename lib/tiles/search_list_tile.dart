@@ -4,7 +4,7 @@ import 'package:legal_friend/model_class/archive_data_model.dart';
 import 'package:legal_friend/model_class/bodli_khana_model.dart';
 import 'package:legal_friend/pages/archive_list.dart';
 import 'package:legal_friend/pages/login_page.dart';
-import 'package:legal_friend/pages/payment_page.dart';
+import 'package:legal_friend/pages/bodlikhana/payment_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:legal_friend/tiles/notification_widget.dart';

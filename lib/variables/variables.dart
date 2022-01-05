@@ -108,4 +108,10 @@ class Variables {
 
   static const String kajListMgs =
       'এই সুবিধাটি দ্রুত উপভোগ করার জন্য আমাদের প্রচেষ্টা অব্যাহত আছে।\nঅপেক্ষা করুন।';
+
+  static const List<String> genderList=['Male','Female','Custom'];
+
+  static const List<String> professionList=['Judge','Advocate','Barrister','App. lawyer',
+  'Clark','Court Stuff','Students', 'Others'];
+
 }

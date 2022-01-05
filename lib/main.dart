@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:legal_friend/pages/home_page.dart';
+import 'package:legal_friend/pages/login_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/variables/pColor.dart';
 import 'package:provider/provider.dart';
@@ -39,7 +40,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-      future: Future.delayed(Duration(milliseconds: 2000)),
+      future: Future.delayed(Duration(milliseconds: 200)),
       builder: (context, AsyncSnapshot snapshot) {
         // Show splash screen while waiting for app resources to load:
         if (snapshot.connectionState == ConnectionState.waiting) {
@@ -48,7 +49,7 @@ class _MyAppState extends State<MyApp> {
               ChangeNotifierProvider<PublicProvider>(create: (_) => PublicProvider()),
             ],
             child: MaterialApp(
-                title: 'Legal Friend',
+                title: 'LegalFriend',
                 debugShowCheckedModeBanner: false,
                 theme: ThemeData(
                   backgroundColor: Colors.white,
@@ -66,14 +67,14 @@ class _MyAppState extends State<MyApp> {
               ChangeNotifierProvider<PublicProvider>(create: (_) => PublicProvider()),
             ],
             child: MaterialApp(
-              title: 'Legal Friend',
+              title: 'LegalFriend',
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 backgroundColor: Colors.white,
                 primarySwatch: MaterialColor(0xff00AE51, PColor.colorMap),
                 canvasColor: Colors.transparent
               ),
-              home: HomePage(),
+              home: LogInPage(),
               builder: EasyLoading.init(),
             ),
           );

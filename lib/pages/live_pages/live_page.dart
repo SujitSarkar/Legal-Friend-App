@@ -1,6 +1,8 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:legal_friend/pages/live_pages/photo_view_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
@@ -35,33 +37,36 @@ class _LivePageState extends State<LivePage> {
             crossAxisAlignment: CrossAxisAlignment.center,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-
               Column(
                 children: [
-                  LiveAppBar(child: Text('LIVE',
-                      style: TextStyle(fontSize: size.width*.06,
-                          fontStyle: FontStyle.italic,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white))),
-                  SizedBox(height: size.width*.04),
-
+                  LiveAppBar(
+                      child: Text('LIVE',
+                          style: TextStyle(
+                              fontSize: size.width * .06,
+                              fontStyle: FontStyle.italic,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white))),
+                  SizedBox(height: size.width * .04),
                   RichText(
                     textAlign: TextAlign.center,
                     text: TextSpan(
-                      style: TextStyle(
-                          fontSize: size.width*.045
-                      ),
+                      style: TextStyle(fontSize: size.width * .045),
                       children: [
-                        TextSpan(text: 'মহানগর দায়রা জজ আদালত, ঢাকা।\n',
-                            style: TextStyle(fontWeight: FontWeight.bold,color: Color(0xffFFFF24),fontSize: size.width*.05)),
+                        TextSpan(
+                            text: 'মহানগর দায়রা জজ আদালত, ঢাকা।\n',
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xffFFFF24),
+                                fontSize: size.width * .05)),
                         TextSpan(text: 'ফৌজদারি বিবিধ মামলা'),
                       ],
                     ),
                   ),
-                  SizedBox(height: size.width*.08),
-
+                  SizedBox(height: size.width * .08),
                   StreamBuilder<QuerySnapshot>(
-                    stream: FirebaseFirestore.instance.collection('LiveSerial').snapshots(),
+                    stream: FirebaseFirestore.instance
+                        .collection('LiveSerial')
+                        .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
                         return ListView.builder(
@@ -72,41 +77,101 @@ class _LivePageState extends State<LivePage> {
                               DocumentSnapshot doc = snapshot.data.docs[index];
                               return Column(
                                 children: [
-
-                                  Text('serial',textAlign:TextAlign.center,style: TextStyle(color: Colors.grey.shade300,
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: size.width * .08)),
+                                  Text('serial',
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          color: Colors.grey.shade300,
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: size.width * .08)),
                                   Container(
-                                    height:size.width * .18,
+                                    height: size.width * .18,
                                     width: size.width * .5,
-                                    color:doc['is_live']
+                                    color: doc['is_live']
                                         ? Colors.white
                                         : Colors.grey,
                                     alignment: Alignment.center,
                                     child: doc['is_live']
-                                        ?Text(doc['serial_number'].toString(),style: TextStyle(color: Colors.red,fontSize: size.width*.15,fontWeight: FontWeight.bold))
-                                        :Container(),
+                                        ? Text(doc['serial_number'].toString(),
+                                            style: TextStyle(
+                                                color: Colors.red,
+                                                fontSize: size.width * .15,
+                                                fontWeight: FontWeight.bold))
+                                        : Container(),
                                   ),
-                                  SizedBox(height: size.width*.01),
-
+                                  SizedBox(height: size.width * .01),
                                   doc['is_live']
-                                      ? Text('Last Update: ${DateFormat('hh:mm aa').format(DateTime.fromMillisecondsSinceEpoch(doc['last_update_date']))}',
-                                      textAlign:TextAlign.center,style: TextStyle(color: Colors.grey.shade300,
-                                      fontSize: size.width * .04))
-                                      :Container(),
-                                  SizedBox(height: size.width*.1),
-
+                                      ? Text(
+                                          'Last Update: ${DateFormat('hh:mm aa').format(DateTime.fromMillisecondsSinceEpoch(doc['last_update_date']))}',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Colors.grey.shade300,
+                                              fontSize: size.width * .04))
+                                      : Container(),
+                                  SizedBox(height: size.width * .1),
                                   doc['is_live']
-                                      ?Container()
-                                      :Text('[ লাইভ বন্ধ আছে ]',textAlign:TextAlign.center,style: TextStyle(color: Color(0xffFF0000),
-                                      fontSize: size.width * .1)),
-
+                                      ? Container()
+                                      : Text('[ লাইভ বন্ধ আছে ]',
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(
+                                              color: Color(0xffFF0000),
+                                              fontSize: size.width * .1)),
+                                  doc['is_live']
+                                      ? doc['image_list'].isNotEmpty
+                                          ? Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: size.width * .1),
+                                              child: SizedBox(
+                                                height: size.width * .25,
+                                                child: ListView.separated(
+                                                    shrinkWrap: true,
+                                                    scrollDirection:
+                                                        Axis.horizontal,
+                                                    itemCount: doc['image_list']
+                                                        .length,
+                                                    itemBuilder:
+                                                        (_, index) => InkWell(
+                                                              onTap: () => Navigator.push(
+                                                                  context,
+                                                                  MaterialPageRoute(
+                                                                      builder: (context) =>
+                                                                          PhotoViewPage(
+                                                                              imageList: doc['image_list']))),
+                                                              child:
+                                                                  CachedNetworkImage(
+                                                                imageUrl:
+                                                                    doc['image_list']
+                                                                        [index],
+                                                                placeholder: (context, url) => Icon(
+                                                                    Icons.image,
+                                                                    size:
+                                                                        size.width *
+                                                                            .25,
+                                                                    color: Colors
+                                                                        .grey),
+                                                                errorWidget: (context,
+                                                                        url,
+                                                                        error) =>
+                                                                    Icon(
+                                                                        Icons
+                                                                            .error,
+                                                                        size: size.width *
+                                                                            .25),
+                                                              ),
+                                                            ),
+                                                    separatorBuilder:
+                                                        (_, index) => SizedBox(
+                                                            width: size.width *
+                                                                .04)),
+                                              ),
+                                            )
+                                          : Container()
+                                      : Container(),
                                 ],
                               );
                             });
                       } else {
                         return Container(
-                          height:size.width * .18,
+                          height: size.width * .18,
                           width: size.width * .5,
                           color: Colors.grey.shade300,
                           alignment: Alignment.center,
@@ -116,11 +181,10 @@ class _LivePageState extends State<LivePage> {
                   ),
                 ],
               ),
-
               Container(
-                margin: EdgeInsets.only(bottom: size.width*.1),
+                margin: EdgeInsets.only(bottom: size.width * .1),
                 child: GradientButton(
-                  onPressed: ()=>Navigator.pop(context),
+                  onPressed: () => Navigator.pop(context),
                   child: Text('Close',
                       style: TextStyle(fontSize: size.width * .06)),
                   height: size.width * .12,

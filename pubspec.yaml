@@ -23,6 +23,7 @@ dependencies:
   cached_network_image:
   connectivity:
   flutter_launcher_icons: ^0.9.0
+  photo_view:
 
 dev_dependencies:
   flutter_test:
@@ -43,7 +44,6 @@ flutter:
     #Home Image
     - assets/home_image/
 
-
   fonts:
     - family: niladriFontLite
       fonts:
@@ -54,6 +54,3 @@ flutter:
       fonts:
         - asset: assets/fonts/li_Shohid_Barkat_ANSI_V2.ttf
 #          weight: 700
-  #
-  # For details regarding fonts from package dependencies,
-  # see https://flutter.dev/custom-fonts/#from-packages

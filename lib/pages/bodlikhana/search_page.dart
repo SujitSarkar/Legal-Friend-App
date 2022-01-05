@@ -1,6 +1,6 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
-import 'package:legal_friend/pages/search_list.dart';
+import 'package:legal_friend/pages/bodlikhana/search_list.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/app_bar.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';

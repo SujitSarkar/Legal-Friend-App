@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:legal_friend/pages/bodli_khana.dart';
-import 'package:legal_friend/pages/search_page.dart';
-import 'package:legal_friend/providers/public_provider.dart';
+import 'package:legal_friend/pages/bodlikhana/bodli_khana.dart';
 import 'package:legal_friend/tiles/app_bar.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:legal_friend/variables/variables.dart';
-import 'package:provider/provider.dart';
-
 // ignore: must_be_immutable
 class ArchiveDetails extends StatefulWidget {
   String id;

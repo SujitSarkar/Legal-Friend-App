@@ -2,6 +2,10 @@ import 'package:flutter/material.dart';
 class PColor{
 
   static final Color themeColor = Color(0xff00AE51);
+  static final Color greyBgColor = Color(0xffF0F2F4);
+  static final Color blueColor = Color(0xff0070B6);
+  static final Color loginBtnColor = Color(0xff00AA98);
+  static final Color yellowColor = Color(0xffFFD600);
 
   static final Map<int, Color> colorMap = {
     50: Color.fromRGBO(0, 174, 81, .1),
