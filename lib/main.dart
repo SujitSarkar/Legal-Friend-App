@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:legal_friend/pages/account_page.dart';
 import 'package:legal_friend/pages/home_page.dart';
 import 'package:legal_friend/pages/login_page.dart';
+import 'package:legal_friend/pages/profile_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/variables/pColor.dart';
 import 'package:provider/provider.dart';

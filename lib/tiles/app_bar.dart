@@ -1,13 +1,11 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class PublicAppBar extends StatelessWidget {
-  String pageName;
-  String bottomText;
-  String image;
-  Color color;
-   PublicAppBar({this.image,this.pageName,this.bottomText,this.color});
+  final String pageName;
+  final String bottomText;
+  final String image;
+  final Color color;
+  const PublicAppBar({this.image,this.pageName,this.bottomText,this.color});
 
   @override
   Widget build(BuildContext context) {

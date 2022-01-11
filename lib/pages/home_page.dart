@@ -2,15 +2,18 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
+import 'package:legal_friend/pages/account_page.dart';
 import 'package:legal_friend/pages/bodlikhana/bodli_khana.dart';
 import 'package:legal_friend/pages/court_building/home_page.dart';
 import 'package:legal_friend/pages/lawyer_page.dart';
 import 'package:legal_friend/pages/kaj_list.dart';
 import 'package:legal_friend/pages/live_pages/live_home_page.dart';
+import 'package:legal_friend/pages/upnpaid_notice_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/home_tile.dart';
 import 'package:legal_friend/tiles/notification_widget.dart';
+import 'package:legal_friend/variables/pColor.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,7 +43,6 @@ class _HomePageState extends State<HomePage> {
         _showNotice(publicProvider);
       });
     }
-
   }
 
   void _showNotice(PublicProvider publicProvider){
@@ -83,12 +85,16 @@ class _HomePageState extends State<HomePage> {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
       body: _isLoading
-          ?Center(child: spinCircle())
+          ? Center(child: spinCircle())
           : _bodyUI(size),
       backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
-      bottomNavigationBar: BottomTile(),
-
+      bottomNavigationBar: InkWell(
+        onTap: (){
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => AccountPage()));
+        },
+          child: BottomTile()),
     );
   }
 
@@ -110,7 +116,7 @@ class _HomePageState extends State<HomePage> {
 
                   HomeMainButton(
                     onPressed: () => Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => KajList())),
+                        context, MaterialPageRoute(builder: (context) => UnpaidNoticePage())),
                     image: 'assets/home_image/kaj_list.png',
                   ),
                   SizedBox(height: size.width * .04),
@@ -138,7 +144,7 @@ class _HomePageState extends State<HomePage> {
         child: RotationTransition(
           turns: AlwaysStoppedAnimation(-90 / 360),
           child: Material(
-            color: Colors.red,
+            color: PColor.livePageBgColor,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(15),
               topRight: Radius.circular(15),

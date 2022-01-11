@@ -34,8 +34,7 @@ class _SearchPageState extends State<SearchPage> {
         preferredSize: Size.fromHeight(100),
         child: PublicAppBar(
           pageName: publicProvider.togglePageName(),
-          bottomText:
-              '${Variables.sorboseshUpdateBoi}${publicProvider.toggleLastUpdatedBoiNo()} ${Variables.porjonto}',
+          bottomText: '${Variables.sorboseshUpdateBoi}${publicProvider.toggleLastUpdatedBoiNo()} ${Variables.porjonto}',
           image: 'assets/home_image/bodli_khana.png',
           color: publicProvider.toggleHeaderColor(),
         ),

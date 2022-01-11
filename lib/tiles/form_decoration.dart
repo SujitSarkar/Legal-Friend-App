@@ -57,7 +57,7 @@ InputDecoration newDecoration(Size size) => InputDecoration(
   ),
   labelStyle: TextStyle(
     color: Colors.grey,
-    fontSize: size.width*.045,
+    fontSize: size.width*.04,
     fontWeight: FontWeight.w400,
   ),
   contentPadding: EdgeInsets.symmetric(

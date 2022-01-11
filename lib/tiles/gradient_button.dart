@@ -1,14 +1,13 @@
 import 'package:flutter/material.dart';
 
-// ignore: must_be_immutable
 class GradientButton extends StatelessWidget {
-  Widget child;
-  Function onPressed;
-  double borderRadius;
-  double height;
-  double width;
-  List<Color> gradientColors;
-  GradientButton({
+  final Widget child;
+  final Function onPressed;
+  final double borderRadius;
+  final double height;
+  final double width;
+  final List<Color> gradientColors;
+  const GradientButton({
       this.child, this.onPressed, this.borderRadius, this.height, this.width,this.gradientColors});
 
   @override
@@ -19,7 +18,7 @@ class GradientButton extends StatelessWidget {
           primary: Colors.white,
           padding: EdgeInsets.symmetric(horizontal: 0.0),
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+            borderRadius: BorderRadius.all(Radius.circular(borderRadius??100.0)),
           ),
         ),
         child: Ink(
@@ -31,7 +30,7 @@ class GradientButton extends StatelessWidget {
               end: Alignment.bottomCenter,
               colors: gradientColors,
             ),
-            borderRadius: BorderRadius.all(Radius.circular(borderRadius)),
+            borderRadius: BorderRadius.all(Radius.circular(borderRadius??100.0)),
           ),
           child: Center(
             child: child,

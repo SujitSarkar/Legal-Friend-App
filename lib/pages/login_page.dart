@@ -1,16 +1,13 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:legal_friend/pages/create_profile_page.dart';
+import 'package:legal_friend/pages/home_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
-import 'package:legal_friend/tiles/form_decoration.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:legal_friend/tiles/notification_widget.dart';
 import 'package:legal_friend/tiles/text_field_tile.dart';
 import 'package:legal_friend/variables/pColor.dart';
 import 'package:provider/provider.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
 
 class LogInPage extends StatefulWidget {
   @override
@@ -21,8 +18,6 @@ class _LogInPageState extends State<LogInPage> {
   TextEditingController _phone = TextEditingController(text: '');
 
   TextEditingController _password = TextEditingController(text: '');
-
-  bool _obscure=true;
 
   @override
   Widget build(BuildContext context) {
@@ -55,18 +50,21 @@ class _LogInPageState extends State<LogInPage> {
                   ),
                   child: Column(
                     children: [
-                      TextFieldBuilder(controller: _phone, hintText: 'Phone Number',textInputType: TextInputType.number),
+                      TextFieldBuilder(controller: _phone, labelText: 'Phone Number',
+                          textInputType: TextInputType.number),
                       SizedBox(height:size.width*.04),
-                      TextFieldBuilder(controller: _password, hintText: 'Password',obscure: true),
+
+                      TextFieldBuilder(controller: _password, labelText: 'Password',obscure: true),
                       SizedBox(height:size.width*.04),
 
                       GradientButton(
                         onPressed: () async {
-                          if (_phone.text.isNotEmpty) {
-                            if(_phone.text.length>=11){
-
-                            }else showToast('মোবাইল নাম্বার ১১ ডিজিট হতে হবে');
-                          }else showToast('ফর্ম পুরন করুন');
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                          // if (_phone.text.isNotEmpty) {
+                          //   if(_phone.text.length>=11){
+                          //
+                          //   }else showToast('মোবাইল নাম্বার ১১ ডিজিট হতে হবে');
+                          // }else showToast('ফর্ম পুরন করুন');
                         },
                         child: Text('Login',
                             style: TextStyle(
@@ -76,7 +74,6 @@ class _LogInPageState extends State<LogInPage> {
                                 color: Colors.white)),
                         height: size.width * .12,
                         width: size.width * .9,
-                        borderRadius: size.width * .03,
                         gradientColors: [
                           PColor.loginBtnColor,
                           PColor.loginBtnColor
@@ -100,7 +97,6 @@ class _LogInPageState extends State<LogInPage> {
                                 color: PColor.yellowColor)),
                         height: size.width * .12,
                         width: size.width * .9,
-                        borderRadius: size.width * .03,
                         gradientColors: [
                           PColor.themeColor,
                           PColor.themeColor
