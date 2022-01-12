@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:legal_friend/pages/court_building/by_court_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:provider/provider.dart';
+
+import 'by_building_page.dart';
 
 class CourtBuildingHomePage extends StatefulWidget {
   const CourtBuildingHomePage({Key key}) : super(key: key);
@@ -31,15 +34,13 @@ class _CourtBuildingHomePageState extends State<CourtBuildingHomePage> {
     mainAxisAlignment: MainAxisAlignment.spaceAround,
     crossAxisAlignment: CrossAxisAlignment.center,
     children: [
-
       Image.asset('assets/home_image/court_building.png'),
-
       Column(
         mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           GradientButton(
-            onPressed: () {},
+            onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ByCourtPage())),
             child: Text('By Court',
                 style: TextStyle(fontSize: size.width * .058)),
             height: size.width * .12,
@@ -53,7 +54,7 @@ class _CourtBuildingHomePageState extends State<CourtBuildingHomePage> {
           SizedBox(height: size.width*.05),
 
           GradientButton(
-            onPressed: () {},
+            onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ByBuildingPage())),
             child: Text('By Building',
                 style: TextStyle(fontSize: size.width * .058)),
             height: size.width * .12,

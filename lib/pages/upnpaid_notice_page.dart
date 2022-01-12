@@ -7,7 +7,6 @@ import 'package:provider/provider.dart';
 
 class UnpaidNoticePage extends StatefulWidget {
   const UnpaidNoticePage({Key key}) : super(key: key);
-
   @override
   _UnpaidNoticePageState createState() => _UnpaidNoticePageState();
 }

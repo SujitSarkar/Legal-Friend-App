@@ -55,6 +55,7 @@ class _MyAppState extends State<MyApp> {
                 debugShowCheckedModeBanner: false,
                 theme: ThemeData(
                   backgroundColor: Colors.white,
+                  scaffoldBackgroundColor: Colors.white,
                   primarySwatch: MaterialColor(0xff00AE51, PColor.colorMap),
                   canvasColor: Colors.transparent
                 ),
@@ -73,6 +74,7 @@ class _MyAppState extends State<MyApp> {
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 backgroundColor: Colors.white,
+                scaffoldBackgroundColor: Colors.white,
                 primarySwatch: MaterialColor(0xff00AE51, PColor.colorMap),
                 canvasColor: Colors.transparent
               ),

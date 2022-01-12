@@ -66,7 +66,7 @@ class PublicAppBar extends StatelessWidget {
                                   fontSize: size.width * .038,
                                   color: Colors.grey[900])
                           ),
-                        ):Container(height: size.width * .05,),
+                        ):Container(height: size.width * .05),
                       ],
                     ),
                   ),

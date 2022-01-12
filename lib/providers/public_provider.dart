@@ -6,7 +6,6 @@ import 'package:legal_friend/tiles/notification_widget.dart';
 import 'package:legal_friend/variables/variables.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-
 class PublicProvider extends ChangeNotifier{
   SharedPreferences _preferences;
   String _pageValue='';
@@ -57,6 +56,7 @@ class PublicProvider extends ChangeNotifier{
     if(_pageValue==Variables.niAct) return '২০১৯';
     else return '৪(৮)২১';
   }
+
   String toggleSign(){
     if(_pageValue==Variables.niAct) return '/';
     else return '-';
