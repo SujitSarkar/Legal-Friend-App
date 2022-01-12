@@ -8,7 +8,7 @@ class LawyerPage extends StatefulWidget {
 
 class _LawyerPageState extends State<LawyerPage> {
   double progress = 0;
-  String pageTitle = '';
+  String pageTitle = 'Loading...';
 
   @override
   Widget build(BuildContext context) {
@@ -48,14 +48,10 @@ class _LawyerPageState extends State<LawyerPage> {
                   initialUrlRequest: URLRequest(
                       url: Uri.parse(
                           'https://www.dhakabarassociation.com/member_of_dba.php')),
-                  onPageCommitVisible:
-                      (InAppWebViewController controller, Uri uri) {},
-                  onProgressChanged:
-                      (InAppWebViewController controller, int progress) {
+                  onProgressChanged: (InAppWebViewController controller, int progress) {
                     setState(() => this.progress = progress / 100);
                   },
-                  onTitleChanged:
-                      (InAppWebViewController controller, String title) {
+                  onTitleChanged: (InAppWebViewController controller, String title) {
                     setState(() => pageTitle = title);
                   },
                 ),

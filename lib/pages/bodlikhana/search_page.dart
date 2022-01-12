@@ -207,7 +207,7 @@ class _SearchPageState extends State<SearchPage> {
                         fontFamily: 'niladriFontLite')),
                 height: size.width * .1,
                 width: size.width * .5,
-                borderRadius: size.width * .03,
+                //borderRadius: size.width * .03,
                 gradientColors: [
                   Colors.yellow[900],
                   Colors.yellow[800],

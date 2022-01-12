@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:legal_friend/pages/archive_details.dart';
 import 'package:legal_friend/providers/public_provider.dart';
-import 'package:legal_friend/tiles/app_bar.dart';
 import 'package:legal_friend/tiles/archive_tile.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
@@ -66,7 +65,7 @@ class _ArchiveListState extends State<ArchiveList> {
                   style: TextStyle(fontSize: size.width * .06)),
               height: size.width * .12,
               width: size.width * .8,
-              borderRadius: size.width * .03,
+              //borderRadius: size.width * .03,
               gradientColors: [
                 Color(0xFF0D47A1),
                 Color(0xFF1976D2),

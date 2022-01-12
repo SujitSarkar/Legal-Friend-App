@@ -189,7 +189,7 @@ class _LivePageState extends State<LivePage> {
                       style: TextStyle(fontSize: size.width * .06)),
                   height: size.width * .12,
                   width: size.width * .8,
-                  borderRadius: size.width * .03,
+                  //borderRadius: size.width * .03,
                   gradientColors: [
                     Color(0xffFF4B00),
                     Color(0xffC63900),

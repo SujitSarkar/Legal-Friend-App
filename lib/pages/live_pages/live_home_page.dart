@@ -56,7 +56,7 @@ class LiveHomePage extends StatelessWidget {
                           fontWeight: FontWeight.bold,fontStyle: FontStyle.italic)),
                   height: size.width * .12,
                   width: size.width * .8,
-                  borderRadius: size.width * .03,
+                  //borderRadius: size.width * .03,
                   gradientColors: [
                     Color(0xffCB081B),
                     Color(0xff9B0C17),
@@ -71,7 +71,7 @@ class LiveHomePage extends StatelessWidget {
                       style: TextStyle(fontSize: size.width * .06,fontStyle: FontStyle.italic)),
                   height: size.width * .12,
                   width: size.width * .8,
-                  borderRadius: size.width * .03,
+                  //borderRadius: size.width * .03,
                   gradientColors: [
                     Color(0xffFF9926),
                     Color(0xffA35C20),
@@ -91,7 +91,7 @@ class LiveHomePage extends StatelessWidget {
                   style: TextStyle(fontSize: size.width * .06)),
               height: size.width * .12,
               width: size.width * .8,
-              borderRadius: size.width * .03,
+              //borderRadius: size.width * .03,
               gradientColors: [
                 Color(0xffFF4B00),
                 Color(0xffC63900),

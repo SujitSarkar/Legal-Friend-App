@@ -13,7 +13,7 @@ class LiveAppBar extends StatelessWidget {
       alignment: Alignment.centerRight,
       padding: EdgeInsets.only(right: size.width*.06),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(size.width*.03)),
+        //borderRadius: BorderRadius.all(Radius.circular(size.width*.3)),
         gradient: LinearGradient(
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,

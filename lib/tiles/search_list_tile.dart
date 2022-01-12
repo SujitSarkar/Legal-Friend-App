@@ -12,11 +12,10 @@ import 'package:legal_friend/variables/variables.dart';
 import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-// ignore: must_be_immutable
 class SearchListTile extends StatelessWidget {
-  int index;
-  List<BodliKhanaModel> dataList;
-  SearchListTile({this.index, this.dataList});
+  final int index;
+  final List<BodliKhanaModel> dataList;
+  const SearchListTile({this.index, this.dataList});
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +82,7 @@ class SearchListTile extends StatelessWidget {
                                 ),),
                                 height: size.width * .1,
                                 width: size.width * .5,
-                                borderRadius: size.width * .03,
+                                //borderRadius: size.width * .03,
                                 gradientColors: [
                                   Color(0xFF0D47A1),
                                   Color(0xFF1976D2),
@@ -108,7 +107,7 @@ class SearchListTile extends StatelessWidget {
                 style: TextStyle(fontSize: size.width * .04)),
             height: size.width * .1,
             width: size.width * .5,
-            borderRadius: size.width * .03,
+            //borderRadius: size.width * .03,
             gradientColors: [
               Colors.blue.shade600,
               Colors.blue.shade500,

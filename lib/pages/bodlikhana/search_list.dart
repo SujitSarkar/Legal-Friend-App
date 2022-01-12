@@ -6,7 +6,6 @@ import 'package:legal_friend/tiles/notification_widget.dart';
 import 'package:legal_friend/tiles/search_list_tile.dart';
 import 'package:legal_friend/variables/variables.dart';
 import 'package:provider/provider.dart';
-
 import 'no_result_found.dart';
 
 class SearchtList extends StatefulWidget {
