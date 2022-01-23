@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
+import 'package:legal_friend/variables/pColor.dart';
 
 class AdvocatePage extends StatefulWidget {
   @override
@@ -19,17 +20,17 @@ class _AdvocatePageState extends State<AdvocatePage> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(60),
             child: Container(
-              color: Theme.of(context).primaryColor,
+              color: PColor.advocateBgColor,
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: [
-                  Text("   $pageTitle",
-                      style: TextStyle(color: Colors.white, fontSize: 17)),
                   IconButton(
                     onPressed: () => Navigator.pop(context),
-                    icon: Icon(Icons.cancel_outlined, color: Colors.white),
+                    icon: Icon(Icons.arrow_back, color: Colors.white),
                     splashRadius: 30,
-                  )
+                  ),
+                  Text("   $pageTitle",
+                      style: TextStyle(color: Colors.white, fontSize: 17)),
                 ],
               ),
             ),

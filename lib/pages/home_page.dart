@@ -1,7 +1,5 @@
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:legal_friend/pages/account_page.dart';
 import 'package:legal_friend/pages/bodlikhana/bodli_khana.dart';
@@ -9,9 +7,8 @@ import 'package:legal_friend/pages/court_building/home_page.dart';
 import 'package:legal_friend/pages/advocate_page.dart';
 import 'package:legal_friend/pages/kaj_list.dart';
 import 'package:legal_friend/pages/live_pages/live_home_page.dart';
-import 'package:legal_friend/pages/upnpaid_notice_page.dart';
+import 'package:legal_friend/pages/profile_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
-import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/home_tile.dart';
 import 'package:legal_friend/tiles/notification_widget.dart';
 import 'package:legal_friend/variables/pColor.dart';
@@ -24,11 +21,10 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   bool _isLoading = false;
-
   @override
   initState(){
     super.initState();
-    //_customInit();
+    _customInit();
   }
 
   Future<void> _customInit() async {
@@ -109,16 +105,21 @@ class _HomePageState extends State<HomePage> {
             SizedBox(height:size.width*.15),
 
             ///Account
-            Container(
-              height: size.width*.35,
-              width: size.width*.35,
-              decoration: BoxDecoration(
-                  color: Colors.blueGrey.shade100,
-                  borderRadius: BorderRadius.all(Radius.circular(size.width*.2)),
-                  border: Border.all(color: Colors.white,width: size.width*.02)
+            InkWell(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context)=>AccountPage()));
+              },
+              child: Container(
+                height: size.width*.35,
+                width: size.width*.35,
+                decoration: BoxDecoration(
+                    color: Colors.blueGrey.shade100,
+                    borderRadius: BorderRadius.all(Radius.circular(size.width*.2)),
+                    border: Border.all(color: Colors.white,width: size.width*.02)
+                ),
+                child: Icon(Icons.person,size: size.width*.28,
+                    color: Theme.of(context).primaryColor),
               ),
-              child: Icon(Icons.person,size: size.width*.28,
-                  color: Theme.of(context).primaryColor),
             ),
             SizedBox(height: size.width*.02),
 

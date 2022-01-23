@@ -18,7 +18,7 @@ class HomeMainButton extends StatelessWidget {
         decoration: BoxDecoration(
           color: bgColor,
           borderRadius: BorderRadius.all(Radius.circular(size.width*.03))),
-        child: Image.asset(image,fit: BoxFit.fitWidth),
+        child: Image.asset(image,fit: BoxFit.fitHeight),
       ),
       borderRadius: BorderRadius.all(Radius.circular(size.width*.03)),
     );
