@@ -4,6 +4,7 @@ class PColor{
   static const Color themeColor = Color(0xff00AE51);
   static const Color greyBgColor = Color(0xffF0F2F4);
   static const Color blueColor = Color(0xff0070B6);
+  static const Color deepBlueColor = Color(0xff0073FF);
   static const Color loginBtnColor = Color(0xff00AA98);
   static const Color yellowColor = Color(0xffFFD600);
   static const Color regularColor = Color(0xffFFC629);
@@ -13,6 +14,10 @@ class PColor{
   static const Color passwordColor = Color(0xff00C2D0);
   static const Color logoutColor = Color(0xff00AA98);
   static const Color livePageBgColor = Color(0xff004865);
+
+  static const Color bodliKhanaBgColor = Color(0xffFDBC71);
+  static const Color advocateBgColor = Color(0xff006837);
+  static const Color kajListBgColor = Color(0xffF8E986);
 
   static const Map<int, Color> colorMap = {
     50: Color.fromRGBO(0, 174, 81, .1),

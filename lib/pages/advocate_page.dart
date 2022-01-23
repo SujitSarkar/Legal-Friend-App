@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
 
-class LawyerPage extends StatefulWidget {
+class AdvocatePage extends StatefulWidget {
   @override
-  _LawyerPageState createState() => _LawyerPageState();
+  _AdvocatePageState createState() => _AdvocatePageState();
 }
 
-class _LawyerPageState extends State<LawyerPage> {
+class _AdvocatePageState extends State<AdvocatePage> {
   double progress = 0;
   String pageTitle = 'Loading...';
 

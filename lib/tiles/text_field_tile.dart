@@ -7,6 +7,7 @@ class TextFieldBuilder extends StatefulWidget {
     @required this.controller,
     this.hintText,
     this.labelText,
+    this.fillColor,
     this.obscure=false,this.textInputType,this.textCapitalization}) : super(key: key);
 
   final TextEditingController controller;
@@ -14,7 +15,8 @@ class TextFieldBuilder extends StatefulWidget {
   final String labelText;
   final TextInputType textInputType;
   final TextCapitalization textCapitalization;
-  bool obscure;
+  final bool obscure;
+  final Color fillColor;
 
   @override
   _TextFieldBuilderState createState() => _TextFieldBuilderState();
@@ -36,11 +38,13 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
         fontWeight: FontWeight.w400,
       ),
       decoration: newDecoration(size).copyWith(
+        fillColor: widget.fillColor??null,
+        filled: widget.fillColor!=null?true:false,
         hintText: widget.hintText,
-          labelText: widget.labelText,
-          suffixIcon: widget.obscure
+        labelText: widget.labelText,
+        suffixIcon: widget.obscure
               ? InkWell(
-            onTap: ()=>setState(()=>_obscure=!_obscure),
+            onTap: ()=>setState(()=> _obscure=!_obscure),
             child: Padding(
               padding: EdgeInsets.only(right: size.width*.04),
               child: Icon(_obscure?CupertinoIcons.eye_slash:CupertinoIcons.eye,

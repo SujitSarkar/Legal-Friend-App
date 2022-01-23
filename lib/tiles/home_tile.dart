@@ -1,40 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:legal_friend/variables/pColor.dart';
 
-// ignore: must_be_immutable
-class HomeMainButton extends StatefulWidget {
-  Function onPressed;
-  String image;
-  HomeMainButton({this.image,this.onPressed});
-
-  @override
-  _HomeMainButtonState createState() => _HomeMainButtonState();
-}
-
-class _HomeMainButtonState extends State<HomeMainButton> {
+class HomeMainButton extends StatelessWidget {
+  const HomeMainButton({Key key,
+    @required this.image, @required this.onPressed,@required this.bgColor})
+      : super(key: key);
+  final Function onPressed;
+  final String image;
+  final Color bgColor;
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
     return InkWell(
-      onTap: widget.onPressed,
-      child: Ink(
-        height: size.width*.4,
-        width: size.width*.75,
+      onTap: onPressed,
+      child: Container(
+        padding: EdgeInsets.all(size.width*.04),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.all(Radius.circular(size.width*.03)),
-          border: Border.all(
-            color: Colors.grey,
-            width: 3.0
-          ),
-          image: DecorationImage(
-            image: AssetImage(widget.image),
-            fit: BoxFit.fitHeight
-          )
-        ),
+          color: bgColor,
+          borderRadius: BorderRadius.all(Radius.circular(size.width*.03))),
+        child: Image.asset(image,fit: BoxFit.fitWidth),
       ),
       borderRadius: BorderRadius.all(Radius.circular(size.width*.03)),
-      splashColor: PColor.livePageBgColor.withOpacity(0.5),
     );
   }
 }

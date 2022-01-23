@@ -88,7 +88,6 @@ class SearchListTile extends StatelessWidget {
                                   Color(0xFF1976D2),
                                 ],
                               )
-
                             ],
                           ),
                         );
@@ -100,8 +99,7 @@ class SearchListTile extends StatelessWidget {
                   }
                 });
               } else
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LogInPage()));
+                Navigator.push(context,MaterialPageRoute(builder: (context) => LogInPage()));
             },
             child: Text(Variables.archiveRakhun,
                 style: TextStyle(fontSize: size.width * .04)),

@@ -1,11 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:legal_friend/pages/account_page.dart';
 import 'package:legal_friend/pages/bodlikhana/bodli_khana.dart';
 import 'package:legal_friend/pages/court_building/home_page.dart';
-import 'package:legal_friend/pages/lawyer_page.dart';
+import 'package:legal_friend/pages/advocate_page.dart';
 import 'package:legal_friend/pages/kaj_list.dart';
 import 'package:legal_friend/pages/live_pages/live_home_page.dart';
 import 'package:legal_friend/pages/upnpaid_notice_page.dart';
@@ -27,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   @override
   initState(){
     super.initState();
-    _customInit();
+    //_customInit();
   }
 
   Future<void> _customInit() async {
@@ -87,88 +88,166 @@ class _HomePageState extends State<HomePage> {
       body: _isLoading
           ? Center(child: spinCircle())
           : _bodyUI(size),
-      backgroundColor: Colors.white,
-      resizeToAvoidBottomInset: true,
-      bottomNavigationBar: InkWell(
-        onTap: (){
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => AccountPage()));
-        },
-          child: BottomTile()),
+      backgroundColor: PColor.deepBlueColor,
     );
   }
 
-  Widget _bodyUI(Size size) => Stack(
-    children: [
-      Center(
-            child: SingleChildScrollView(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(height: size.width * .15),
-                  HomeMainButton(
-                    onPressed: () => Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => BodliKhana())),
-                    image: 'assets/home_image/bodli_khana.png',
-                  ),
-                  SizedBox(height: size.width * .04),
+  Widget _bodyUI(Size size) => SafeArea(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        ///Top Section
+        Column(
+          children: [
+            SizedBox(height:size.width*.05),
+            ///Advocacy image
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: size.width*.15),
+              child: Image.asset('assets/easy_advocacy.png'),
+            ),
+            SizedBox(height:size.width*.15),
 
-                  HomeMainButton(
-                    onPressed: () => Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => UnpaidNoticePage())),
-                    image: 'assets/home_image/kaj_list.png',
-                  ),
-                  SizedBox(height: size.width * .04),
-
-                  HomeMainButton(
-                    onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>CourtBuildingHomePage())),
-                    image: 'assets/home_image/court_building.png',
-                  ),
-                  SizedBox(height: size.width * .04),
-
-                  HomeMainButton(
-                    onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>LawyerPage())),
-                    image: 'assets/home_image/lawyear.png',
-                  ),
-                  SizedBox(height: size.width * .04),
-                ],
+            ///Account
+            Container(
+              height: size.width*.35,
+              width: size.width*.35,
+              decoration: BoxDecoration(
+                  color: Colors.blueGrey.shade100,
+                  borderRadius: BorderRadius.all(Radius.circular(size.width*.2)),
+                  border: Border.all(color: Colors.white,width: size.width*.02)
               ),
+              child: Icon(Icons.person,size: size.width*.28,
+                  color: Theme.of(context).primaryColor),
             ),
-          ),
+            SizedBox(height: size.width*.02),
 
-      ///LIVE
-      Positioned(
-        right: -26.0,
-        bottom: 50.0,
-        child: RotationTransition(
-          turns: AlwaysStoppedAnimation(-90 / 360),
-          child: Material(
-            color: PColor.livePageBgColor,
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15),
-              topRight: Radius.circular(15),
-            ),
-            child: InkWell(
-              onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>LiveHomePage())),
-              child: Container(
-                alignment: Alignment.center,
-                height: 28,
-                width: 80,
-                child: Text('LIVE',style: TextStyle(
+            ///Name
+            Text('Kamrul Hasan',
+                style: TextStyle(
                   color: Colors.white,
-                    fontStyle: FontStyle.italic,
-                    fontWeight: FontWeight.bold,fontSize: 18.0
+                  fontSize: size.width*.07,
+                  fontWeight: FontWeight.w500,
                 )),
-              ),
+            SizedBox(height: size.width*.02),
+          ],
+        ),
+
+        ///Middle Section
+        Expanded(
+          child: Container(
+            padding: EdgeInsets.only(
+              top: size.width*.06,
+              left: size.width*.06,
+              right: size.width*.06,
+              bottom: size.width*.02
+            ),
+            decoration: BoxDecoration(
+                color: Colors.white,
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(15),
-                  topRight: Radius.circular(15),
+                    topLeft: Radius.circular(size.width*.08),
+                    topRight: Radius.circular(size.width*.08)
                 )
+            ),
+            child: Column(
+              children: [
+                Expanded(
+                  child: Container(
+                    //color:Colors.green,
+                    padding: EdgeInsets.symmetric(vertical: size.width*.02),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: HomeMainButton(
+                            onPressed: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>BodliKhana()));
+                            },
+                            bgColor: PColor.bodliKhanaBgColor,
+                            image: 'assets/home_image/bodli_khana.png',
+                          ),
+                        ),
+                        SizedBox(width: size.width*.02),
+                        HomeMainButton(
+                          onPressed: (){
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>AdvocatePage()));
+                          },
+                            bgColor: PColor.advocateBgColor,
+                          image: 'assets/home_image/advocate.png')
+                      ],
+                    ),
+                  ),
+                ),
+                Expanded(
+                  child: Container(
+                    //color:Colors.red,
+                    padding: EdgeInsets.symmetric(vertical: size.width*.03),
+                    child: Row(
+                      children: [
+                        HomeMainButton(
+                            onPressed: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>CourtBuildingHomePage()));
+                            },
+                            bgColor: PColor.livePageBgColor,
+                            image: 'assets/home_image/court_building.png'),
+                        SizedBox(width: size.width*.02),
+                        Expanded(
+                          child: HomeMainButton(
+                            onPressed: (){
+                              Navigator.push(context, MaterialPageRoute(builder: (context)=>KajList()));
+                            },
+                            bgColor: PColor.kajListBgColor,
+                            image: 'assets/home_image/kaj_list.png',
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
           ),
         ),
-      )
-    ],
+
+        ///Bottom Navigation Bar
+        Stack(
+          alignment: Alignment.bottomCenter,
+          clipBehavior: Clip.none,
+          children: [
+            Container(
+              color: Colors.white,
+              height: size.width*.2,
+            ),
+            Container(
+              height: size.width*.13,
+              decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                border: Border(
+                  top: BorderSide(color: PColor.yellowColor,width: size.width*.012)
+                )
+              ),
+            ),
+            Positioned(
+              top: -size.width*.009,
+              child: GestureDetector(
+                onTap: (){
+                 Navigator.push(context, MaterialPageRoute(builder: (context)=>LiveHomePage()));
+                },
+                child: Container(
+                  alignment: Alignment.center,
+                  height: size.width*.15,
+                  width: size.width*.15,
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.white,width: 2),
+                    shape: BoxShape.circle,
+                    color: Colors.white
+                  ),
+                  child: Image.asset('assets/logo/logo_wbg.png',fit: BoxFit.cover),
+                ),
+              ),
+            )
+          ],
+        )
+      ],
+    ),
   );
 }

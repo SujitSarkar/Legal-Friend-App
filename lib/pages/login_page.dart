@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:legal_friend/pages/create_profile_page.dart';
 import 'package:legal_friend/pages/home_page.dart';
@@ -26,45 +27,48 @@ class _LogInPageState extends State<LogInPage> {
 
     return Scaffold(
       backgroundColor: PColor.greyBgColor,
-      resizeToAvoidBottomInset: true,
-      bottomNavigationBar: BottomTile(),
       body: SafeArea(
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: size.width*.1),
-                  child: Image.asset('assets/login_poster.png'),
-                ),
-                SizedBox(height: size.width*.2),
+        child: Stack(
+          fit: StackFit.loose,
+          children: [
+            Positioned(
+             top: size.width*.1,
+              left: 0.0,
+              right: 0.0,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: size.width*.1),
+                child: Image.asset('assets/login_poster.png'),
+              ),
+            ),
+            //SizedBox(height: size.width*.2),
 
-                Container(
-                  padding: EdgeInsets.all(size.width*.04),
-                  margin: EdgeInsets.symmetric(horizontal: size.width*.07),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.all(Radius.circular(size.width*.04))
-                  ),
+            Positioned(
+              bottom: 0.0,
+              left: 0.0,
+              right: 0.0,
+              child: Container(
+                padding: EdgeInsets.all(size.width*.12),
+                decoration: BoxDecoration(
+                  color: PColor.deepBlueColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(size.width*.08),
+                    topRight: Radius.circular(size.width*.08)
+                  )
+                ),
+                child: SingleChildScrollView(
                   child: Column(
                     children: [
-                      TextFieldBuilder(controller: _phone, labelText: 'Phone Number',
-                          textInputType: TextInputType.number),
+                      TextFieldBuilder(controller: _phone, hintText: 'Phone Number',
+                          textInputType: TextInputType.number,fillColor: Colors.white),
                       SizedBox(height:size.width*.04),
 
-                      TextFieldBuilder(controller: _password, labelText: 'Password',obscure: true),
+                      TextFieldBuilder(controller: _password, hintText: 'Password',obscure: true,
+                          fillColor: Colors.white),
                       SizedBox(height:size.width*.04),
 
                       GradientButton(
                         onPressed: () async {
                           Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
-                          // if (_phone.text.isNotEmpty) {
-                          //   if(_phone.text.length>=11){
-                          //
-                          //   }else showToast('মোবাইল নাম্বার ১১ ডিজিট হতে হবে');
-                          // }else showToast('ফর্ম পুরন করুন');
                         },
                         child: Text('Login',
                             style: TextStyle(
@@ -84,7 +88,7 @@ class _LogInPageState extends State<LogInPage> {
                       Text('Forgotten Password?',style: TextStyle(
                           fontSize: size.width * .04,
                           fontWeight: FontWeight.bold,
-                          color: PColor.loginBtnColor)),
+                          color: Colors.white)),
                       SizedBox(height:size.width*.1),
 
                       GradientButton(
@@ -102,13 +106,13 @@ class _LogInPageState extends State<LogInPage> {
                           PColor.themeColor
                         ],
                       ),
-                      SizedBox(height:size.width*.1),
+                      SizedBox(height:size.width*.3),
                     ],
                   ),
                 ),
-              ],
+              ),
             ),
-          ),
+          ],
         ),
       ),
     );
