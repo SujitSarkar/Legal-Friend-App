@@ -53,7 +53,7 @@ class _BodliKhanaState extends State<BodliKhana> {
                             style: TextStyle(fontSize: size.width * .06)),
                         height: size.width * .12,
                         width: size.width * .8,
-                        //borderRadius: size.width * .03,
+                        borderRadius: size.width * .03,
                         gradientColors: [
                           Colors.red[600],
                           Colors.red[500],
@@ -72,7 +72,7 @@ class _BodliKhanaState extends State<BodliKhana> {
                             style: TextStyle(fontSize: size.width * .06)),
                         height: size.width * .12,
                         width: size.width * .8,
-                        //borderRadius: size.width * .03,
+                        borderRadius: size.width * .03,
                         gradientColors: [
                           Colors.green[700],
                           Colors.green[600],
@@ -91,7 +91,7 @@ class _BodliKhanaState extends State<BodliKhana> {
                             style: TextStyle(fontSize: size.width * .06)),
                         height: size.width * .12,
                         width: size.width * .8,
-                        //borderRadius: size.width * .03,
+                        borderRadius: size.width * .03,
                         gradientColors: [
                           Colors.yellow[900],
                           Colors.yellow[800],
@@ -109,16 +109,13 @@ class _BodliKhanaState extends State<BodliKhana> {
                             MaterialPageRoute(
                                 builder: (context) => ArchiveList()));
                       } else
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LogInPage()));
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => LogInPage()));
                     },
                     child: Text(Variables.archive,
                         style: TextStyle(fontSize: size.width * .06)),
                     height: size.width * .12,
                     width: size.width * .8,
-                    //borderRadius: size.width * .03,
+                    borderRadius: size.width * .03,
                     gradientColors: [
                       Color(0xFF0D47A1),
                       Color(0xFF1976D2),

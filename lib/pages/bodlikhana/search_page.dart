@@ -64,7 +64,7 @@ class _SearchPageState extends State<SearchPage> {
                       BorderRadius.all(Radius.circular(size.width * .02)),
                 ),
                 child: Text(
-                    '${Variables.boiNo}০১/২০২১ ${Variables.thekeSuruHoyeche}',
+                    '${Variables.boiNo}০১/২০২২ ${Variables.thekeSuruHoyeche}',
                     style: TextStyle(
                         fontSize: size.width * .04, color: Colors.grey[900])),
               ),
@@ -95,6 +95,7 @@ class _SearchPageState extends State<SearchPage> {
                         width: size.width * .22,
                         child: TextField(
                           controller: _mamlaNo,
+                          onTap: ()=> showToast('বাংলায় লিখুন'),
                           keyboardType: TextInputType.text,
                           style: TextStyle(
                               color: Colors.grey[900],
@@ -150,6 +151,7 @@ class _SearchPageState extends State<SearchPage> {
                         width: size.width * .22,
                         child: TextField(
                           controller: _mamlaNo2,
+                          onTap: ()=> showToast('বাংলায় লিখুন'),
                           keyboardType: TextInputType.text,
                           style: TextStyle(
                               color: Colors.grey[900],
@@ -180,8 +182,7 @@ class _SearchPageState extends State<SearchPage> {
                       }else showInfo('কোন ইন্টারনেট সংযোগ নেই, '
                       'মোবাইল ডাটা/ওয়াইফাই চালু করুন \u{1F629}');
                       
-                    } else
-                      showToast('সকল ডেটা ফিল্ড পুরন করুন');
+                    } else showToast('সকল ডেটা ফিল্ড পুরন করুন');
                   }else{
                     if (_amoliAdalot != null &&
                         _jojkrot != null &&
@@ -207,7 +208,7 @@ class _SearchPageState extends State<SearchPage> {
                         fontFamily: 'niladriFontLite')),
                 height: size.width * .1,
                 width: size.width * .5,
-                //borderRadius: size.width * .03,
+                borderRadius: size.width * .03,
                 gradientColors: [
                   Colors.yellow[900],
                   Colors.yellow[800],

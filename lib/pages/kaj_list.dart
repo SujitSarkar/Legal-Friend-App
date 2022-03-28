@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:legal_friend/pages/login_page.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:legal_friend/variables/variables.dart';
-import 'package:shared_preferences/shared_preferences.dart';
-
-import 'archive_list.dart';
 
 class KajList extends StatefulWidget {
   @override
@@ -71,32 +67,6 @@ class _KajListState extends State<KajList> {
                     gradientColors: [
                       Colors.teal.shade700,
                       Colors.teal.shade500
-                    ],
-                  ),
-                  SizedBox(height: size.width * .04),
-                  GradientButton(
-                    onPressed: () async {
-                      SharedPreferences _preferences =
-                          await SharedPreferences.getInstance();
-                      if (_preferences.getString('userPhone') != null) {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => ArchiveList()));
-                      } else
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => LogInPage()));
-                    },
-                    child: Text(Variables.archive,
-                        style: TextStyle(fontSize: size.width * .06)),
-                    height: size.width * .12,
-                    width: size.width * .8,
-                    borderRadius: size.width * .03,
-                    gradientColors: [
-                      Color(0xFF0D47A1),
-                      Color(0xFF1976D2),
                     ],
                   ),
                 ],

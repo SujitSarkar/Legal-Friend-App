@@ -22,7 +22,6 @@ class _LivePageState extends State<LivePage> {
   Widget build(BuildContext context) {
     final PublicProvider publicProvider = Provider.of<PublicProvider>(context);
     final Size size = MediaQuery.of(context).size;
-
     return Scaffold(
       backgroundColor: PColor.livePageBgColor,
       body: _bodyUI(publicProvider, size),
@@ -99,13 +98,10 @@ class _LivePageState extends State<LivePage> {
                                         : Container(),
                                   ),
                                   SizedBox(height: size.width * .01),
-                                  doc['is_live']
-                                      ? Text(
+                                  doc['is_live'] ? Text(
                                           'Last Update: ${DateFormat('hh:mm aa').format(DateTime.fromMillisecondsSinceEpoch(doc['last_update_date']))}',
                                           textAlign: TextAlign.center,
-                                          style: TextStyle(
-                                              color: Colors.grey.shade300,
-                                              fontSize: size.width * .04))
+                                          style: TextStyle(color: Colors.grey.shade300,fontSize: size.width * .04))
                                       : Container(),
                                   SizedBox(height: size.width * .1),
                                   doc['is_live']
@@ -124,48 +120,36 @@ class _LivePageState extends State<LivePage> {
                                                 height: size.width * .25,
                                                 child: ListView.separated(
                                                     shrinkWrap: true,
-                                                    scrollDirection:
-                                                        Axis.horizontal,
-                                                    itemCount: doc['image_list']
-                                                        .length,
-                                                    itemBuilder:
-                                                        (_, index) => InkWell(
+                                                    scrollDirection: Axis.horizontal,
+                                                    itemCount: doc['image_list'].length,
+                                                    itemBuilder: (_, index) => InkWell(
                                                               onTap: () => Navigator.push(
                                                                   context,
                                                                   MaterialPageRoute(
                                                                       builder: (context) =>
                                                                           PhotoViewPage(
                                                                               imageList: doc['image_list']))),
-                                                              child:
-                                                                  CachedNetworkImage(
-                                                                imageUrl:
-                                                                    doc['image_list']
-                                                                        [index],
+                                                              child: CachedNetworkImage(
+                                                                imageUrl: doc['image_list'][index],
                                                                 placeholder: (context, url) => Icon(
-                                                                    Icons.image,
-                                                                    size:
-                                                                        size.width *
-                                                                            .25,
-                                                                    color: Colors
-                                                                        .grey),
-                                                                errorWidget: (context,
-                                                                        url,
-                                                                        error) =>
+                                                                    Icons.image, size: size.width*.25,color: Colors.grey),
+                                                                errorWidget: (context,url, error) =>
                                                                     Icon(
-                                                                        Icons
-                                                                            .error,
-                                                                        size: size.width *
-                                                                            .25),
+                                                                        Icons.error,
+                                                                        size: size.width * .25),
                                                               ),
                                                             ),
-                                                    separatorBuilder:
-                                                        (_, index) => SizedBox(
-                                                            width: size.width *
-                                                                .04)),
+                                                    separatorBuilder: (_, index) => SizedBox(width: size.width * .04)),
                                               ),
                                             )
                                           : Container()
                                       : Container(),
+                                        SizedBox(height: size.width * .01),
+                                        doc['is_live'] ? Text(
+                                            'Last Update: ${DateFormat('hh:mm aa').format(DateTime.fromMillisecondsSinceEpoch(doc['image_update_date']))}',
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(color: Colors.grey.shade300,fontSize: size.width * .04))
+                                            : Container(),
                                 ],
                               );
                             });
@@ -174,8 +158,7 @@ class _LivePageState extends State<LivePage> {
                           height: size.width * .18,
                           width: size.width * .5,
                           color: Colors.grey.shade300,
-                          alignment: Alignment.center,
-                        );
+                          alignment: Alignment.center);
                       }
                     },
                   ),
@@ -189,7 +172,7 @@ class _LivePageState extends State<LivePage> {
                       style: TextStyle(fontSize: size.width * .06)),
                   height: size.width * .12,
                   width: size.width * .8,
-                  //borderRadius: size.width * .03,
+                  borderRadius: size.width * .03,
                   gradientColors: [
                     Color(0xffFF4B00),
                     Color(0xffC63900),

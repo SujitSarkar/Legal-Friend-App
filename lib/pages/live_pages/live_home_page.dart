@@ -56,47 +56,74 @@ class LiveHomePage extends StatelessWidget {
                           fontWeight: FontWeight.bold,fontStyle: FontStyle.italic)),
                   height: size.width * .12,
                   width: size.width * .8,
-                  //borderRadius: size.width * .03,
+                  borderRadius: size.width * .03,
                   gradientColors: [
                     Color(0xffCB081B),
-                    Color(0xff9B0C17),
+                    Color(0xff9B0C17)
                   ],
                 ),
+                Text('Download App',textAlign:TextAlign.center,style: TextStyle(color: Colors.white,fontSize: size.width * .045)),
                 SizedBox(height: size.width*.1),
-
-                Text('ABOUTus',textAlign:TextAlign.center,style: TextStyle(color: Colors.white,fontSize: size.width * .045)),
                 GradientButton(
                   onPressed: () {},
                   child: Text('Legalalfriend bangladesh',
                       style: TextStyle(fontSize: size.width * .06,fontStyle: FontStyle.italic)),
                   height: size.width * .12,
                   width: size.width * .8,
-                  //borderRadius: size.width * .03,
+                  borderRadius: size.width * .03,
                   gradientColors: [
                     Color(0xffFF9926),
-                    Color(0xffA35C20),
+                    Color(0xffA35C20)
                   ],
                 ),
+                SizedBox(height: size.width*.04),
+
+                GradientButton(
+                  onPressed: () {},
+                  child: Text('Facebook',
+                      style: TextStyle(fontSize: size.width * .06,fontStyle: FontStyle.italic)),
+                  height: size.width * .12,
+                  width: size.width * .8,
+                  borderRadius: size.width * .03,
+                  gradientColors: [
+                    Color(0xff0079F2),
+                    Color(0xff3695F4)
+                  ],
+                ),
+                SizedBox(height: size.width*.04),
+                GradientButton(
+                  onPressed: () {},
+                  child: Text('Youtube',
+                      style: TextStyle(fontSize: size.width * .06,fontStyle: FontStyle.italic)),
+                  height: size.width * .12,
+                  width: size.width * .8,
+                  borderRadius: size.width * .03,
+                  gradientColors: [
+                    Color(0xffFF0000),
+                    Color(0xffFF2C2C)
+                  ],
+                ),
+                SizedBox(height: size.width*.04),
+                GradientButton(
+                  onPressed: () {Navigator.pop(context);},
+                  child: Text('Home',
+                      style: TextStyle(fontSize: size.width * .06,fontStyle: FontStyle.italic)),
+                  height: size.width * .12,
+                  width: size.width * .8,
+                  borderRadius: size.width * .03,
+                  gradientColors: [
+                    Color(0xffBE3804),
+                    Color(0xffFF4C00)
+                  ],
+                ),
+                SizedBox(height: size.width*.04),
               ],
             ),
           ),
 
-          Text('Privacy & Policy',textAlign:TextAlign.center,style: TextStyle(color: Colors.white,fontSize: size.width * .045)),
-
-          Container(
-            margin: EdgeInsets.only(bottom: size.width*.1),
-            child: GradientButton(
-              onPressed: ()=>Navigator.pop(context),
-              child: Text('HOME',
-                  style: TextStyle(fontSize: size.width * .06)),
-              height: size.width * .12,
-              width: size.width * .8,
-              //borderRadius: size.width * .03,
-              gradientColors: [
-                Color(0xffFF4B00),
-                Color(0xffC63900),
-              ],
-            ),
+          Padding(
+            padding: EdgeInsets.only(bottom: size.width*.04),
+            child: Text('Privacy policy | Disclaimer',textAlign:TextAlign.center,style: TextStyle(color: Colors.white,fontSize: size.width * .045)),
           ),
 
         ],

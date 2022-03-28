@@ -46,7 +46,7 @@ class _CourtBuildingHomePageState extends State<CourtBuildingHomePage> {
                   style: TextStyle(fontSize: size.width * .058)),
               height: size.width * .12,
               width: size.width * .8,
-              //borderRadius: size.width * .03,
+              borderRadius: size.width * .03,
               gradientColors: [
                 Color(0xff004E36),
                 Color(0xff00B771),
@@ -60,7 +60,7 @@ class _CourtBuildingHomePageState extends State<CourtBuildingHomePage> {
                   style: TextStyle(fontSize: size.width * .058)),
               height: size.width * .12,
               width: size.width * .8,
-              //borderRadius: size.width * .03,
+              borderRadius: size.width * .03,
               gradientColors: [
                 Color(0xff004F48),
                 Color(0xff00AA98),
@@ -74,7 +74,7 @@ class _CourtBuildingHomePageState extends State<CourtBuildingHomePage> {
                   style: TextStyle(fontSize: size.width * .058)),
               height: size.width * .12,
               width: size.width * .8,
-              //borderRadius: size.width * .03,
+              borderRadius: size.width * .03,
               gradientColors: [
                 Color(0xff003F5C),
                 Color(0xff0070B6),

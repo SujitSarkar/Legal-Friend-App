@@ -8,6 +8,7 @@ class TextFieldBuilder extends StatefulWidget {
     this.hintText,
     this.labelText,
     this.fillColor,
+    this.readOnly=false,
     this.obscure=false,this.textInputType,this.textCapitalization}) : super(key: key);
 
   final TextEditingController controller;
@@ -17,6 +18,7 @@ class TextFieldBuilder extends StatefulWidget {
   final TextCapitalization textCapitalization;
   final bool obscure;
   final Color fillColor;
+  final bool readOnly;
 
   @override
   _TextFieldBuilderState createState() => _TextFieldBuilderState();
@@ -30,6 +32,7 @@ class _TextFieldBuilderState extends State<TextFieldBuilder> {
     return TextField(
       controller: widget.controller,
       obscureText: widget.obscure? _obscure:false,
+      readOnly: widget.readOnly,
       keyboardType: widget.textInputType??TextInputType.text,
       textCapitalization: widget.textCapitalization??TextCapitalization.none,
       style: TextStyle(

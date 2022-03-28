@@ -100,8 +100,7 @@ class _HomePageState extends State<HomePage> {
             ///Advocacy image
             Padding(
               padding: EdgeInsets.symmetric(horizontal: size.width*.15),
-              child: Image.asset('assets/easy_advocacy.png'),
-            ),
+              child: Image.asset('assets/easy_advocacy.png')),
             SizedBox(height:size.width*.15),
 
             ///Account
@@ -162,8 +161,7 @@ class _HomePageState extends State<HomePage> {
                           child: HomeMainButton(
                             onPressed: (){
                               Navigator.push(context, MaterialPageRoute(builder: (context)=>BodliKhana()));
-                            },
-                            bgColor: PColor.bodliKhanaBgColor,
+                            },bgColor: PColor.bodliKhanaBgColor,
                             image: 'assets/home_image/bodli_khana.png',
                           ),
                         ),
@@ -171,8 +169,7 @@ class _HomePageState extends State<HomePage> {
                         HomeMainButton(
                           onPressed: (){
                             Navigator.push(context, MaterialPageRoute(builder: (context)=>AdvocatePage()));
-                          },
-                            bgColor: PColor.advocateBgColor,
+                          },bgColor: PColor.advocateBgColor,
                           image: 'assets/home_image/advocate.png')
                       ],
                     ),
@@ -188,7 +185,7 @@ class _HomePageState extends State<HomePage> {
                             onPressed: (){
                               Navigator.push(context, MaterialPageRoute(builder: (context)=>CourtBuildingHomePage()));
                             },
-                            bgColor: PColor.livePageBgColor,
+                            bgColor: Color(0xff06476A),
                             image: 'assets/home_image/court_building.png'),
                         SizedBox(width: size.width*.02),
                         Expanded(

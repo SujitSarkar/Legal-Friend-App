@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
@@ -7,6 +8,8 @@ import 'package:legal_friend/tiles/text_field_tile.dart';
 import 'package:legal_friend/variables/pColor.dart';
 import 'package:legal_friend/variables/variables.dart';
 import 'package:provider/provider.dart';
+
+import '../tiles/notification_widget.dart';
 
 class CreateProfilePage extends StatefulWidget {
   const CreateProfilePage({Key key}) : super(key: key);
@@ -16,14 +19,13 @@ class CreateProfilePage extends StatefulWidget {
 }
 
 class _CreateProfilePageState extends State<CreateProfilePage> {
-  TextEditingController _firstName=TextEditingController(text: '');
-  TextEditingController _laseName=TextEditingController(text: '');
-  TextEditingController _day=TextEditingController(text: '');
-  TextEditingController _month=TextEditingController(text: '');
-  TextEditingController _year=TextEditingController(text: '');
+  TextEditingController _fullName=TextEditingController(text: '');
+  TextEditingController _phone=TextEditingController(text: '');
   TextEditingController _password=TextEditingController(text: '');
+  TextEditingController _workingPlace=TextEditingController(text: '');
   String _gender='';
   String _profession='';
+  DateTime _dateOfBirth=DateTime(2000);
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +68,9 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                TextFieldBuilder(controller: _firstName, labelText: 'First Name'),
+                TextFieldBuilder(controller: _fullName, labelText: 'Full Name',textCapitalization: TextCapitalization.words),
                 SizedBox(height:size.width*.04),
-                TextFieldBuilder(controller: _laseName, labelText: 'Last Name'),
+                TextFieldBuilder(controller: _phone, labelText: 'Phone Number',textInputType: TextInputType.number),
                 SizedBox(height:size.width*.04),
 
                 ///Date of birth
@@ -82,14 +84,23 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                         fontWeight: FontWeight.w500,
                       )),
                 ),
-                Row(
-                  children: [
-                    Expanded(child: TextFieldBuilder(controller: _day, labelText: 'Day',textInputType: TextInputType.number)),
-                    SizedBox(width:size.width*.02),
-                    Expanded(child: TextFieldBuilder(controller: _month, labelText: 'Month',textInputType: TextInputType.number)),
-                    SizedBox(width:size.width*.02),
-                    Expanded(child: TextFieldBuilder(controller: _year, labelText: 'Year',textInputType: TextInputType.number)),
-                  ],
+                ///Date of birth
+                InkWell(
+                  onTap: ()=>_selectDateOfBirth(),
+                  child: Container(
+                    alignment: Alignment.centerLeft,
+                    padding: EdgeInsets.symmetric(
+                        vertical: size.width * .03,
+                        horizontal: size.width * .04),
+                    decoration: BoxDecoration(
+                        border: Border.all(color: Colors.grey),
+                        borderRadius: BorderRadius.all(Radius.circular(size.width*.02))
+                    ),
+                    child: Text(DateFormat('dd-MMM-yyyy').format(_dateOfBirth),style: TextStyle(
+                        fontSize: size.width*.04,
+                        color:Colors.grey
+                    )),
+                  ),
                 ),
                 SizedBox(height:size.width*.04),
 
@@ -173,7 +184,11 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                   )
                   ).toList(),
                 ),
-                SizedBox(height:size.width*.1),
+                SizedBox(height:size.width*.04),
+                TextFieldBuilder(controller: _workingPlace, labelText: 'Write your working place',
+                    textCapitalization: TextCapitalization.words),
+
+                SizedBox(height:size.width*.08),
 
                 ///Remember Password
                 Center(
@@ -210,6 +225,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                       )),
                   height: size.width * .12,
                   width: size.width * .9,
+                  borderRadius: size.width * .03,
                   gradientColors: [
                     PColor.themeColor,
                     PColor.themeColor
@@ -247,4 +263,15 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
       ),
     ),
   );
+
+  Future<void> _selectDateOfBirth() async {
+    final DateTime selectedDate = await showDatePicker(
+        context: context,
+        initialDate: _dateOfBirth,
+        firstDate: DateTime(1971),
+        lastDate: DateTime(DateTime.now().year-5));
+    if (selectedDate != null) {
+      setState(()=> _dateOfBirth = selectedDate);
+    }else{showToast('কোনো তারিখ নির্বাচন করা হয়নি');}
+  }
 }

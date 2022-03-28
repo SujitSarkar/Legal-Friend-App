@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:legal_friend/forgot_password_page.dart';
 import 'package:legal_friend/pages/create_profile_page.dart';
 import 'package:legal_friend/pages/home_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
@@ -78,6 +78,7 @@ class _LogInPageState extends State<LogInPage> {
                                 color: Colors.white)),
                         height: size.width * .12,
                         width: size.width * .9,
+                        borderRadius: size.width * .03,
                         gradientColors: [
                           PColor.loginBtnColor,
                           PColor.loginBtnColor
@@ -85,10 +86,13 @@ class _LogInPageState extends State<LogInPage> {
                       ),
                       SizedBox(height:size.width*.02),
 
-                      Text('Forgotten Password?',style: TextStyle(
-                          fontSize: size.width * .04,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white)),
+                      InkWell(
+                        onTap: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=>ForgotPasswordPage())),
+                        child: Text('Forgotten Password?',style: TextStyle(
+                            fontSize: size.width * .04,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white)),
+                      ),
                       SizedBox(height:size.width*.1),
 
                       GradientButton(
@@ -101,6 +105,7 @@ class _LogInPageState extends State<LogInPage> {
                                 color: PColor.yellowColor)),
                         height: size.width * .12,
                         width: size.width * .9,
+                        borderRadius: size.width * .03,
                         gradientColors: [
                           PColor.themeColor,
                           PColor.themeColor
