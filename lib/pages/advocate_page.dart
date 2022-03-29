@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_inappwebview/flutter_inappwebview.dart';
-import 'package:legal_friend/variables/pColor.dart';
 
 class AdvocatePage extends StatefulWidget {
+  const AdvocatePage({Key key, @required this.webUrl, @required this.color}) : super(key: key);
+  final webUrl;
+  final Color color;
+
   @override
   _AdvocatePageState createState() => _AdvocatePageState();
 }
@@ -12,7 +15,7 @@ class _AdvocatePageState extends State<AdvocatePage> {
   String pageTitle = 'Loading...';
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
     return SafeArea(
       child: Scaffold(
           backgroundColor: Colors.white,
@@ -20,7 +23,7 @@ class _AdvocatePageState extends State<AdvocatePage> {
           appBar: PreferredSize(
             preferredSize: Size.fromHeight(60),
             child: Container(
-              color: PColor.advocateBgColor,
+              color: widget.color,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.start,
                 children: [
@@ -29,8 +32,11 @@ class _AdvocatePageState extends State<AdvocatePage> {
                     icon: Icon(Icons.arrow_back, color: Colors.white),
                     splashRadius: 30,
                   ),
-                  Text("   $pageTitle",
-                      style: TextStyle(color: Colors.white, fontSize: 17)),
+                  Expanded(
+                    child: Text("   $pageTitle",
+                        maxLines: 1,
+                        style: TextStyle(color: Colors.white, fontSize: 17)),
+                  ),
                 ],
               ),
             ),
@@ -47,8 +53,7 @@ class _AdvocatePageState extends State<AdvocatePage> {
               child: Container(
                 child: InAppWebView(
                   initialUrlRequest: URLRequest(
-                      url: Uri.parse(
-                          'https://www.dhakabarassociation.com/member_of_dba.php')),
+                      url: Uri.parse(widget.webUrl)),
                   onProgressChanged: (InAppWebViewController controller, int progress) {
                     setState(() => this.progress = progress / 100);
                   },

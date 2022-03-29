@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:legal_friend/pages/advocate_page.dart';
 import 'package:legal_friend/pages/live_pages/live_page.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
@@ -62,10 +63,15 @@ class LiveHomePage extends StatelessWidget {
                     Color(0xff9B0C17)
                   ],
                 ),
-                Text('Download App',textAlign:TextAlign.center,style: TextStyle(color: Colors.white,fontSize: size.width * .045)),
+                InkWell(
+                  onTap: (){},
+                    child: Text('Download App',textAlign:TextAlign.center,style: TextStyle(color: Colors.white,fontSize: size.width * .045))),
                 SizedBox(height: size.width*.1),
                 GradientButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                        AdvocatePage(webUrl: 'https://legalfriendbd.com/',color: Color(0xff335184))));
+                  },
                   child: Text('Legalalfriend bangladesh',
                       style: TextStyle(fontSize: size.width * .06,fontStyle: FontStyle.italic)),
                   height: size.width * .12,
@@ -79,7 +85,10 @@ class LiveHomePage extends StatelessWidget {
                 SizedBox(height: size.width*.04),
 
                 GradientButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                        AdvocatePage(webUrl: 'https://www.facebook.com/legalfriendbd/',color: Color(0xff0079F2))));
+                  },
                   child: Text('Facebook',
                       style: TextStyle(fontSize: size.width * .06,fontStyle: FontStyle.italic)),
                   height: size.width * .12,
@@ -92,7 +101,10 @@ class LiveHomePage extends StatelessWidget {
                 ),
                 SizedBox(height: size.width*.04),
                 GradientButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                        AdvocatePage(webUrl: 'https://www.youtube.com/channel/UCSpCs90r46ro4ttJos0JYpg',color: Color(0xffFF0000))));
+                  },
                   child: Text('Youtube',
                       style: TextStyle(fontSize: size.width * .06,fontStyle: FontStyle.italic)),
                   height: size.width * .12,
@@ -121,9 +133,15 @@ class LiveHomePage extends StatelessWidget {
             ),
           ),
 
-          Padding(
-            padding: EdgeInsets.only(bottom: size.width*.04),
-            child: Text('Privacy policy | Disclaimer',textAlign:TextAlign.center,style: TextStyle(color: Colors.white,fontSize: size.width * .045)),
+          InkWell(
+            onTap: (){
+              Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                  AdvocatePage(webUrl: 'https://legalfriendbd.com/disclaimer.html',color: Color(0xff00ACA0))));
+            },
+            child: Padding(
+              padding: EdgeInsets.only(bottom: size.width*.04),
+              child: Text('Privacy policy | Disclaimer',textAlign:TextAlign.center,style: TextStyle(color: Colors.white,fontSize: size.width * .045)),
+            ),
           ),
 
         ],

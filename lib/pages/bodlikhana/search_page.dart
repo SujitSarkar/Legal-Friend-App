@@ -22,6 +22,7 @@ class _SearchPageState extends State<SearchPage> {
   String _mamlaNoDrop;
   TextEditingController _mamlaNo2 = TextEditingController(text: '');
   TextEditingController _mamlaNo = TextEditingController(text: '');
+  bool _toastShowed=false;
 
   @override
   Widget build(BuildContext context) {
@@ -95,7 +96,10 @@ class _SearchPageState extends State<SearchPage> {
                         width: size.width * .22,
                         child: TextField(
                           controller: _mamlaNo,
-                          onTap: ()=> showToast('বাংলায় লিখুন'),
+                          onTap: (){
+                            if(!_toastShowed) showToast('বাংলায় লিখুন');
+                            _toastShowed=true;
+                          },
                           keyboardType: TextInputType.text,
                           style: TextStyle(
                               color: Colors.grey[900],
@@ -151,7 +155,10 @@ class _SearchPageState extends State<SearchPage> {
                         width: size.width * .22,
                         child: TextField(
                           controller: _mamlaNo2,
-                          onTap: ()=> showToast('বাংলায় লিখুন'),
+                          onTap: (){
+                            if(!_toastShowed) showToast('বাংলায় লিখুন');
+                            _toastShowed=true;
+                          },
                           keyboardType: TextInputType.text,
                           style: TextStyle(
                               color: Colors.grey[900],

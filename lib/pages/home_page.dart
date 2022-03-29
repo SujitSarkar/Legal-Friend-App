@@ -1,5 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_animated_dialog/flutter_animated_dialog.dart';
 import 'package:legal_friend/pages/account_page.dart';
 import 'package:legal_friend/pages/bodlikhana/bodli_khana.dart';
@@ -84,7 +86,9 @@ class _HomePageState extends State<HomePage> {
       body: _isLoading
           ? Center(child: spinCircle())
           : _bodyUI(size),
-      backgroundColor: PColor.deepBlueColor,
+      backgroundColor: _isLoading
+          ? Colors.white
+          : PColor.deepBlueColor,
     );
   }
 
@@ -100,7 +104,7 @@ class _HomePageState extends State<HomePage> {
             ///Advocacy image
             Padding(
               padding: EdgeInsets.symmetric(horizontal: size.width*.15),
-              child: Image.asset('assets/easy_advocacy.png')),
+              child: Image.asset('assets/easy_advocacy_home.png')),
             SizedBox(height:size.width*.15),
 
             ///Account
@@ -114,10 +118,9 @@ class _HomePageState extends State<HomePage> {
                 decoration: BoxDecoration(
                     color: Colors.blueGrey.shade100,
                     borderRadius: BorderRadius.all(Radius.circular(size.width*.2)),
-                    border: Border.all(color: Colors.white,width: size.width*.02)
+                    border: Border.all(color: Colors.white,width: size.width*.015)
                 ),
-                child: Icon(Icons.person,size: size.width*.28,
-                    color: Theme.of(context).primaryColor),
+                child: Image.asset('assets/boy.png')
               ),
             ),
             SizedBox(height: size.width*.02),
@@ -126,7 +129,7 @@ class _HomePageState extends State<HomePage> {
             Text('Kamrul Hasan',
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: size.width*.07,
+                  fontSize: size.width*.06,
                   fontWeight: FontWeight.w500,
                 )),
             SizedBox(height: size.width*.02),
@@ -150,12 +153,13 @@ class _HomePageState extends State<HomePage> {
                 )
             ),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Expanded(
                   child: Container(
-                    //color:Colors.green,
-                    padding: EdgeInsets.symmetric(vertical: size.width*.02),
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Expanded(
                           child: HomeMainButton(
@@ -168,18 +172,19 @@ class _HomePageState extends State<HomePage> {
                         SizedBox(width: size.width*.02),
                         HomeMainButton(
                           onPressed: (){
-                            Navigator.push(context, MaterialPageRoute(builder: (context)=>AdvocatePage()));
+                            Navigator.push(context, MaterialPageRoute(builder: (context)=>AdvocatePage(webUrl: 'https://www.dhakabarassociation.com/member_of_dba.php',color: PColor.advocateBgColor)));
                           },bgColor: PColor.advocateBgColor,
                           image: 'assets/home_image/advocate.png')
                       ],
                     ),
                   ),
                 ),
+                SizedBox(height: size.width*.02),
+
                 Expanded(
                   child: Container(
-                    //color:Colors.red,
-                    padding: EdgeInsets.symmetric(vertical: size.width*.03),
                     child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         HomeMainButton(
                             onPressed: (){
@@ -218,7 +223,7 @@ class _HomePageState extends State<HomePage> {
             Container(
               height: size.width*.13,
               decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor,
+                color: PColor.deepGreen,
                 border: Border(
                   top: BorderSide(color: PColor.yellowColor,width: size.width*.012)
                 )

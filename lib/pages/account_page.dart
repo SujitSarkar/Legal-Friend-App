@@ -41,21 +41,17 @@ class _AccountPageState extends State<AccountPage> {
             SizedBox(height:size.width*.15),
 
             ///Account
-            InkWell(
-              onTap: (){
-                Navigator.push(context, MaterialPageRoute(builder: (context)=>AccountPage()));
-              },
-              child: Container(
-                height: size.width*.35,
-                width: size.width*.35,
-                decoration: BoxDecoration(
-                    color: Colors.blueGrey.shade100,
-                    borderRadius: BorderRadius.all(Radius.circular(size.width*.2)),
-                    border: Border.all(color: Colors.white,width: size.width*.02)
-                ),
-                child: Icon(Icons.person,size: size.width*.28,
-                    color: Theme.of(context).primaryColor),
+            Container(
+              height: size.width*.35,
+              width: size.width*.35,
+              decoration: BoxDecoration(
+                  color: Colors.blueGrey.shade100,
+                  borderRadius: BorderRadius.all(Radius.circular(size.width*.2)),
+                  border: Border.all(color: Colors.white,width: size.width*.015)
               ),
+              child: Image.asset('assets/girl.png')
+              // Icon(Icons.person,size: size.width*.28,
+              //     color: Theme.of(context).primaryColor),
             ),
             SizedBox(height: size.width*.02),
 
