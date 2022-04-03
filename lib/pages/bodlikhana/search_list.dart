@@ -9,7 +9,6 @@ import 'package:provider/provider.dart';
 import 'no_result_found.dart';
 
 class SearchtList extends StatefulWidget {
-
   @override
   _SearchtListState createState() => _SearchtListState();
 }
@@ -47,7 +46,7 @@ class _SearchtListState extends State<SearchtList> {
         preferredSize: Size.fromHeight(100),
         child: PublicAppBar(
           pageName: publicProvider.togglePageName(),
-          bottomText: '${Variables.sorboseshUpdateBoi}${publicProvider.toggleLastUpdatedBoiNo()} ${Variables.porjonto}',
+          bottomText: '${Variables.sorboseshUpdateBoi}${publicProvider.toggleLastUpdateBok()} ${Variables.porjonto}',
           image: 'assets/home_image/bodli_khana.png',
           color: publicProvider.toggleHeaderColor(),
         ),
@@ -58,7 +57,6 @@ class _SearchtListState extends State<SearchtList> {
           ? _bodyUI(size,publicProvider)
           : NoResultFound(),
       bottomNavigationBar: BottomTile(),
-      //floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
     );
   }
 

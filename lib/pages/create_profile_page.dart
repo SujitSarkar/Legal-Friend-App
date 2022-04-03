@@ -10,6 +10,7 @@ import 'package:legal_friend/variables/variables.dart';
 import 'package:provider/provider.dart';
 
 import '../tiles/notification_widget.dart';
+import 'advocate_page.dart';
 
 class CreateProfilePage extends StatefulWidget {
   const CreateProfilePage({Key key}) : super(key: key);
@@ -198,7 +199,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                       text: 'Remember your phone and password\n',
                       style: TextStyle(
                         color: Colors.grey,
-                        fontSize: size.width*.04,
+                        fontSize: size.width*.032,
                         fontWeight: FontWeight.w400,
                       ),
                       children: <TextSpan>[
@@ -241,14 +242,15 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                       text: 'By clicking create new profile, you agree to the Legalfriend ',
                       style: TextStyle(
                         color: Colors.grey,
-                        fontSize: size.width*.04,
+                        fontSize: size.width*.032,
                         fontWeight: FontWeight.w400,
                       ),
                       children: <TextSpan>[
                         TextSpan(text: 'Privacy Policy.\n',
                             style: TextStyle(color: PColor.blueColor,fontWeight: FontWeight.w500),
                         recognizer: TapGestureRecognizer()..onTap = () {
-                            print('tapped');
+                          Navigator.push(context, MaterialPageRoute(builder: (context)=>
+                              AdvocatePage(webUrl: 'https://legalfriendbd.com/disclaimer.html',color: Color(0xff00ACA0))));
                           }),
                         TextSpan(text: 'You may receive SMS notification from us.')
                       ],

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:legal_friend/model_class/archive_data_model.dart';
@@ -5,6 +7,8 @@ import 'package:legal_friend/model_class/bodli_khana_model.dart';
 import 'package:legal_friend/tiles/notification_widget.dart';
 import 'package:legal_friend/variables/variables.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../model_class/last_update_book_model.dart';
 
 class PublicProvider extends ChangeNotifier{
   SharedPreferences _preferences;
@@ -14,12 +18,14 @@ class PublicProvider extends ChangeNotifier{
 
   List<ArchiveDataModel> _archiveDataList =[];
   List<BodliKhanaModel> _searchedList = [];
+  LastUpdateBookModel _lastUpdateBookModel = LastUpdateBookModel();
 
 
   get noticeBoardImageLink=> _noticeBoardImageLink;
   get bodliKhanaModel=> _bodliKhanaModel;
   get searchedList=> _searchedList;
   get archiveDataList=>_archiveDataList;
+  get lastUpdateBookModel => _lastUpdateBookModel;
 
   set bodliKhanaModel(BodliKhanaModel model){
     model = BodliKhanaModel();
@@ -44,6 +50,13 @@ class PublicProvider extends ChangeNotifier{
     else return Colors.grey[800];
   }
 
+  String toggleLastUpdateBok(){
+    if(_pageValue==Variables.niAct) return _lastUpdateBookModel.niAct;
+    else if(_pageValue==Variables.madokDondobidhi) return _lastUpdateBookModel.madok;
+    else if(_pageValue==Variables.bisesTribunal) return _lastUpdateBookModel.bishes;
+    else return '০০/০০/০০';
+  }
+
   String crToggle(){
     if(_pageValue==Variables.niAct) return Variables.crMamlaNo;
     else return Variables.mamlaNo;
@@ -60,11 +73,6 @@ class PublicProvider extends ChangeNotifier{
   String toggleSign(){
     if(_pageValue==Variables.niAct) return '/';
     else return '-';
-  }
-
-  String toggleLastUpdatedBoiNo(){
-      if(_searchedList.isNotEmpty) return _searchedList[_searchedList.length-1].boiNo;
-      else return '00/0000';
   }
 
   Future<bool> getNoticeBoardImageLink()async{
@@ -173,6 +181,25 @@ class PublicProvider extends ChangeNotifier{
     }catch(error){
       showToast('ডিলিট অসম্পন্ন হয়েছে\nআবার চেষ্টা করুন');
           return false;
+    }
+  }
+
+  Future<void> getLastUpdateBook()async{
+    try{
+      QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('LastUpdateBook').get();
+      final List<QueryDocumentSnapshot> user = snapshot.docs;
+      if(user.isNotEmpty){
+        LastUpdateBookModel model = LastUpdateBookModel(
+            niAct: user[0].get('niact'),
+            madok: user[0].get('madok'),
+            bishes: user[0].get('tribunal'));
+        _lastUpdateBookModel = model;
+        notifyListeners();
+      }else{showToast('Data Empty!');}
+    } on SocketException{
+      showToast('No Internet Connection !');
+    } catch(error){
+      showToast(error.toString());
     }
   }
 

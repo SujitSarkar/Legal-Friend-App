@@ -42,6 +42,7 @@ class _HomePageState extends State<HomePage> {
         _showNotice(publicProvider);
       });
     }
+    await publicProvider.getLastUpdateBook();
   }
 
   void _showNotice(PublicProvider publicProvider){
