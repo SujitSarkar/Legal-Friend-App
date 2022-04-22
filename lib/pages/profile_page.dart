@@ -2,11 +2,12 @@ import 'dart:io';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:legal_friend/providers/public_provider.dart';
+import 'package:intl/intl.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/notification_widget.dart';
 import 'package:legal_friend/variables/pColor.dart';
 import 'package:provider/provider.dart';
+import '../providers/api_provider.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({Key key}) : super(key: key);
@@ -34,15 +35,15 @@ class _ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final PublicProvider publicProvider = Provider.of<PublicProvider>(context);
+    final ApiProvider apiProvider = Provider.of<ApiProvider>(context);
     return Scaffold(
       backgroundColor: PColor.greyBgColor,
       bottomNavigationBar: BottomTile(),
-      body: _bodyUI(size),
+      body: _bodyUI(size,apiProvider),
     );
   }
 
-  Widget _bodyUI(Size size)=>SafeArea(
+  Widget _bodyUI(Size size,ApiProvider apiProvider)=>SafeArea(
     child: SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Padding(
@@ -61,7 +62,7 @@ class _ProfilePageState extends State<ProfilePage> {
                 children: [
                   ///Image
                   Stack(
-                    overflow: Overflow.visible,
+                    clipBehavior: Clip.none,
                     children: [
                       Container(
                         height: size.width*.3,
@@ -110,11 +111,11 @@ class _ProfilePageState extends State<ProfilePage> {
                           fontWeight: FontWeight.w500,
                         ),
                         children: <TextSpan>[
-                          TextSpan(text: 'Kamrul Hasan\n',style: TextStyle(
+                          TextSpan(text: '${apiProvider.loginModel.user.name}\n',style: TextStyle(
                               color: Colors.teal,
                               fontSize: size.width*.09,fontWeight: FontWeight.w900)),
-                          TextSpan(text: 'Advocate\n'),
-                          TextSpan(text: 'Dhaka\n')
+                          TextSpan(text: '${apiProvider.loginModel.user.profession}\n'),
+                          TextSpan(text: '${apiProvider.loginModel.user.address}\n')
                         ],
                       ),
                     ),
@@ -143,27 +144,27 @@ class _ProfilePageState extends State<ProfilePage> {
               text: TextSpan(
                 style: TextStyle(
                   color: Colors.grey.shade800,
-                  fontSize: size.width*.05,
-                  fontWeight: FontWeight.w500,
+                  fontSize: size.width*.045,
+                  fontWeight: FontWeight.w400,
                   height: 1.35
                 ),
                 children: <TextSpan>[
-                  TextSpan(text: 'Name: '),
-                  TextSpan(text: 'Kamrul Hasan\n'),
-                  TextSpan(text: 'Profession: '),
-                  TextSpan(text: 'Advocate\n'),
-                  TextSpan(text: 'Company: '),
-                  TextSpan(text: 'Judge Court, Dhaka, Bangladesh.\n'),
-                  TextSpan(text: 'From: '),
-                  TextSpan(text: '****, Chittagong\n'),
-                  TextSpan(text: 'Gender: '),
-                  TextSpan(text: 'Male\n'),
-                  TextSpan(text: 'Date of Birth: '),
-                  TextSpan(text: '07.05.1988\n'),
-                  TextSpan(text: 'Religion: '),
-                  TextSpan(text: 'Muslim\n'),
-                  TextSpan(text: 'Marital Status: '),
-                  TextSpan(text: 'Married\n'),
+                  TextSpan(text: 'Name: ',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey.shade900)),
+                  TextSpan(text: '${apiProvider.loginModel.user.name}\n'),
+                  TextSpan(text: 'Profession: ',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey.shade900)),
+                  TextSpan(text: '${apiProvider.loginModel.user.profession}\n'),
+                  TextSpan(text: 'Company: ',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey.shade900)),
+                  TextSpan(text: '${apiProvider.loginModel.user.company}\n'),
+                  TextSpan(text: 'From: ',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey.shade900)),
+                  TextSpan(text: '${apiProvider.loginModel.user.address}\n'),
+                  TextSpan(text: 'Gender: ',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey.shade900)),
+                  TextSpan(text: '${apiProvider.loginModel.user.gender}\n'),
+                  TextSpan(text: 'Date of Birth: ',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey.shade900)),
+                  TextSpan(text: '${DateFormat('dd-MMM-yyyy').format(apiProvider.loginModel.user.dob)}\n'),
+                  TextSpan(text: 'Religion: ',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey.shade900)),
+                  TextSpan(text: '${apiProvider.loginModel.user.religion}\n'),
+                  TextSpan(text: 'Marital Status: ',style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey.shade900)),
+                  TextSpan(text: '${apiProvider.loginModel.user.materialStatus}\n'),
                 ],
               ),
             ),
@@ -188,7 +189,7 @@ class _ProfilePageState extends State<ProfilePage> {
                         text: TextSpan(
                           style: TextStyle(
                               color: Colors.grey.shade800,
-                              fontSize: size.width*.05,
+                              fontSize: size.width*.045,
                               fontWeight: FontWeight.w500,
                               height: 1.35
                           ),
@@ -196,7 +197,7 @@ class _ProfilePageState extends State<ProfilePage> {
                             TextSpan(text: 'Status: '),
                             TextSpan(text: 'Paid\n'),
                             TextSpan(text: 'Until: '),
-                            TextSpan(text: '12.01.2022, 10:35pm\n'),
+                            TextSpan(text: '${DateFormat('dd-MMM-yyyy, hh:mm aa').format(apiProvider.loginModel.user.expireDate)}\n'),
                           ],
                         ),
                       ),
@@ -227,11 +228,11 @@ class _ProfilePageState extends State<ProfilePage> {
               text: TextSpan(
                 style: TextStyle(
                     color: Colors.grey.shade800,
-                    fontSize: size.width*.05,
-                    fontWeight: FontWeight.w500,
+                    fontSize: size.width*.045,
+                    fontWeight: FontWeight.w400,
                 ),
                 children: <TextSpan>[
-                  TextSpan(text: 'our “about me” section should describe who you are as a professional.'),
+                  TextSpan(text: '${apiProvider.loginModel.user.aboutMe}'),
                 ],
               ),
             ),

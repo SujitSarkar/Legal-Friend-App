@@ -8,7 +8,7 @@ import 'package:legal_friend/tiles/text_field_tile.dart';
 import 'package:legal_friend/variables/pColor.dart';
 import 'package:legal_friend/variables/variables.dart';
 import 'package:provider/provider.dart';
-
+import '../providers/api_provider.dart';
 import '../tiles/notification_widget.dart';
 import 'advocate_page.dart';
 
@@ -31,15 +31,16 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final PublicProvider publicProvider = Provider.of<PublicProvider>(context);
+    final ApiProvider apiProvider = Provider.of<ApiProvider>(context);
+
     return Scaffold(
       backgroundColor: PColor.greyBgColor,
       bottomNavigationBar: BottomTile(),
-      body: _bodyUI(size),
+      body: _bodyUI(size,apiProvider),
     );
   }
 
-  Widget _bodyUI(Size size)=>SafeArea(
+  Widget _bodyUI(Size size, ApiProvider apiProvider)=>SafeArea(
     child: SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       child: Column(
@@ -216,7 +217,29 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
 
                 ///Button
                 GradientButton(
-                  onPressed: (){},
+                  onPressed: ()async{
+                    if(_fullName.text.isNotEmpty && _phone.text.isNotEmpty && _password.text.isNotEmpty
+                      && _workingPlace.text.isNotEmpty && _dateOfBirth!=null && _gender.isNotEmpty
+                      && _profession.isNotEmpty){
+                       Map<String, dynamic> map={
+                        'name': _fullName.text,
+                        'email':'example@gmail.com',
+                        'phone': _phone.text,
+                        'password': _password.text,
+                        'profession': _profession,
+                        'company': 'Not define',
+                        'address': _workingPlace.text,
+                        'gender': _gender,
+                        'dob': DateFormat('dd-mm-yyyy').format(_dateOfBirth),
+                        'religion': 'Not define',
+                        'material_status':'Not define'};
+                       print(_dateOfBirth.toString());
+                      bool result = await apiProvider.createUser(map);
+                      if(result){
+                        Navigator.pop(context);
+                      }
+                    }else{showToast('সঠিক তথ্য দিয়ে পুনরায় চেষ্টা করুন');}
+                  },
                   child: Text('Create Your Profile',
                       style: TextStyle(
                           fontSize: size.width * .06,

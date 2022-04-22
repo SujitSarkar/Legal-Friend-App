@@ -4,6 +4,7 @@ import 'package:legal_friend/pages/account_page.dart';
 import 'package:legal_friend/pages/home_page.dart';
 import 'package:legal_friend/pages/login_page.dart';
 import 'package:legal_friend/pages/profile_page.dart';
+import 'package:legal_friend/providers/api_provider.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/variables/pColor.dart';
 import 'package:provider/provider.dart';
@@ -39,52 +40,76 @@ class _MyAppState extends State<MyApp> {
       ..dismissOnTap = false;
     // ..customAnimation = CustomAnimation();
   }
+
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-      future: Future.delayed(Duration(milliseconds: 2000)),
-      builder: (context, AsyncSnapshot snapshot) {
-        // Show splash screen while waiting for app resources to load:
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return MultiProvider(
-            providers: [
-              ChangeNotifierProvider<PublicProvider>(create: (_) => PublicProvider()),
-            ],
-            child: MaterialApp(
-                title: 'LegalFriend',
-                debugShowCheckedModeBanner: false,
-                theme: ThemeData(
-                  backgroundColor: Colors.white,
-                  scaffoldBackgroundColor: Colors.white,
-                  primarySwatch: MaterialColor(0xff00AE51, PColor.colorMap),
-                  canvasColor: Colors.transparent
-                ),
-                home: Splash(),
-                builder: EasyLoading.init(),
-            ),
-          );
-        } else {
-          // Loading is done, return the app:
-          return MultiProvider(
-            providers: [
-              ChangeNotifierProvider<PublicProvider>(create: (_) => PublicProvider()),
-            ],
-            child: MaterialApp(
-              title: 'LegalFriend',
-              debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                backgroundColor: Colors.white,
-                scaffoldBackgroundColor: Colors.white,
-                primarySwatch: MaterialColor(0xff00AE51, PColor.colorMap),
-                canvasColor: Colors.transparent
-              ),
-              home: LogInPage(),
-              builder: EasyLoading.init(),
-            ),
-          );
-        }
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<PublicProvider>(create: (_) => PublicProvider()),
+        ChangeNotifierProvider<ApiProvider>(create: (_) => ApiProvider()),
+      ],
+      child: MaterialApp(
+        title: 'LegalFriend',
+        debugShowCheckedModeBanner: false,
+        theme: ThemeData(
+            backgroundColor: Colors.white,
+            scaffoldBackgroundColor: Colors.white,
+            primarySwatch: MaterialColor(0xff00AE51, PColor.colorMap),
+            canvasColor: Colors.transparent
+        ),
+        home: LogInPage(),
+        builder: EasyLoading.init(),
+      ),
     );
+
+
+
+    // return FutureBuilder(
+    //   future: Future.delayed(Duration(milliseconds: 2000)),
+    //   builder: (context, AsyncSnapshot snapshot) {
+    //     // Show splash screen while waiting for app resources to load:
+    //     if (snapshot.connectionState == ConnectionState.waiting) {
+    //       return MultiProvider(
+    //         providers: [
+    //           ChangeNotifierProvider<PublicProvider>(create: (_) => PublicProvider()),
+    //           ChangeNotifierProvider<ApiProvider>(create: (_) => ApiProvider()),
+    //         ],
+    //         child: MaterialApp(
+    //             title: 'LegalFriend',
+    //             debugShowCheckedModeBanner: false,
+    //             theme: ThemeData(
+    //               backgroundColor: Colors.white,
+    //               scaffoldBackgroundColor: Colors.white,
+    //               primarySwatch: MaterialColor(0xff00AE51, PColor.colorMap),
+    //               canvasColor: Colors.transparent
+    //             ),
+    //             home: Splash(),
+    //             builder: EasyLoading.init(),
+    //         ),
+    //       );
+    //     } else {
+    //       // Loading is done, return the app:
+    //       return MultiProvider(
+    //         providers: [
+    //           ChangeNotifierProvider<PublicProvider>(create: (_) => PublicProvider()),
+    //           ChangeNotifierProvider<ApiProvider>(create: (_) => ApiProvider()),
+    //         ],
+    //         child: MaterialApp(
+    //           title: 'LegalFriend',
+    //           debugShowCheckedModeBanner: false,
+    //           theme: ThemeData(
+    //             backgroundColor: Colors.white,
+    //             scaffoldBackgroundColor: Colors.white,
+    //             primarySwatch: MaterialColor(0xff00AE51, PColor.colorMap),
+    //             canvasColor: Colors.transparent
+    //           ),
+    //           home: LogInPage(),
+    //           builder: EasyLoading.init(),
+    //         ),
+    //       );
+    //     }
+    //   },
+    // );
   }
 }
 

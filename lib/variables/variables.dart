@@ -1,4 +1,7 @@
 class Variables {
+
+  static String baseURL = 'http://legalfriendbd.com/Api/';
+
   static final String niAct = 'এন.আই.এ্যাক্ট';
   static final String madokDondobidhi = 'মাদক/দন্ডবিধি';
   static final String bisesTribunal = 'বিশেষ ট্রাইব্যুনাল';

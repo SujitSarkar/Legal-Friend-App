@@ -10,6 +10,7 @@ import 'package:legal_friend/pages/advocate_page.dart';
 import 'package:legal_friend/pages/kaj_list.dart';
 import 'package:legal_friend/pages/live_pages/live_home_page.dart';
 import 'package:legal_friend/pages/profile_page.dart';
+import 'package:legal_friend/providers/api_provider.dart';
 import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/home_tile.dart';
 import 'package:legal_friend/tiles/notification_widget.dart';
@@ -83,17 +84,18 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
+    final ApiProvider apiProvider = Provider.of<ApiProvider>(context);
     return Scaffold(
       body: _isLoading
           ? Center(child: spinCircle())
-          : _bodyUI(size),
+          : _bodyUI(size, apiProvider),
       backgroundColor: _isLoading
           ? Colors.white
           : PColor.deepBlueColor,
     );
   }
 
-  Widget _bodyUI(Size size) => SafeArea(
+  Widget _bodyUI(Size size, ApiProvider apiProvider) => SafeArea(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -121,13 +123,13 @@ class _HomePageState extends State<HomePage> {
                     borderRadius: BorderRadius.all(Radius.circular(size.width*.2)),
                     border: Border.all(color: Colors.white,width: size.width*.015)
                 ),
-                child: Image.asset('assets/boy.png')
+                child: Image.asset(apiProvider.loginModel.user.gender=='Male'? 'assets/boy.png':'assets/girl.png')
               ),
             ),
             SizedBox(height: size.width*.02),
 
             ///Name
-            Text('Kamrul Hasan',
+            Text('${apiProvider.loginModel.user.name}',
                 style: TextStyle(
                   color: Colors.white,
                   fontSize: size.width*.06,

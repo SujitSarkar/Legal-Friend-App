@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:legal_friend/pages/login_page.dart';
 import 'package:legal_friend/pages/profile_page.dart';
-import 'package:legal_friend/providers/public_provider.dart';
 import 'package:legal_friend/tiles/bottom_tile.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:legal_friend/variables/pColor.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
+import '../providers/api_provider.dart';
+import '../tiles/notification_widget.dart';
 
 class AccountPage extends StatefulWidget {
   const AccountPage({Key key}) : super(key: key);
@@ -16,16 +20,16 @@ class _AccountPageState extends State<AccountPage> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final PublicProvider publicProvider = Provider.of<PublicProvider>(context);
+    final ApiProvider apiProvider = Provider.of<ApiProvider>(context);
     return Scaffold(
       //backgroundColor: PColor.greyBgColor,
       backgroundColor: PColor.blueColor,
       bottomNavigationBar: Material(color:Colors.white,child: BottomTile()),
-      body: _bodyUI(size),
+      body: _bodyUI(size,apiProvider),
     );
   }
 
-  Widget _bodyUI(Size size) => SafeArea(
+  Widget _bodyUI(Size size, ApiProvider apiProvider) => SafeArea(
     child: Column(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,7 +53,7 @@ class _AccountPageState extends State<AccountPage> {
                   borderRadius: BorderRadius.all(Radius.circular(size.width*.2)),
                   border: Border.all(color: Colors.white,width: size.width*.015)
               ),
-              child: Image.asset('assets/girl.png')
+              child: Image.asset(apiProvider.loginModel.user.gender=='Male'? 'assets/boy.png':'assets/girl.png')
               // Icon(Icons.person,size: size.width*.28,
               //     color: Theme.of(context).primaryColor),
             ),
@@ -66,11 +70,11 @@ class _AccountPageState extends State<AccountPage> {
                     fontWeight: FontWeight.w500,
                   ),
                   children: <TextSpan>[
-                    TextSpan(text: 'Kamrul Hasan\n',style: TextStyle(
+                    TextSpan(text: '${apiProvider.loginModel.user.name}\n',style: TextStyle(
                         color: Colors.white,
                         fontSize: size.width*.09,fontWeight: FontWeight.w900)),
-                    TextSpan(text: 'Advocate\n'),
-                    TextSpan(text: 'Dhaka\n')
+                    TextSpan(text: '${apiProvider.loginModel.user.profession}\n'),
+                    TextSpan(text: '${apiProvider.loginModel.user.address}\n')
                   ],
                 ),
               ),
@@ -139,7 +143,14 @@ class _AccountPageState extends State<AccountPage> {
                 SizedBox(height: size.width*.02),
 
                 GradientButton(
-                  onPressed: () async {},
+                  onPressed: () async {
+                    showLoadingDialog('Logging out...');
+                    final SharedPreferences pref = await SharedPreferences.getInstance();
+                    await pref.clear();
+                    closeLoadingDialog();
+                    showToast('Logged out');
+                    Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>LogInPage()), (route) => false);
+                  },
                   child: Text('Logout',
                       style: TextStyle(
                           fontSize: size.width * .065,

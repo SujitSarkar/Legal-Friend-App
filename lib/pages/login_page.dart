@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:legal_friend/forgot_password_page.dart';
 import 'package:legal_friend/pages/create_profile_page.dart';
 import 'package:legal_friend/pages/home_page.dart';
-import 'package:legal_friend/providers/public_provider.dart';
-import 'package:legal_friend/tiles/bottom_tile.dart';
+import 'package:legal_friend/providers/api_provider.dart';
 import 'package:legal_friend/tiles/gradient_button.dart';
 import 'package:legal_friend/tiles/notification_widget.dart';
 import 'package:legal_friend/tiles/text_field_tile.dart';
 import 'package:legal_friend/variables/pColor.dart';
 import 'package:provider/provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LogInPage extends StatefulWidget {
   @override
@@ -17,13 +17,34 @@ class LogInPage extends StatefulWidget {
 
 class _LogInPageState extends State<LogInPage> {
   TextEditingController _phone = TextEditingController(text: '');
-
   TextEditingController _password = TextEditingController(text: '');
+
+  @override
+  void initState(){
+    super.initState();
+    autoLogin();
+  }
+
+  Future <void> autoLogin()async{
+    final ApiProvider apiProvider = Provider.of<ApiProvider>(context,listen: false);
+    final SharedPreferences pref = await SharedPreferences.getInstance();
+
+    if(pref.getString('phone')!=null && pref.getString('password')!=null){
+      showLoadingDialog('Logging in...');
+      bool result = await apiProvider.login(pref.getString('phone'),pref.getString('password'));
+      if(result){
+        closeLoadingDialog();
+        Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomePage()), (route) => false);
+      }else{
+        closeLoadingDialog();
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final PublicProvider publicProvider = Provider.of<PublicProvider>(context);
+    final ApiProvider apiProvider = Provider.of<ApiProvider>(context);
 
     return Scaffold(
       backgroundColor: PColor.greyBgColor,
@@ -68,7 +89,12 @@ class _LogInPageState extends State<LogInPage> {
 
                       GradientButton(
                         onPressed: () async {
-                          Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+                          if(_phone.text.isNotEmpty && _password.text.isNotEmpty){
+                            bool result = await apiProvider.login(_phone.text, _password.text);
+                            if(result){
+                              Navigator.pushAndRemoveUntil(context, MaterialPageRoute(builder: (context)=>HomePage()), (route) => false);
+                            }
+                          }else{showToast('Provide phone & password');}
                         },
                         child: Text('Login',
                             style: TextStyle(
