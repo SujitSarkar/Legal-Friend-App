@@ -60,7 +60,6 @@ class _PaymentPageState extends State<PaymentPage> {
             children: [
               Image.asset('assets/home_image/bodli_khana.png',
                   height: size.width * .4, width: size.width * .8),
-
               Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -97,12 +96,7 @@ class _PaymentPageState extends State<PaymentPage> {
                     width: size.width * .8,
                     child: GradientButton(
                       onPressed: () async {
-                        _preferences = await SharedPreferences.getInstance();
-                        String _userPhone = _preferences.getString('userPhone');
-                        if (_userPhone != null) {
-                          _startPaymentProcess(publicProvider);
-                        } else
-                          Navigator.push(context,MaterialPageRoute(builder: (context) => LogInPage()));
+                        _startPaymentProcess(publicProvider);
                       },
                       child: Text('পেমেন্ট নিশ্চিত করুন',
                           style: TextStyle(
@@ -187,9 +181,7 @@ class _PaymentPageState extends State<PaymentPage> {
           'save_date': todayDate
         };
         closeLoadingDialog();
-        Navigator.push(
-            context,
-            MaterialPageRoute(
+        Navigator.push(context, MaterialPageRoute(
                 builder: (context) => StartPaymentProcess(
                       archiveDataMap: map,
                       initUrl: _initUrl,
@@ -311,9 +303,7 @@ class _StartPaymentProcessState extends State<StartPaymentProcess> {
         //payment success code is 1000
         showSuccessMgs('পেমেন্ট সম্পন্ন হয়েছে');
         showLoadingDialog('আর্কাইভ করা হচ্ছে...');
-        await publicProvider
-            .archiveData(widget.archiveDataMap)
-            .then((value) async {
+        await publicProvider.archiveData(widget.archiveDataMap).then((value) async {
           if (value == true) {
             Map<String, String> paymentInfoMap = {
               'wmx_id': jsonData['wmx_id'],
@@ -341,9 +331,7 @@ class _StartPaymentProcessState extends State<StartPaymentProcess> {
               'init_time': jsonData['init_time'].toString(),
               'txn_time': jsonData['txn_time'].toString(),
             };
-            await publicProvider
-                .savePaymentInfo(paymentInfoMap)
-                .then((value) async {
+            await publicProvider.savePaymentInfo(paymentInfoMap).then((value) async {
               await publicProvider.getArchiveDataList().then((value) {
                 closeLoadingDialog();
                 showSuccessMgs('আর্কাইভ সম্পন্ন হয়েছে');

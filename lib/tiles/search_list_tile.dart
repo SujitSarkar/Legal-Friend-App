@@ -42,8 +42,6 @@ class SearchListTile extends StatelessWidget {
 
           GradientButton(
             onPressed: () async {
-              SharedPreferences _pref = await SharedPreferences.getInstance();
-              if (_pref.getString('userPhone') != null) {
                 showLoadingDialog('অপেক্ষা করুন');
                 await publicProvider.getArchiveDataList().then((value) {
                   List<ArchiveDataModel> subList = publicProvider.archiveDataList;
@@ -98,8 +96,7 @@ class SearchListTile extends StatelessWidget {
                     );
                   }
                 });
-              } else
-                Navigator.push(context,MaterialPageRoute(builder: (context) => LogInPage()));
+
             },
             child: Text(Variables.archiveRakhun,
                 style: TextStyle(fontSize: size.width * .04)),

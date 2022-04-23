@@ -100,7 +100,7 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                     ),
                     child: Text(DateFormat('dd-MMM-yyyy').format(_dateOfBirth),style: TextStyle(
                         fontSize: size.width*.04,
-                        color:Colors.grey
+                        color:Colors.grey.shade900
                     )),
                   ),
                 ),
@@ -230,10 +230,9 @@ class _CreateProfilePageState extends State<CreateProfilePage> {
                         'company': 'Not define',
                         'address': _workingPlace.text,
                         'gender': _gender,
-                        'dob': DateFormat('dd-mm-yyyy').format(_dateOfBirth),
+                        'dob': DateFormat('yyyy-MM-dd').format(_dateOfBirth),
                         'religion': 'Not define',
                         'material_status':'Not define'};
-                       print(_dateOfBirth.toString());
                       bool result = await apiProvider.createUser(map);
                       if(result){
                         Navigator.pop(context);

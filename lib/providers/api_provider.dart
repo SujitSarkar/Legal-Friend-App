@@ -50,7 +50,7 @@ class ApiProvider extends ChangeNotifier{
   Future<bool> createUser(Map<String, dynamic> map)async{
     showLoadingDialog('Creating profile...');
     try{
-      http.Response response = await http.get(Uri.parse(Variables.baseURL
+      http.Response response = await http.post(Uri.parse(Variables.baseURL
           +'registerUser.php?name=${map['name']}&email=${map['email']}'
               '&phone=${map['phone']}&password=${map['password']}&profession=${map['profession']}'
               '&company=${map['company']}&address=${map['address']}&gender=${map['gender']}&dob=${map['dob']}'
